@@ -1,7 +1,7 @@
 const express = require("express"); 
 const router = express.Router();  
 const HomeController = require("./src/controllers/HomeController")
-
-router.get("/",HomeController.index);  
+//nesse arquivo, vamos definir as rotas da nossa página, por exemplo : www.teste/[rotas que vamos criar]
+router.get("/",HomeController.index); //uma rota deve ter um controller, no caso  o controller vai linkar nosso banco de dados com o front end.   
 
 module.exports = router; 
