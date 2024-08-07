@@ -7,5 +7,17 @@
     "express-session": "^1.18.0",
     "mongoose": "^8.5.2",
     "nodemon": "^3.1.4"
-  }
+  },
+  "name": "matip--plus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "routes.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
