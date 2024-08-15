@@ -5,10 +5,11 @@ const app = express();
 const router = require("./routes"); 
 require("dotenv").config(); 
 
-app.use(express.urlencoded({extended:true})); 
+app.use(express.urlencoded({extended:true}));  
 app.use(express.static("public")); //definindo onde nossos arquivos do front-end vão ficar
 app.set("view engine", 'ejs'); //definindo qual motor vai ser usado para renderizar o html na tela.
-app.set("views",path.resolve(__dirname, "src","views")); //  definido onde esse HTML vai estar
+app.set("views",path.resolve(__dirname, "src","Views")); //  definido onde esse HTML vai estar
+app.use(express.json()); 
 
 mongoose.connect(process.env.URI_CONNECTION).then(()=>{ 
     //Aqui estamos realizando a conexão com o banco de dados: MONGO DB 
