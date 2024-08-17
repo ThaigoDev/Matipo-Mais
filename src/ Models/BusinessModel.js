@@ -2,21 +2,24 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const BusinessSchema = mongoose.Schema({
   businessName: { type: String, required: true },
-  businessLocation: { tyoe: String, required: true },
+  businessLocation: { type: String, required: true },
   businessDescription: { type: String, required: true },
   businessContact: {
-    tel: { type: String, required: true },
-    whatssApp: { type: String, required: true },
-    email: { type: String, required: true },
+    tel: { type: String, required: false },
+    whatsApp: { type: String, required: false },
+    email: { type: String, required: false },
   },
-  openingHours: { type: String, required: true },
+  openingHours: { type: String, required: true }, 
+  categoryName:{
+    type: String, required: true
+  },
   categoryID: { type: Schema.Types.ObjectId, ref: "Categories" },
 });
 const Business = mongoose.model("Business", BusinessSchema);
 
 class BusinessRules {
   constructor(body) {
-    this.body;
+    this.body =body;
     this.erros = [];
     this.business = null;
   }
@@ -29,6 +32,7 @@ class BusinessRules {
   }
   async read() {}
   async delete() {}
-  async update() {}
+  async update() {} 
+  
 }
 module.exports = BusinessRules;

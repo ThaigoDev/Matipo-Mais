@@ -27,7 +27,14 @@ class CategoryRules  {
     async delete() {
 
     } 
-     
+    async findByCategory(categoryName) {
+        try {   
+            const category = await Category.findOne({category :categoryName})
+            return category; 
+        }catch(e) {
+            throw new Error(e); 
+        }
+    }
 
 } 
 module.exports = CategoryRules; 
