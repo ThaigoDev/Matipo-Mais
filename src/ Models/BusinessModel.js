@@ -10,9 +10,6 @@ const BusinessSchema = mongoose.Schema({
     email: { type: String, required: false },
   },
   openingHours: { type: String, required: true }, 
-  categoryName:{
-    type: String, required: true
-  },
   categoryID: { type: Schema.Types.ObjectId, ref: "Categories" },
 });
 const Business = mongoose.model("Business", BusinessSchema);
