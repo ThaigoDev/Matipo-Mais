@@ -2,5 +2,7 @@
     height: 10vh; 
     position: relative;
     position: fixed;
-    width: 100vw;
+    width: 100vw; 
+    font-size: 2em; 
+    background-color: red;
 }
