@@ -1,5 +1,6 @@
-main {
-    background-color: cadetblue; 
-    height: 100vh; 
+.Header-Principal {
+    height: 10vh; 
+    position: relative;
+    position: fixed;
     width: 100vw;
 }

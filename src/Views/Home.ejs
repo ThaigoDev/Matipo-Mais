@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8"> 
-    
+    <link rel="stylesheet" href="/css/Home.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página em Desenvolvimento</title>
     <style>
@@ -10,7 +10,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+
             margin: 0; 
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -37,7 +37,9 @@
         }
     </style>
 </head>
-<body>
+<body> 
+    <%- include('./partials/Header.ejs') %>
+
     <div class="container">
         <div class="construction-icon">&#x1F6A7;</div> <!-- Unicode character for construction sign -->
         <h1>Essa página está em desenvolvimento</h1>
