@@ -23,7 +23,7 @@ class CategoryRules  {
     }
     async update() {
 
-    }  
+    }   
     async delete() {
 
     } 
