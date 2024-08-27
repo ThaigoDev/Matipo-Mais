@@ -1,0 +1,51 @@
+.content {
+    background-color: #e9ebe9; 
+    height: 100vh; 
+    display: flex;
+    align-items: center; 
+    flex-direction: column; 
+    
+} 
+.TitleAndFeatures {
+    height: 15vh; 
+    display: flex;
+    align-items: center; 
+    width: 100vw;
+}  
+.page-title {
+    padding-left: 5vw; 
+    color: #545454;
+}
+.buttons {
+    position: relative; 
+    left: 50vw; 
+    width: 30vw; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3vh;
+} 
+.default-button {
+    padding-left: 3vh; 
+    padding-right: 3vh; 
+    padding-top: 0.7vh; 
+    font-size: 1.2em; 
+    display: flex;   
+    color: #545454;
+    font-weight: bold;
+    align-items: center; 
+    justify-content: start; 
+    gap: 3vh; 
+    border-radius: 1vh; 
+    border: none;
+    padding-bottom: 0.7vh; 
+    background-color: white; 
+    cursor: pointer;
+} 
+.icons {
+    font-size: 1.3em;
+} 
+.simple {
+    background-color: #163F66; 
+    color: #a9c2d6;
+}

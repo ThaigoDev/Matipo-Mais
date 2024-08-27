@@ -1,0 +1,54 @@
+.header-admin {
+    background-color: #163F66; 
+    display: flex;
+     align-items: center;
+     justify-content: center; 
+     height: 9vh; 
+ 
+     width: 100vw;
+
+} 
+.button-menu {
+    position: relative; 
+    left: 33vw;   
+    background-color: white; 
+    border-radius: 1vh;
+ 
+    
+} 
+.user-infos{
+    position: relative; 
+    right:33vw;  
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
+    gap: 2vh; 
+    color: white;
+     font-size: 1.3em;  
+     font-weight: bold;
+}
+
+.user-image{ 
+    height: 9vh; 
+     clip-path: circle();
+    width: 4vw; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}   
+.user-image img {
+    height: 100%;
+}
+.logo { 
+    height: 9vh; 
+    display: flex;
+    align-items: center;   
+    justify-content: center;
+    width: 13vw; 
+    padding: 1vh;
+}
+ 
+.logo img  {
+    height: 20vh;
+}

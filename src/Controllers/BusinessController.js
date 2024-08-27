@@ -29,6 +29,16 @@ class BusinessController {
         erros: console.error(e),
       });
     }
+  } 
+  static async index(req,res) {
+    try{  
+      res.render("BusinessPage")
+    }catch(e) {
+      res.status(502).json({
+        title: "failed",
+        erros: console.error(e),
+      });
+    }
   }
 }
 module.exports = BusinessController;
