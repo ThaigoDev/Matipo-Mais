@@ -21,7 +21,8 @@ class BusinessController {
           },
           openingTime: req.body.openingTime,
           closingTime: req.body.closingTime,
-          operatingDays: req.body.operatingDays,
+          operatingDays: req.body.operatingDays, 
+          businessMapHTML: req.body.businessMapHTML,
           categoryID: categoryFinded._id,
         };
       } else {
@@ -37,8 +38,10 @@ class BusinessController {
           },
           openingTime: req.body.openingTime,
           closingTime: req.body.closingTime,
-          operatingDays: req.body.operatingDays,
-          categoryID: categoryFinded._id,
+          operatingDays: req.body.operatingDays, 
+          businessMapHTML: req.body.businessMapHTML,
+          categoryID: categoryFinded._id, 
+
         };
       }
 
