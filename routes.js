@@ -8,6 +8,6 @@ router.get("/",HomeController.index); //uma rota deve ter um controller, no caso
 router.get("/quemsomos/"); 
 router.post("/category/new",CategoryController.create); 
 router.post("/business/new",BusinessController.create); 
-
+router.get("/admin/business/",BusinessController.index); 
 
 module.exports = router; 
