@@ -7,27 +7,37 @@
             <th scope="col" class="text-center">Endereço</th> 
             <th scope="col"  class="text-center">Telefone</th>
             <th scope="col"  class="text-center">E-mail</th>
-             <th scope="col"  class="text-center">Categoria</th> 
             <th scope="col"  class="text-center">Status</th>  
             <th scope="col" class="text-center">Ações</th> 
           </tr>
         </thead>
-        <tbody>  
-            <% allBusiness.forEach(business => { %>
-                <tr>
-                    <th scope="row">1</th>
-                    <td class="text-center"><%= business.businessName %></td>
-                    <td class="text-center"><%= business.businessName %></td>
+        <tbody>   
+           <% let i=0 %>
+            <% allBusiness.forEach(business => { %> 
+              <% i++ %>
+                <tr >
+                    <th scope="row"><%= i %></th>
+                    <td class="text-center d-flex align-items-center">
+                      <div class="business-photo me-3"> 
+                        <% if (business.businessPhoto) { %>
+                          <img src="/uploads/<%=business.businessPhoto %>" alt="">
+                        <% }else { %>
+                          <img src="https://img.freepik.com/psd-gratuitas/icone-da-loja-flutuante-itens-de-compras-offline-compra-online-e-pagamento-online_47987-11866.jpg?t=st=1724784274~exp=1724787874~hmac=a10e42a8d0457fc7ddaab7439af3180d36e8b2492430298d7df4bc38ca4e4309&w=1380" alt="">
+                         <% } %>
+                        
+                      </div>
+                      <%= business.businessName %>
+                    </td>
                     <td class="text-center"><%= business.businessLocation %></td> 
                     <td class="text-center"><%= business.businessContact.tel %></td> 
                     <td class="text-center"><%= business.businessContact.email %></td>    
                    <td class="text-center">@inativo</td> 
                     <td class="d-flex align-items-center justify-content-center">
                      <button type="button" class="btn btn-dark "  data-bs-toggle="modal"  data-bs-target="#staticBackdrop"><i class=" icon ph-bold ph-pencil-simple"></i></button> 
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Delete"><i class=" icon ph-bold ph-trash"></i> </button> 
+                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Delete-<%=i%>"><i class=" icon ph-bold ph-trash"></i> </button> 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Inspect"><i class=" icon ph-bold ph-eye"></i> </button> 
                     </td>
-                    
+                    <%- include('DeleteModal.ejs',{business:business, url:"/admin/business/delete/"+business._id, i:i}) %>
             </tr>
            
             <% }) %>

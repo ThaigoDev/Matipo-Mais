@@ -7,4 +7,13 @@
   justify-content: center; 
    overflow-y: scroll; 
    background-color: white;
+}   
+.business-photo  {
+  height: 5vh;  
+  width: 5vh; 
+  clip-path: circle();
+}
+.business-photo img {
+  height: 100%; 
+  width: 100%;
 }
