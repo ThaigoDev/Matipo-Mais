@@ -27,7 +27,14 @@ class BusinessRules {
       throw new Error(e);
     }
   }
-  async read() {}
+  async read() { 
+    try{
+      const business = await Business.find(); 
+      return business; 
+    }catch(e) {
+      throw new Error(e); 
+    }
+  }
   async delete() {}
   async update() {} 
   

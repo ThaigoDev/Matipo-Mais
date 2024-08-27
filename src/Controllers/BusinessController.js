@@ -29,11 +29,15 @@ class BusinessController {
         erros: console.error(e),
       });
     }
-  } 
-  static async index(req,res) {
-    try{  
-      res.render("BusinessPage")
-    }catch(e) {
+  }
+  static async index(req, res) {
+    try { 
+      const  categoryBR =  new CategoryRules (req.body); 
+      const categories =  await categoryBR.read(); 
+      const businessBR = new BusinessRules(req.body);
+      const allBusiness = await businessBR.read();
+      res.render("BusinessPage", { allBusiness,categories});
+    } catch (e) {
       res.status(502).json({
         title: "failed",
         erros: console.error(e),

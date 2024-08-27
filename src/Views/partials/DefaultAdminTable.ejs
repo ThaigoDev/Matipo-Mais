@@ -12,16 +12,16 @@
             <th scope="col" class="text-center">Ações</th> 
           </tr>
         </thead>
-        <tbody> 
-            <% for( let index = 0; index < 10; index++ ) { %>
+        <tbody>  
+            <% allBusiness.forEach(business => { %>
                 <tr>
                     <th scope="row">1</th>
-                    <td class="text-center">Mark</td>
-                    <td class="text-center">Otto</td>
-                    <td class="text-center">@mdo</td> 
-                    <td class="text-center">@inativo</td>  
-                    <td class="text-center">@inativo</td> 
-                    <td  class="text-center">@inativo</td> 
+                    <td class="text-center"><%= business.businessName %></td>
+                    <td class="text-center"><%= business.businessName %></td>
+                    <td class="text-center"><%= business.businessLocation %></td> 
+                    <td class="text-center"><%= business.businessContact.tel %></td> 
+                    <td class="text-center"><%= business.businessContact.email %></td>    
+                   <td class="text-center">@inativo</td> 
                     <td class="d-flex align-items-center justify-content-center">
                      <button type="button" class="btn btn-dark "  data-bs-toggle="modal"  data-bs-target="#staticBackdrop"><i class=" icon ph-bold ph-pencil-simple"></i></button> 
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Delete"><i class=" icon ph-bold ph-trash"></i> </button> 
@@ -29,7 +29,10 @@
                     </td>
                     
             </tr>
-            <% } %>
+           
+            <% }) %>
+          
+            
          
          
         </tbody>
