@@ -1,0 +1,10 @@
+.table-content {
+  height: 72%; 
+  width: 90%;  
+  border-radius: 2vh; 
+  display: flex;
+  align-items: start;
+  justify-content: center; 
+   overflow-y: scroll; 
+   background-color: white;
+}

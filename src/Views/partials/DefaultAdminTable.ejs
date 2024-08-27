@@ -1,0 +1,38 @@
+<section class="table-content">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center" >Nome</th>
+            <th scope="col" class="text-center">Endereço</th> 
+            <th scope="col"  class="text-center">Telefone</th>
+            <th scope="col"  class="text-center">E-mail</th>
+             <th scope="col"  class="text-center">Categoria</th> 
+            <th scope="col"  class="text-center">Status</th>  
+            <th scope="col" class="text-center">Ações</th> 
+          </tr>
+        </thead>
+        <tbody> 
+            <% for( let index = 0; index < 10; index++ ) { %>
+                <tr>
+                    <th scope="row">1</th>
+                    <td class="text-center">Mark</td>
+                    <td class="text-center">Otto</td>
+                    <td class="text-center">@mdo</td> 
+                    <td class="text-center">@inativo</td>  
+                    <td class="text-center">@inativo</td> 
+                    <td  class="text-center">@inativo</td> 
+                    <td class="d-flex align-items-center justify-content-center">
+                     <button type="button" class="btn btn-dark "  data-bs-toggle="modal"  data-bs-target="#staticBackdrop"><i class=" icon ph-bold ph-pencil-simple"></i></button> 
+                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Delete"><i class=" icon ph-bold ph-trash"></i> </button> 
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Inspect"><i class=" icon ph-bold ph-eye"></i> </button> 
+                    </td>
+                    
+            </tr>
+            <% } %>
+         
+         
+        </tbody>
+      </table>
+
+</section>
