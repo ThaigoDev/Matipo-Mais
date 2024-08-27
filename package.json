@@ -6,13 +6,13 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "mongoose": "^8.5.2",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.4"
   },
   "name": "matip--plus",
   "version": "1.0.0",
   "description": "",
   "main": "routes.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
