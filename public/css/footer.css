@@ -30,7 +30,7 @@ footer {
 }
 
 .direito {
-    width: 20%;
+    width: 30%;
 
 }
 
@@ -47,4 +47,103 @@ footer {
     font-size: 18px;
 }
 
+.footer-a {
+    text-decoration: none;
 
+}
+
+.footer-a:hover{
+    text-decoration: underline;
+    color: whitesmoke;
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 310px;
+        margin-top: 20px;
+    }
+
+    .direito {
+        width: 40%;
+
+    }
+
+    .esquerdo {
+        width: 54%;
+
+    }
+
+    .contato {
+        font-size: 14px;
+    }
+
+    .direito h3 {
+        padding-top: 10px;
+        font-size: 20px;
+    }
+    
+    .esquerdo h2 {
+        font-size: 20px;
+    }
+    
+    
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) {
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 310px;
+        margin-top: 20px;
+    }
+
+    .direito {
+        width: 40%;
+    }
+
+    .esquerdo {
+        width: 54%;
+
+    }
+
+    .contato {
+        font-size: 14px;
+    }
+
+    .direito h3 {
+        padding-top: 10px;
+        font-size: 21px;
+    }
+    
+    .esquerdo h2 {
+        font-size: 21px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 280px;
+        margin-top: 20px;
+    }
+
+    .contato {
+        font-size: 16px;
+    }
+
+    .esquerdo {
+        width: 54%;
+
+    }
+    .direito {
+        width: 40%;
+    }
+}
