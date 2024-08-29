@@ -51,7 +51,7 @@ class BusinessController {
       }
       const businessBR = new BusinessRules(body);
       await businessBR.update(req.params.id);  
-  res.redirect("back"); 
+      res.redirect("back"); 
     }catch(e) {
       res.status(502).json({
         title: "failed",
@@ -60,7 +60,10 @@ class BusinessController {
     }
   }
   static async index(req, res) {
-    try {
+    try { 
+      if(!req.session.user) {
+        res.render("NoPermission"); 
+      }
       const categoryBR = new CategoryRules(req.body);
       const categories = await categoryBR.read();
       const businessBR = new BusinessRules(req.body);
