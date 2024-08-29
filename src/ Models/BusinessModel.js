@@ -46,6 +46,12 @@ class BusinessRules {
       throw new Error(e); 
     }
   }
-  async update() {}
+  async update(id) {
+    try{
+      this.business = await Business.findByIdAndUpdate(id,this.body); 
+    }catch(e) {
+      throw new Error (e)
+    }
+  }
 }
 module.exports = BusinessRules;
