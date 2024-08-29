@@ -11,7 +11,9 @@ router.get("/",HomeController.index); //uma rota deve ter um controller, no caso
 router.get("/quemsomos/"); 
 router.post("/category/new",CategoryController.create); 
 router.post("/admin/business/new",uploads.single("businessPhoto"),BusinessController.create);  
-router.get("/admin/business/delete/:id",BusinessController.delete); 
+router.get("/admin/business/delete/:id",BusinessController.delete);  
+router.post("/admin/business/update/:id",uploads.single("businessPhotoEdited"),BusinessController.update); 
+
 router.get("/admin/business/",BusinessController.index);  
 
 module.exports = router; 
