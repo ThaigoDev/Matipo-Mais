@@ -7,7 +7,7 @@
        <div class="user-name-info">
          Olá, 
          <span class="username">
-           Admin
+           <%= user.name %>
          </span>
        </div>
     </div> 
@@ -49,7 +49,8 @@
               </ul>
             </li> 
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Conta</a>
+              <a class="nav-link active" aria-current="page" href="#">Conta</a> 
+              <a class="nav-link active" aria-current="page" href="/admin/logout">Sair</a>
             </li> 
           </ul>
           <form class="d-flex mt-3" role="search">
