@@ -6,3 +6,7 @@
     box-sizing: border-box;
     font-family: 'Montserrat';
 }
+.content{
+    height: 100vh;
+    background-color: red; 
+}
