@@ -19,7 +19,12 @@ class CategoryRules  {
         }
     };  
     async read() {
-
+        try {
+         const categories = await Category.find(); 
+         return categories; 
+        }catch (e)  {
+            throw new Error(e); 
+        }
     }
     async update() {
 
