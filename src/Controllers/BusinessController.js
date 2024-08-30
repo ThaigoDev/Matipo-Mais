@@ -2,7 +2,7 @@ const BusinessRules = require("../ Models/BusinessModel");
 const CategoryRules = require("../ Models/CategoryModels");
 class BusinessController {
   static async create(req, res) {
-    try { 
+    try {  
       console.log(req.file)
       let body = {};
       const categoryBR = new CategoryRules(req.body);
@@ -10,39 +10,9 @@ class BusinessController {
         req.body.categoryName
       );
       if (!req.file) {
-        body = {
-          businessName: req.body.businessName,
-          businessLocation: req.body.businessLocation,
-          businessDescription: req.body.businessDescription,
-          businessContact: {
-            tel: req.body.tel,
-            whatsApp: req.body.whatsApp,
-            email: req.body.email,
-          },
-          openingTime: req.body.openingTime,
-          closingTime: req.body.closingTime,
-          operatingDays: req.body.operatingDays, 
-          businessMapHTML: req.body.businessMapHTML,
-          categoryID: categoryFinded._id,
-        };
+        body = {...req.body, categoryID: categoryFinded._id,};
       } else {
-        body = {
-          businessPhoto: req.file.filename,
-          businessName: req.body.businessName,
-          businessLocation: req.body.businessLocation,
-          businessDescription: req.body.businessDescription,
-          businessContact: {
-            tel: req.body.tel,
-            whatsApp: req.body.whatsApp,
-            email: req.body.email,
-          },
-          openingTime: req.body.openingTime,
-          closingTime: req.body.closingTime,
-          operatingDays: req.body.operatingDays, 
-          businessMapHTML: req.body.businessMapHTML,
-          categoryID: categoryFinded._id, 
-
-        };
+        body = {...req.body, categoryID: categoryFinded._id, businessPhoto:req.file.filename};
       }
 
       const businessBR = new BusinessRules(body);
@@ -66,9 +36,34 @@ class BusinessController {
         erros: console.error(e),
       });
     }
+  } 
+  static async update(req,res) {
+    try { 
+      let body = {};   
+      const categoryBR = new CategoryRules(req.body);
+      const categoryFinded = await categoryBR.findByCategory(
+        req.body.categoryName
+      );
+      if (!req.file) {
+        body = {...req.body, categoryID: categoryFinded._id,};
+      } else {
+        body = {...req.body, categoryID: categoryFinded._id, businessPhoto:req.file.filename};
+      }
+      const businessBR = new BusinessRules(body);
+      await businessBR.update(req.params.id);  
+      res.redirect("back"); 
+    }catch(e) {
+      res.status(502).json({
+        title: "failed",
+        erros: console.error(e),
+      });
+    }
   }
   static async index(req, res) {
-    try {
+    try { 
+      if(!req.session.user) {
+        res.render("NoPermission"); 
+      }
       const categoryBR = new CategoryRules(req.body);
       const categories = await categoryBR.read();
       const businessBR = new BusinessRules(req.body);
