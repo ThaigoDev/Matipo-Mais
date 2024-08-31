@@ -1,0 +1,10 @@
+.mainCard{
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: blue;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}

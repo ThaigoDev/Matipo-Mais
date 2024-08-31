@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Montserrat', arial;
+}
+
+.main-header{
+    display: flex;
+    width: 100%;
+    height: 85px;
+    background-color: #034078;
+}
+
+.hamburger{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+
+.material-symbols-rounded{
+    color: white;
+    cursor: pointer;
+}
+
+.logo-menu{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-img{
+    height: 130px;
+}
+
+
+.search-bar-menu{
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: center;
+}
+
+.material-symbols-outlined{
+    color: white;
+    cursor: pointer;
+}
+
+.nav-bar{
+    position: absolute;
+    height: 0px;
+    top: 83px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #034078;
+    transition: 0.2s;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.nav-bar.active{
+    height: 350px;
+}
+
+.nav-bar ul{
+    display: block;
+    width: fit-content;
+    margin: 10px auto 0 auto;
+    text-align: center;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.nav-bar.active ul{
+    opacity: 1;
+}
+
+.nav-bar ul li a{
+    display: block;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: 0.2s;
+    margin: 0 5px;
+    margin-bottom: 5px;
+}
+
+.nav-bar ul li a:hover{
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+
+.nav-bar ul li a.active{
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+
+.search-bar{
+    position: absolute;
+    height: 0px;
+    top: 84px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #034078;
+    transition: 0.2s;
+}
+
+.search-bar.active{
+    height: 50px;
+}
+
+.search-input{
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    padding-left: 7px;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.search-bar.active .search-input{
+    opacity: 1;
+}
