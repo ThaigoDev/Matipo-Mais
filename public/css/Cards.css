@@ -2,9 +2,48 @@
     width: 100%;
     margin: 0 auto;
     padding: 20px;
-    background-color: blue;
-    height: 600px;
-    align-items: center;
-    justify-content: center;
+    background-color: rgb(9, 9, 244);
+    height: 100%;
     display: flex;
+    flex-direction: column;
 }
+
+
+.title1{
+    background-color: white;
+}
+
+.title2{
+    margin-top: 10px;
+    background-color: white;
+}
+
+.container1, .container2{
+    border: red, solid;
+    display: flex;
+    width: 100%;
+    height: 280px;
+    padding: 10px;
+    gap: 10px;
+}
+
+.card1, .card2, .card3, .card4{
+    display: flex;
+    width: 100%;
+    margin: 5px;
+    border: red, solid;
+    background-color: white;
+    flex-direction: column;
+}
+
+.card2{
+    background-color: gray;
+}
+
+.imgCard1, .imgCard2, .imgCard3, .imgCard4{
+    display: flex;
+    border: black, solid;
+    margin: 5px;
+    height: 100%;
+}
+
