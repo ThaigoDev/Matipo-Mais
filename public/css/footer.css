@@ -3,20 +3,20 @@ footer {
     justify-content: center;
     align-items: center;
     background-color: #034078;
-    height: 20vh;
+    height: 37vh;
 }
 
 .corpo-footer {
     display: flex;
     justify-content: space-between;
     width: 85%;
-
 }
 
 .esquerdo p,
 .esquerdo h2,
 .direito h3 {
     color: white;
+    line-height: 30px;
 }
 
 .direito h3 {
@@ -30,12 +30,10 @@ footer {
 
 .direito {
     width: 30%;
-
 }
 
 .esquerdo {
     width: 40%;
-
 }
 
 .contatos {
@@ -48,58 +46,51 @@ footer {
 
 .footer-a {
     text-decoration: none;
-
 }
 
-.footer-a:hover{
+.footer-a:hover {
     text-decoration: underline;
     color: whitesmoke;
 }
 
-/* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
     footer {
+        margin-top: 0px;
+        height: 560px;
+    }
+
+    .corpo-footer {
+        position: relative;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 310px;
-        margin-top: 20px;
+        flex-direction: column;
+        width: 85%;
+        height: 500px;
+        
     }
 
     .direito {
-        width: 40%;
-
+        width: 80%;
+        position: absolute;
+        top: 30px;
+        left: 5%;
+      
     }
 
     .esquerdo {
-        width: 54%;
-
+        width: 90%;
+        position: absolute;
+        top: 220px;
+        left: 5%;
+       
     }
-
-    .contato {
-        font-size: 14px;
-    }
-
-    .direito h3 {
-        padding-top: 10px;
-        font-size: 20px;
-    }
-    
-    .esquerdo h2 {
-        font-size: 20px;
-    }
-    
-    
 }
 
-/* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) and (max-width: 767.98px) {
     footer {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 310px;
-        margin-top: 20px;
     }
 
     .direito {
@@ -108,7 +99,6 @@ footer {
 
     .esquerdo {
         width: 54%;
-
     }
 
     .contato {
@@ -119,7 +109,7 @@ footer {
         padding-top: 10px;
         font-size: 21px;
     }
-    
+
     .esquerdo h2 {
         font-size: 21px;
     }
@@ -131,7 +121,6 @@ footer {
         justify-content: center;
         align-items: center;
         height: 280px;
-        margin-top: 20px;
     }
 
     .contato {
@@ -140,8 +129,8 @@ footer {
 
     .esquerdo {
         width: 54%;
-
     }
+
     .direito {
         width: 40%;
     }
