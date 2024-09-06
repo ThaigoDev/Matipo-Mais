@@ -18,7 +18,7 @@
                                 <span class="glyphicon glyphicon-camera"></span>
                                 <span>Change Image</span>
                             </label>
-                            <input id="file" type="file" name="businessPhotoEdited" onchange="loadFileEdited(event,'<%=i%>')" /> 
+                            <input id="file" type="file" name="businessPhotoEdited" onchange="loadFileEdited(event,'<%= i %>')" /> 
                             <% if (business.businessPhoto) { %>
                                 <img src="/uploads/<%=business.businessPhoto%>"
                                 id="output-<%=i%>" width="200" />

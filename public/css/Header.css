@@ -130,3 +130,11 @@
 .search-bar.active .search-input{
     opacity: 1;
 }
+/*tudo que  vc quer modificar tem que ficar dentro de @media */ 
+@media (min-width: 820px ) {
+ /*code*/
+} 
+
+@media (min-width: 1280px ) {
+    /*code*/
+}
