@@ -38,7 +38,7 @@ app.on("Conected on Database!",()=>{
     //quando o servidor receber o status  "Conected on Database!" o servidor vai escutar na porta 3000 que está  
     //no arquivo .env (esse arquivo contem nossas variáveis de ambiente, essas variáveis contem informações importantes de conexão...)
     app.listen(process.env.PORT,()=>{
-        console.log("acesse : http://localhost:3000/ ")
+        console.log("Acesse : http://localhost:3000/ ")
     })
 }) 
 

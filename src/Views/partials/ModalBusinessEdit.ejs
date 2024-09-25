@@ -14,17 +14,17 @@
                     <div class="col-md-16">
 
                         <div class="profile-pic">
-                            <label class="-label" for="file">
+                            <label class="-label" for="file-edited">
                                 <span class="glyphicon glyphicon-camera"></span>
                                 <span>Change Image</span>
                             </label>
-                            <input id="file" type="file" name="businessPhotoEdited" onchange="loadFileEdited(event,'<%= i %>')" /> 
+                            <input id="file-edited" type="file" name="businessPhotoEdited" onchange="loadFileEdited(event,`<%= i %>`)" /> 
                             <% if (business.businessPhoto) { %>
                                 <img src="/uploads/<%=business.businessPhoto%>"
-                                id="output-<%=i%>" width="200" />
+                                id="output-edited-<%=i%>" width="200" />
                             <% }else{ %>
                                 <img src="https://media.istockphoto.com/id/1363734940/pt/foto/three-cardboard-boxes.jpg?s=2048x2048&w=is&k=20&c=sU00RkOfhWh7z-0uOsJwHqe26cBmC-mdTjUq-R-JV4A="
-                                id="output-<%=i%>" width="200" />
+                                id="output-edited-<%=i%>" width="200" />
                              <% } %>
                            
                         </div>
