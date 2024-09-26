@@ -17,11 +17,13 @@
 
 .container {
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 280px;
     padding: 10px;
     gap: 10px;
     overflow-x: auto;
+    gap: 10px; 
+    overflow-x: scroll; 
 }
 
 .card {

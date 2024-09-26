@@ -57,7 +57,8 @@ class BusinessController {
         title: "failed",
         erros: console.error(e),
       });
-    }
+    } 
+    
   }
   static async index(req, res) {
     try { 

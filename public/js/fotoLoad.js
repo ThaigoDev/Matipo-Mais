@@ -1,11 +1,14 @@
-var loadFile = function (event) {
-    var image = document.getElementById("output");
+ function loadFileEdited (event,i) { 
+  console.log(i) 
+  let image = document.getElementById(`output-edited-${i}`); 
+  console.log(image)
+  image.src = URL.createObjectURL(event.target.files[0]);
+};
+ function loadFile (event) {
+    let image = document.getElementById("output");
     image.src = URL.createObjectURL(event.target.files[0]);
   }; 
 
-  var loadFileEdited = function (event,i) {
-    var image = document.getElementById(`output-${i}`);
-    image.src = URL.createObjectURL(event.target.files[0]);
-  };
+
   
   
