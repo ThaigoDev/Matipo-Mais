@@ -12,7 +12,7 @@
           </tr>
         </thead>
         <tbody>   
-          <% let i= 0 %>
+          <% let i= 0; %>
           <% allBusiness.forEach(business => { %> 
               <% i++; %>
                 <tr >
@@ -32,11 +32,11 @@
                     <td class="text-center"><%= business.businessContact.email %></td>    
                    <td class="text-center">@inativo</td> 
                     <td class="d-flex align-items-center justify-content-center">
-                     <button type="button" class="btn btn-dark "  data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Edit-<%=i%>"><i class=" icon ph-bold ph-pencil-simple"></i></button> 
+                    <button type="button" class="btn btn-dark"  data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Edit-<%=i%>"><i class=" icon ph-bold ph-pencil-simple"></i></button> 
+                    <%- include('ModalBusinessEdit.ejs',{i:i, business:business}) %>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Delete-<%=i%>"><i class="icon ph-bold ph-trash"></i> </button> 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Inspect-<%=i%>"><i class=" icon ph-bold ph-eye"></i> </button> 
-                    <%- include('ModalBusinessEdit.ejs',{i:i,business:business}) %>
                     <%- include('DeleteModal.ejs',{i:i,business:business, url:"/admin/business/delete/"+business._id}) %>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"   data-bs-target="#staticBackdrop-Inspect-<%=i%>"><i class=" icon ph-bold ph-eye"></i> </button> 
                     <%- include('ModalBusinessInspect.ejs',{i:i,business:business}) %>
                     
                   </td>
