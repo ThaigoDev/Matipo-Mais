@@ -1,6 +1,6 @@
 .mainCard {
-    width: 100%;
-    margin: 0 auto;
+    width: 100vw;
+    
     padding: 20px;
     background-color: rgb(249, 249, 250);
     height: fit-content;
