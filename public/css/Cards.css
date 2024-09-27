@@ -1,6 +1,6 @@
-.mainCard{
-    width: 100%;
-    margin: 0 auto;
+.mainCard {
+    width: 100vw;
+    
     padding: 20px;
     background-color: rgb(249, 249, 250);
     height: fit-content;
@@ -8,57 +8,99 @@
     flex-direction: column;
 }
 
-.title{
+.title {
     margin-left: 10px;
     margin-top: 10px;
     background-color: white;
     font-size: 20px;
 }
 
-.container{
+.container {
     display: flex;
     width: 100vw;
     height: 280px;
     padding: 10px;
+    gap: 10px;
+    overflow-x: auto;
     gap: 10px; 
     overflow-x: scroll; 
 }
 
-.card{
+.card {
     display: flex;
     width: 100vw;
     margin: 5px;
+    min-width: 45%;
+
     background-color: white;
     flex-direction: column;
     height: 100%;
 }
 
-.card:hover{
+.card:hover {
     border: #034078, solid, 2px;
     border-radius: 10px;
     transition: 0.2ms;
 }
 
-.imgContainer{
+.imgContainer {
     display: flex;
     margin: 5px;
     height: 60%;
 }
 
-.imgCard{
+.imgCard {
     height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
 }
 
-.infCard{
+.infCard {
     margin: 1px;
 }
 
-.sttCard{
+.sttCard {
     color: #034078;
     font-weight: bold;
     text-align: center;
     margin-top: 20px;
+}
+
+@media (min-width:800px) {
+    .card {
+        display: flex;
+        width: 45cm;
+        background-color: white;
+        flex-direction: column;
+        height: 100%;
+        background-color: red;
+    }
+
+    .imgCard {
+        height: 145px;
+        width: 45%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .container {
+        display: flex;
+        width: 100%;
+        background-color: blue;
+    }
+
+    .sttCard {
+        color: #034078;
+        background-color: black;
+        font-weight: bold;
+        margin-top: 20px;
+        width: 45%;
+    }
+
+    .infCard {
+        margin: 1px;
+        width: 45%;
+    }
+
 }

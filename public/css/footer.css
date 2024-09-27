@@ -4,12 +4,15 @@ footer {
     align-items: center;
     background-color: #034078;
     height: 37vh;
+    width: 100%;
+
 }
 
 .corpo-footer {
     display: flex;
     justify-content: space-between;
-    width: 85%;
+    width: 100%;
+    background-color: #034078;
 }
 
 .esquerdo p,
