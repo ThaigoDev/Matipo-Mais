@@ -1,0 +1,103 @@
+<!-- Modal -->
+<div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3" id="staticBackdropLabel">Adicionar Comércio</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" action="/admin/business/new/" method="POST" enctype="multipart/form-data">
+
+                    <h3 class="fs-5">Dados do Comércio</h3>
+                    <div class="col-md-16">
+
+                        <div class="profile-pic">
+                            <label class="-label" for="file">
+                                <span class="glyphicon glyphicon-camera"></span>
+                                <span>Change Image</span>
+                            </label>
+                            <input id="file" type="file" name="businessPhoto" onchange="loadFile(event)" />
+                            <img src="https://media.istockphoto.com/id/1363734940/pt/foto/three-cardboard-boxes.jpg?s=2048x2048&w=is&k=20&c=sU00RkOfhWh7z-0uOsJwHqe26cBmC-mdTjUq-R-JV4A="
+                                id="output" width="200" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <label for="businessName" class="form-label">Nome</label>
+                        <input type="text" name="businessName" placeholder="Insira o nome" class="form-control"
+                            id="businessName">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="businessLocation" class="form-label">Localização</label>
+                        <input type="text" name="businessLocation" placeholder=" Insira o Endereço"
+                            class="phone_with_ddd form-control" id="businessLocation">
+                    </div> 
+                    <div class="col-md-4">
+                        <label for="closingTime" class="form-label">Categoria</label>
+                        <select class="form-select" name="categoryName" aria-label="Default select example">  
+                            <option disabled  selected value="null">Selecione uma Categoria</option>                            
+                            <% categories.forEach(category => { %>
+                                <option value="<%= category.category %>"><%= category.category %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="businessDescription" class="form-label">Descrição Detalhada</label>
+                        <div class="form-floating">
+                            <textarea class="form-control" name="businessDescription"
+                                placeholder="Deixe sua descrição aqui..." id="businessDescription"
+                                style="height: 100px"></textarea>
+                            <label for="businessDescription">Descrição</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="tel" class="form-label">Telefone</label>
+                        <input type="text" name="businessContact[tel]" placeholder="(00) 0000-0000" class="form-control" id="tel">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="whatsApp" class="form-label">WhatsApp</label>
+                        <input type="text" name="businessContact[whatsApp]" placeholder="(00) 0000-0000" class="form-control"
+                            id="whatsApp">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="text" name="businessContact[email]" placeholder="exemplo@gmal.com" class="form-control" id="email">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="openingTime" class="form-label">Quartos</label>
+                        <input type="number" name="openingTime" placeholder="Qtd" class="form-control" id="openingTime">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="openingTime" class="form-label">Banheiros</label>
+                        <input type="number" name="openingTime" placeholder="Qtd" class="form-control" id="openingTime">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="closingTime" class="form-label">Dias de Funcionamento</label>
+                        <select class="form-select" name="operatingDays" aria-label="Default select example" multiple>
+                            <option value="Domingo">Domingo</option>
+                            <option value="Segunda-feira">Segunda-feira</option>
+                            <option value="Terça-feira">Terça-feira</option>
+                            <option value="Quarta-feira">Quarta-feira</option>
+                            <option value="Quinta-feira">Quinta-feira</option>
+                            <option value="Sexta-feira">Sexta-feira</option>
+                            <option value="Sábado">Sábado</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="tel" class="form-label">Incorporar Mapa</label>
+                        <input type="text" name="businessMapHTML" placeholder="Código HTML" class="form-control" id="tel">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Adicionar </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
