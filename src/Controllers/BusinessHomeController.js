@@ -1,6 +1,6 @@
 class BusinessHomeController {
-  static async index(req,res) {
-    res.render("Comercio.ejs"); 
+  static index(req,res) {
+    res.render("Comercio"); 
   }   
 } 
 module.exports = BusinessHomeController; 
