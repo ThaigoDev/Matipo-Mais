@@ -3,28 +3,30 @@ footer {
     justify-content: center;
     align-items: center;
     background-color: #034078;
-    height: 37vh;
+    height: 39vh;
     width: 100%;
+
 
 }
 
 .corpo-footer {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 93%;
     background-color: #034078;
+
 }
 
 .esquerdo p,
 .esquerdo h2,
 .direito h3 {
     color: white;
-    line-height: 30px;
 }
 
 .direito h3 {
-    padding-top: 10px;
+    padding-top: 15px;
     font-size: 25px;
+
 }
 
 .esquerdo h2 {
@@ -33,41 +35,70 @@ footer {
 
 .direito {
     width: 30%;
+    
 }
 
 .esquerdo {
+
     width: 40%;
+
+}
+
+.footer-a {
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+}
+
+.material-symbols-outlined, .img-insta {
+    display: inline-block;
+    margin-top: 10px;
+
+}
+
+.img-insta{
+   color: white;
+    height: 30px;
+    width: 30px; 
 }
 
 .contatos {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+
 }
 
-.contato {
+.contato-f {
+    margin-top: 10px;
+    display: inline-block;
     font-size: 18px;
+
 }
 
 .footer-a {
     text-decoration: none;
 }
 
-.footer-a:hover {
+.footer-a p:hover {
     text-decoration: underline;
     color: whitesmoke;
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 575.99px) {
     footer {
         margin-top: 0px;
         height: 560px;
+        
     }
 
     .corpo-footer {
         position: relative;
         display: flex;
         flex-direction: column;
-        width: 85%;
+        width: 98%;
         height: 500px;
+        margin-left: -5px;
         
     }
 
@@ -76,15 +107,17 @@ footer {
         position: absolute;
         top: 30px;
         left: 5%;
-      
+       
     }
 
     .esquerdo {
+       
         width: 90%;
         position: absolute;
-        top: 220px;
+        top: 270px;
         left: 5%;
-       
+      
+
     }
 }
 
@@ -98,13 +131,14 @@ footer {
 
     .direito {
         width: 40%;
+       
     }
 
     .esquerdo {
         width: 54%;
     }
 
-    .contato {
+    .contato-f {
         font-size: 14px;
     }
 
@@ -126,12 +160,13 @@ footer {
         height: 280px;
     }
 
-    .contato {
+    .contato-f {
         font-size: 16px;
     }
 
     .esquerdo {
         width: 54%;
+       
     }
 
     .direito {
