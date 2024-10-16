@@ -24,6 +24,7 @@ router.post("/admin/business/new",uploads.single("businessPhoto"),BusinessContro
 router.get("/admin/business/delete/:id",BusinessController.delete);  
 router.post("/admin/business/update/:id",uploads.single("businessPhotoEdited"),BusinessController.update); 
 //Moradia Routes
-router.get("/admin/housing/",HousingController.index); 
+router.get("/admin/housing/",HousingController.index);  
+router.post("/admin/housing/new",uploads.single("housingPhoto"),HousingController.create); 
 
 module.exports = router; 
