@@ -1,4 +1,6 @@
 footer {
+
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +26,7 @@ footer {
 }
 
 .direito h3 {
-    padding-top: 15px;
+    padding-bottom: 15px;
     font-size: 25px;
 
 }
@@ -35,7 +37,7 @@ footer {
 
 .direito {
     width: 30%;
-    
+
 }
 
 .esquerdo {
@@ -52,16 +54,24 @@ footer {
 
 }
 
-.material-symbols-outlined, .img-insta {
+.material-symbols-outlined,
+.img-insta {
     display: inline-block;
     margin-top: 10px;
 
 }
 
-.img-insta{
-   color: white;
+.img-insta {
+    color: white;
     height: 30px;
-    width: 30px; 
+    width: 30px;
+}
+
+.img-email {
+    height: 42px;
+    width: 42px;
+    margin-top: 10px;
+    margin-left: -8px;
 }
 
 .contatos {
@@ -69,7 +79,8 @@ footer {
 
 }
 
-.contato-f {
+.contato-f,
+.equipe {
     margin-top: 10px;
     display: inline-block;
     font-size: 18px;
@@ -85,11 +96,10 @@ footer {
     color: whitesmoke;
 }
 
-@media (max-width: 575.99px) {
+@media (max-width: 585.99px) {
     footer {
-        margin-top: 0px;
-        height: 560px;
-        
+        height: 230px;
+
     }
 
     .corpo-footer {
@@ -97,26 +107,79 @@ footer {
         display: flex;
         flex-direction: column;
         width: 98%;
-        height: 500px;
+        height: 230px;
         margin-left: -5px;
+
+    }
+
+    .contatos h2 {
+        margin-top: 10px;
+        font-size: 10px;
+        padding-bottom: 6px;
+       
+    }
+
+    .contatos{
+        margin-bottom: 10px;
+     
+    }
+
+    .contato-f,
+    .equipe {
+        font-size: 10px;
+        margin-top: 5px;
+
+    }
+
+    .equipe {
+        padding: 0px;
+        margin-top: 0px;
         
     }
 
+    .img-insta {
+        margin-top: 8px;
+        height: 16px;
+        width: 16px;
+
+    }
+
+    .img-email {
+        height: 23px;
+        width: 23px;
+        margin-top: 7px;
+        margin-left: -3px;
+    }
+
     .direito {
+
         width: 80%;
         position: absolute;
-        top: 30px;
+        top: 20px;
         left: 5%;
-       
+
+    }
+
+    .esquerdo .footer-a {
+        margin-top: -10px;
+        padding: 0px;
+
+    }
+
+    .direito .footer-a h3 {
+        font-size: 13px;
+        margin-top: -20px;
+        padding: 7px;
+
     }
 
     .esquerdo {
-       
+
+        height: 110px;
         width: 90%;
         position: absolute;
-        top: 270px;
+        top: 106px;
         left: 5%;
-      
 
     }
 }
@@ -131,24 +194,26 @@ footer {
 
     .direito {
         width: 40%;
-       
+
     }
 
     .esquerdo {
         width: 54%;
     }
 
-    .contato-f {
-        font-size: 14px;
+    .contato-f,
+    .equipe {
+        font-size: 10px;
     }
 
     .direito h3 {
         padding-top: 10px;
-        font-size: 21px;
+        font-size: 13px;
+
     }
 
     .esquerdo h2 {
-        font-size: 21px;
+        font-size: 10px;
     }
 }
 
@@ -160,13 +225,14 @@ footer {
         height: 280px;
     }
 
-    .contato-f {
-        font-size: 16px;
+    .contato-f,
+    .equipe {
+        font-size: 10px;
     }
 
     .esquerdo {
         width: 54%;
-       
+
     }
 
     .direito {
