@@ -16,12 +16,11 @@
 
 .container {
     display: flex;
-    width: 100vw;
+    width: 95vw;
     height: 280px;
     padding: 10px;
     gap: 10px;
     gap: 10px; 
-    overflow-x: scroll; 
 }
 
 .card {
@@ -29,7 +28,6 @@
     width: 100vw;
     margin: 5px;
     min-width: 45%;
-
     background-color: white;
     flex-direction: column;
     height: 100%;
