@@ -95,9 +95,17 @@
                             <option value="Sábado">Sábado</option>
                         </select>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label for="tel" class="form-label">Incorporar Mapa</label>
                         <input type="text" name="businessMapHTML" value="<%= business.businessMapHTML%>"  placeholder="Código HTML" class="form-control" id="tel">
+                    </div> 
+                    <div class="col-md-6">
+                        <label for="closingTime" class="form-label">Status</label>
+                        <select class="form-select" name="operatingDays" aria-label="Default select example" > 
+                            <option selected value="<%= business.status %>"><%= business.status %></option>
+                            <option value="Aberto">Aberto</option>
+                            <option value="Fechado">Fechado</option>
+                        </select>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Editar </button>
