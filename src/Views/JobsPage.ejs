@@ -7,16 +7,14 @@
      <link rel="stylesheet" href="/css/HeaderAdmin.css"> 
      <link rel="stylesheet" href="/css/DefaultLayoutAdmin.css"> 
      <link rel="stylesheet" href="/css/DefaultAdminTable.css">
-
-    <title>Moradia - Matipó + </title>
-
+    <title>Empregos - Matipó +</title>
 </head>
 <body>
     <main class="content"> 
      <%- include('./partials/HeaderAdmin.ejs',{categories}) %>
-     <%- include('./partials/TitleAndFeatures.ejs',{title:"Moradia"}) %>
-     <%- include('./partials/HousingTable.ejs',{allHousing}) %> 
-     <%- include('./partials/ModalRegisterHousing.ejs',{categories}) %>
+     <%- include('./partials/TitleAndFeatures.ejs',{title:"Vagas"}) %>
+     <%- include('./partials/JobTable.ejs',{allJobs}) %> 
+     <%- include('./partials/JobModalRegister.ejs',{categories}) %>
     
     </main> 
     <script src="/js/fotoLoad.js"></script>
