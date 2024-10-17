@@ -20,6 +20,7 @@
     margin: 2px;
     width: 100%;
     height: 100%;
+    justify-content: space-evenly;
 }
 
 .card {
@@ -97,8 +98,8 @@
         display: flex;
         margin-left: 40px;
         width: 100%;
-          flex-direction: row;
-      height: 100%;
+        flex-direction: row;
+        height: 100%;
     }
 
 }

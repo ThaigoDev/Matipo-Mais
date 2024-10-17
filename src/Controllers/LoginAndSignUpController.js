@@ -1,4 +1,4 @@
-const LoginAndSignUpBR = require("../ Models/LoginAndSignUpModel");
+const LoginAndSignUpBR = require("../Models/LoginAndSignUpModel");
 class LoginAndSignUpController {
   static index(req, res) {
     try {

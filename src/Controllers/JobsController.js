@@ -1,11 +1,24 @@
-const BusinessRules = require("../Models/BusinessModel");
 const CategoryRules = require("../Models/CategoryModels");
-class BusinessController {
+const JobsBR = require("../Models/JobsModel");
+class JobsController {
+  static async index(req, res) {
+    try {
+      const categoryBR = new CategoryRules(req.body);
+      const categories = await categoryBR.read();
+      const jobsBR = new JobsBR();
+      const allJobs = await jobsBR.read();
+      res.render("JobsPage", { allJobs, categories });
+    } catch (e) {
+      res.status(502).json({
+        title: "failed",
+        erros: console.error(e),
+      });
+    }
+  }
   static async create(req, res) {
     try {
-      console.log(req.file);
       let body = {};
-      const categoryBR = new CategoryRules(req.body);
+      const categoryBR = new CategoryRules();
       const categoryFinded = await categoryBR.findByCategory(
         req.body.categoryName
       );
@@ -15,12 +28,11 @@ class BusinessController {
         body = {
           ...req.body,
           categoryID: categoryFinded._id,
-          businessPhoto: req.file.filename,
+          jobPhoto: req.file.filename,
         };
       }
-
-      const businessBR = new BusinessRules(body);
-      await businessBR.create();
+      const jobBR = new JobsBR(body);
+      await jobBR.create();
       res.redirect("back");
     } catch (e) {
       res.status(502).json({
@@ -31,8 +43,8 @@ class BusinessController {
   }
   static async delete(req, res) {
     try {
-      const businessBR = new BusinessRules(req.body);
-      await businessBR.delete(req.params.id);
+      const jobBR = new JobsBR();
+      await jobBR.delete(req.params.id);
       res.redirect("back");
     } catch (e) {
       res.status(502).json({
@@ -40,11 +52,12 @@ class BusinessController {
         erros: console.error(e),
       });
     }
-  }
-  static async update(req, res) {
+  } 
+  static async update(req,res) {
     try {
+    console.log(req.body)
       let body = {};
-      const categoryBR = new CategoryRules(req.body);
+      const categoryBR = new CategoryRules();
       const categoryFinded = await categoryBR.findByCategory(
         req.body.categoryName
       );
@@ -54,11 +67,11 @@ class BusinessController {
         body = {
           ...req.body,
           categoryID: categoryFinded._id,
-          businessPhoto: req.file.filename,
+          jobPhoto: req.file.filename,
         };
       }
-      const businessBR = new BusinessRules(body);
-      await businessBR.update(req.params.id);
+      const jobBR = new JobsBR(body);  
+      await jobBR.update(req.params.id); 
       res.redirect("back");
     } catch (e) {
       res.status(502).json({
@@ -66,23 +79,7 @@ class BusinessController {
         erros: console.error(e),
       });
     }
-  }
-  static async index(req, res) {
-    try {
-      if (!req.session.user) {
-        res.render("NoPermission");
-      }
-      const categoryBR = new CategoryRules(req.body);
-      const categories = await categoryBR.read();
-      const businessBR = new BusinessRules(req.body);
-      const allBusiness = await businessBR.read();
-      res.render("BusinessPage", { allBusiness, categories });
-    } catch (e) {
-      res.status(502).json({
-        title: "failed",
-        erros: console.error(e),
-      });
-    }
-  }
+   }
 }
-module.exports = BusinessController;
+
+module.exports = JobsController;
