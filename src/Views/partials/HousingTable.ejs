@@ -1,0 +1,60 @@
+<section class="table-content">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center" >Nome</th>
+            <th scope="col" class="text-center">Endereço</th> 
+            <th scope="col"  class="text-center">Telefone</th>
+            <th scope="col"  class="text-center">E-mail</th>
+            <th scope="col"  class="text-center">Status</th>  
+            <th scope="col" class="text-center">Ações</th> 
+          </tr>
+        </thead>
+        <tbody>   
+          <% let i= 0; %>
+          <% allHousing.forEach(housing => { %> 
+              <% i++; %>
+                <tr >
+                    <th scope="row"><%= i %></th>
+                    <td class="text-center d-flex align-items-center">
+                      <div class="business-photo me-3"> 
+                        <% if (housing.housingPhoto) { %>
+                          <img src="/uploads/<%=housing.housingPhoto %>" alt="">
+                        <% }else { %>
+                          <img src="https://img.freepik.com/premium-vector/icon-hotel-related-icon-building-symbol-long-shadow-style-simple-design-editable_1310916-7650.jpg?w=826" alt="">
+                         <% } %>
+                      </div>
+                      <%= housing.housingName %>
+                    </td>
+                    <td class="text-center"><%= housing.housingLocation %></td> 
+                    <td class="text-center"><%= housing. housingContactInfos.phone %></td> 
+                    <td class="text-center"><%= housing.housingContactInfos.email %></td> 
+                     <% if (housing.status !="Disponível" ) { %> 
+                      <td class="text-center">
+                        <span class="badge text-bg-danger">
+                           <%= housing.status %>
+                        </span>
+                      </td>  
+                     <% }else { %>
+                      <td class="text-center">
+                        <span class="badge text-bg-success">
+                           <%= housing.status %>
+                        </span>
+                      </td>  
+                      <% } %>    
+                  
+                    <td class="d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn btn-dark"  data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Edit-<%=i%>"><i class=" icon ph-bold ph-pencil-simple"></i></button> 
+                    <%- include('HousingEditModal.ejs',{i:i,housing:housing}) %>
+                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Delete-<%=i%>"><i class="icon ph-bold ph-trash"></i> </button> 
+                    <%- include('DeleteHousingModal.ejs',{i:i,housing:housing, url:"/admin/housing/delete/"+housing._id}) %>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"   data-bs-target="#staticBackdrop-Inspect-<%=i%>"><i class=" icon ph-bold ph-eye"></i> </button> 
+                    <%- include('HousingInspectModal.ejs',{i:i,housing:housing}) %>
+                  </td>
+                </tr>
+                <% }) %>
+          </tbody>
+      </table>
+
+</section> 
