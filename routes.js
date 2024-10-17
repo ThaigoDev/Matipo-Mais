@@ -7,7 +7,8 @@ const HomeController = require("./src/Controllers/HomeController");
 const CategoryController = require("./src/Controllers/CategoryController"); 
 const BusinessHomeController = require("./src/Controllers/BusinessHomeController"); 
 const BusinessController = require("./src/Controllers/BusinessController");   
-const HousingController = require("./src/Controllers/HousingController"); 
+const HousingController = require("./src/Controllers/HousingController");  
+const JobsController = require("./src/Controllers/JobsController")
 const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController")
 
 //nesse arquivo, vamos definir as rotas da nossa página, por exemplo : www.teste/[rotas que vamos criar]
@@ -26,7 +27,11 @@ router.post("/admin/business/update/:id",uploads.single("businessPhotoEdited"),B
 //Moradia Routes
 router.get("/admin/housing/",HousingController.index);  
 router.post("/admin/housing/new",uploads.single("housingPhoto"),HousingController.create);  
-router.get("/admin/housing/delete/:id",HousingController.delete)
-;
-router.post("/admin/housing/update/:id",uploads.single("housingPhotoEdited"),HousingController.update); 
+router.get("/admin/housing/delete/:id",HousingController.delete);
+router.post("/admin/housing/update/:id",uploads.single("housingPhotoEdited"),HousingController.update);   
+//Emprego Routes 
+router.get("/admin/jobs/",JobsController.index);  
+router.post("/admin/jobs/new",uploads.single("jobPhoto"),JobsController.create);  
+router.get("/admin/jobs/delete/:id",JobsController.delete);  
+router.post("/admin/jobs/update/:id",uploads.single("jobPhotoEdited"),JobsController.update);
 module.exports = router; 

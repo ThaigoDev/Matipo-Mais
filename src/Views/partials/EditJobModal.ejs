@@ -1,0 +1,123 @@
+<!-- Modal -->
+<div class="modal modal-lg fade" id="staticBackdrop-Edit-<%= i %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3" id="staticBackdropLabel">Editar Oportunidade de Emprego</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" action="/admin/jobs/update/<%=job._id%>" method="POST" enctype="multipart/form-data">
+
+                    <h3 class="fs-5">Dados do Emprego/Empresa</h3>
+                    <div class="col-md-16">
+
+                        <div class="profile-pic">
+                            <label class="-label" for="file">
+                                <span class="glyphicon glyphicon-camera"></span>
+                                <span>Change Image</span>
+                            </label>
+                            <input id="file" type="file" name="jobPhotoEdited" onchange="loadFile(event)" />
+                            <% if (!job.jobPhoto) { %>
+                                <img src="https://img.freepik.com/premium-vector/job-newspaper-icon-blue-color-design_965649-13412.jpg?w=826"
+                                id="output-<%= i %>" width="200" />
+                            <% } else { %>
+                                <img src="/uploads/<%=job.jobPhoto%>"
+                                id="output-<%= i %>" width="200" />
+                             <%  }%>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <label for="businessName" class="form-label">Cargo</label>
+                        <input type="text" name="jobName" value="<%= job.jobName %>" placeholder="Nome do Emprego" class="form-control"
+                            id="jobName">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="jobLocation" class="form-label">Localização</label>
+                        <input type="text" name="jobLocation"   value="<%= job.jobLocation %>"placeholder="Endereço da Contratante"
+                            class="phone_with_ddd form-control" id="jobLocation">
+                    </div> 
+                    <div class="col-md-4">
+                        <label for="closingTime" class="form-label">Categoria</label>
+                        <select class="form-select"  name="categoryName" aria-label="Default select example">  
+                            <option d  selected value="<%= job.categoryName %>"><%= job.categoryName %></option>                            
+                            <% categories.forEach(category => { %>
+                                <option value="<%= category.category %>"><%= category.category %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="jobDescription" class="form-label">Descrição Detalhada do Cargo</label>
+                        <div class="form-floating">
+                            <textarea class="form-control" name="jobDescription"
+                                placeholder="Deixe sua descrição aqui..." id="jobDescription"
+                                style="height: 100px"><%= job.jobDescription %></textarea>
+                            <label for="jobDescription">Descrição</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="tel" class="form-label">Telefone</label>
+                        <input type="text" name="jobContact[phone]" value="<%= job.jobContact.phone %>" placeholder="(00) 0000-0000" class="form-control" id="tel">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="whatsApp" class="form-label">WhatsApp</label>
+                        <input type="text" name="jobContact[whatsApp]" value="<%= job.jobContact.whatsApp %>" placeholder="(00) 0000-0000" class="form-control"
+                            id="whatsApp">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="text" name="jobContact[email]"  value="<%= job.jobContact.email %>" placeholder="exemplo@gmal.com" class="form-control" id="email">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="openingTime" class="form-label">Horário de Abertura</label>
+                        <input type="time" name="openingTime" placeholder="00:00" value="<%= job.openingTime%>" class="form-control" id="openingTime">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="closingTime" class="form-label">Horário de Fechamento</label>
+                        <input type="time" name="closingTime" placeholder="00:00" value="<%= job.closingTime%>"  class="form-control" id="closingTime">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="closingTime" class="form-label">Carga Horária</label>
+                        <select class="form-select" name="operatingDays" aria-label="Default select example" multiple>
+                            <option value="Domingo">Domingo</option>
+                            <option value="Segunda-feira">Segunda-feira</option>
+                            <option value="Terça-feira">Terça-feira</option>
+                            <option value="Quarta-feira">Quarta-feira</option>
+                            <option value="Quinta-feira">Quinta-feira</option>
+                            <option value="Sexta-feira">Sexta-feira</option>
+                            <option value="Sábado">Sábado</option>
+                        </select>
+                    </div> 
+                    <div class="col-md-6">
+                        <label for="businessName" class="form-label">Empresa</label>
+                        <input type="text" name="businessName" value="<%= job.businessName%>"   placeholder="Nome da Empresa" class="form-control"
+                            id="businessName">
+                     </div> 
+                     <div class="col-md-6">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select"    name="status" aria-label="Default select example">  
+                            <option disabled  selected value="<%= job.status%>"><%= job.status%></option>                            
+                            <option  value="Em aberto">Em aberto</option>   
+                            <option  value="Processo Seletivo em Aberto">Processo Seletivo em Aberto</option>   
+                            <option  value="Vaga Encerrada">Vaga Encerrada</option>   
+                             
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="tel" class="form-label">Incorporar Mapa</label>
+                        <input type="text" name="jobMapHTML"  value="<%= job.jobMapHTML%>" placeholder="Código HTML" class="form-control" id="tel">
+                    </div> 
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Editar </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
