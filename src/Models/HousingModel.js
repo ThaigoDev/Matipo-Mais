@@ -51,7 +51,14 @@ class HousingBR  {
     } 
     async delete(id) {
         try{
-
+            this.housing = await housingModel.findByIdAndDelete(id);  
+        }catch(e) {
+            throw new Error(e); 
+        }
+    } 
+    async update(id) {
+        try{
+            this.housing = await housingModel.findByIdAndUpdate({_id:id},this.body);
         }catch(e) {
             throw new Error(e); 
         }

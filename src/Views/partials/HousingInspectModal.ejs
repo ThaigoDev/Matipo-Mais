@@ -1,44 +1,46 @@
 <!-- Modal -->
-<div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal modal-lg fade" id="staticBackdrop-Inspect-<%=i%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-3" id="staticBackdropLabel">Adicionar Moradia</h1>
+                <h1 class="modal-title fs-3" id="staticBackdropLabel">Inspecionar Moradia</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="row g-3" action="/admin/housing/new/" method="POST" enctype="multipart/form-data">
+                <form class="row g-3" action="/admin/housing/update/<%=housing._id%>" method="POST" enctype="multipart/form-data">
 
                     <h3 class="fs-5">Dados da Moradia</h3>
                     <div class="col-md-16">
 
                         <div class="profile-pic">
                             <label class="-label" for="file">
-                                <span class="glyphicon glyphicon-camera"></span>
-                                <span>Change Image</span>
+                          
                             </label>
-                            <input id="file" type="file" name="housingPhoto" onchange="loadFile(event)" />
-                            <img src="https://media.istockphoto.com/id/1363734940/pt/foto/three-cardboard-boxes.jpg?s=2048x2048&w=is&k=20&c=sU00RkOfhWh7z-0uOsJwHqe26cBmC-mdTjUq-R-JV4A="
-                                id="output" width="200" />
+                          <% if (!housing.housingPhoto) { %>
+                                <img src="https://media.istockphoto.com/id/1363734940/pt/foto/three-cardboard-boxes.jpg?s=2048x2048&w=is&k=20&c=sU00RkOfhWh7z-0uOsJwHqe26cBmC-mdTjUq-R-JV4A="
+                                id="output-<%= i %>" width="200" />
+                            <% } else { %>
+                                <img src="/uploads/<%= housing.housingPhoto %>"
+                                id="output-<%= i %>" width="200" />
+                             <%  }%>
                         </div>
                     </div>
 
 
                     <div class="col-md-4">
                         <label for="businessName" class="form-label">Nome</label>
-                        <input type="text" name="housingName" placeholder="Insira o nome" class="form-control"
+                        <input type="text" name="housingName" disabled value="<%=housing.housingName%>" placeholder="Insira o nome" class="form-control"
                             id="businessName">
                     </div>
                     <div class="col-md-4">
                         <label for="businessLocation" class="form-label">Localização</label>
-                        <input type="text" name="housingLocation" placeholder=" Insira o Endereço"
+                        <input type="text" name="housingLocation"  disabled value="<%=housing.housingLocation%>"  placeholder=" Insira o Endereço"
                             class="phone_with_ddd form-control" id="businessLocation">
                     </div> 
                     <div class="col-md-4">
                         <label for="closingTime" class="form-label">Categoria</label>
-                        <select class="form-select" name="categoryName" aria-label="Default select example">  
-                            <option disabled  selected value="null">Selecione uma Categoria</option>                            
+                        <select class="form-select" name="categoryName"  disabled  value="<%= housing.categoryName%>" aria-label="Default select example"> 
                             <% categories.forEach(category => { %>
                                 <option value="<%= category.category %>"><%= category.category %></option>
                             <% }) %>
@@ -47,62 +49,63 @@
                     <div class="col-12">
                         <label for="housingDescription" class="form-label">Descrição Detalhada</label>
                         <div class="form-floating">
-                            <textarea class="form-control" name="housingDescription"
+                            <textarea  disabled class="form-control" name="housingDescription"
                                 placeholder="Deixe sua descrição aqui..." id="housingDescription"
-                                style="height: 100px"></textarea>
+                                style="height: 100px"><%=housing.housingDescription%></textarea>
                             <label for="housingDescription">Descrição</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <label for="tel" class="form-label">Telefone</label>
-                        <input type="text" name="housingContactInfos[phone]" placeholder="(00) 0000-0000" class="form-control" id="phone">
+                        <input type="text"  disabled  name="housingContactInfos[phone]" value="<%=housing.housingContactInfos.phone%>" placeholder="(00) 0000-0000" class="form-control" id="phone">
                     </div>
                     <div class="col-md-4">
                         <label for="whatsApp" class="form-label">WhatsApp</label>
-                        <input type="text" name="housingContactInfos[whatsApp]" placeholder="(00) 0000-0000" class="form-control"
+                        <input type="text"  disabled name="housingContactInfos[whatsApp]" value="<%=housing.housingContactInfos.whatsApp%>" placeholder="(00) 0000-0000" class="form-control"
                             id="whatsApp">
                     </div>
 
                     <div class="col-md-4">
                         <label for="email" class="form-label">E-mail</label>
-                        <input type="text" name="housingContactInfos[email]" placeholder="exemplo@gmal.com" class="form-control" id="email">
+                        <input type="text"  disabled  name="housingContactInfos[email]" value="<%=housing.housingContactInfos.email%>"  placeholder="exemplo@gmal.com" class="form-control" id="email">
                     </div>
 
                     <div class="col-md-2">
                         <label for="openingTime" class="form-label">Quartos</label>
-                        <input type="number" name="roomsQTD" placeholder="Qtd" class="form-control" id="openingTime">
+                        <input type="number"  disabled name="roomsQTD" placeholder="Qtd"  value="<%=housing.roomsQTD%>" class="form-control" id="openingTime">
                     </div>
                     <div class="col-md-2">
                         <label for="openingTime" class="form-label">Banheiros</label>
-                        <input type="number" name="bathroomsQTD" placeholder="Qtd" class="form-control" id="openingTime">
+                        <input type="number"  disabled  name="bathroomsQTD" placeholder="Qtd" value="<%=housing.bathroomsQTD%>" class="form-control" id="openingTime">
                     </div>
                     <div class="col-md-3">
                         <label for="closingTime" class="form-label">Data de Publicação</label>
-                        <input type="date" name="datePublish"  class="form-control" id="datePublish">
+                        <input type="date"  disabled  name="datePublish"   value="<%=housing.datePublish%>" class="form-control" id="datePublish">
                     </div> 
                     <div class="col-md-4">
-                        <label for="closingTime" class="form-label">Publicador</label>
-                        <select class="form-select" name="publisher" aria-label="Default select example">  
-                            <option disabled  selected value="null"> Selecione o Publicador</option>                            
+                        <label for="publisher" class="form-label">Publicador</label>
+                        <select disabled  class="form-select" name="publisher" aria-label="Default select example">  
+                            <option disabled  selected value="null">   <%=housing.publisher%> </option>                            
                             <option   value="Thiago"> Thiago</option>   
                             <option   value="Cauã Vitor"> Cauã Vitor</option>  
                         </select>
                     </div>  
                     <div class="col-md-6">
                         <label for="closingTime" class="form-label">Status</label>
-                        <select class="form-select" name="status" aria-label="Default select example">  
-                            <option disabled  selected value="null"> Status</option>                            
+                        <select disabled class="form-select" name="status" aria-label="Default select example">  
+                            <option disabled  selected value="<%=housing.status%>">  <%=housing.status%></option>                            
                             <option   value="Ocupado"> Ocupado</option>   
                             <option   value="Disponível"> Disponível</option>  
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label for="tel" class="form-label">Incorporar Mapa</label>
-                        <input type="text" name="housingHTMLMap" placeholder="Código HTML" class="form-control" id="tel">
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Adicionar </button>
-                    </div>
+                        <input disabled type="text" name="housingHTMLMap"  value="<%=housing.housingHTMLMap%>"placeholder="Código HTML" class="form-control" id="tel">
+                    </div> 
+                    <div class="col-md-12"> 
+                        <iframe src="<%=housing.housingHTMLMap%>" width="760" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                   </div>
+                  
                 </form>
             </div>
 
