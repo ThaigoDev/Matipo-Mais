@@ -8,9 +8,10 @@ const CategoryController = require("./src/Controllers/CategoryController");
 const BusinessHomeController = require("./src/Controllers/BusinessHomeController"); 
 const BusinessController = require("./src/Controllers/BusinessController");   
 const HousingController = require("./src/Controllers/HousingController");  
-const HealthController = require("./src/Controllers/HealthController")
-const JobsController = require("./src/Controllers/JobsController")
-const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController") 
+const HealthController = require("./src/Controllers/HealthController");
+const JobsController = require("./src/Controllers/JobsController"); 
+const JobsHomeController = require("./src/Controllers/JobsHomeController")
+const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController"); 
 
 
 //nesse arquivo, vamos definir as rotas da nossa página, por exemplo : www.teste/[rotas que vamos criar]
@@ -32,12 +33,14 @@ router.post("/admin/housing/new",uploads.single("housingPhoto"),HousingControlle
 
 router.get("/admin/housing/delete/:id",HousingController.delete);
 router.post("/admin/housing/update/:id",uploads.single("housingPhotoEdited"),HousingController.update);   
-//Emprego Routes 
-router.get("/admin/jobs/",JobsController.index);  
+//Emprego Routes  
+router.get("/jobs/index",JobsHomeController.index); 
+router.get("/admin/jobs/",JobsController.index);   
 router.post("/admin/jobs/new",uploads.single("jobPhoto"),JobsController.create);  
 router.get("/admin/jobs/delete/:id",JobsController.delete);  
 router.post("/admin/jobs/update/:id",uploads.single("jobPhotoEdited"),JobsController.update); 
-//saúde Routes
+//saúde Routes 
+router.get("/health/index",HealthController.index)
 router.get("/admin/health/",HealthController.index);  
 router.post("/admin/health/new",uploads.single("healthPhoto"),HealthController.create);
 router.post("/admin/health/update/:id",uploads.single("healthPhotoEdited"),HealthController.update); 
