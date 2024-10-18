@@ -1,0 +1,61 @@
+<section class="table-content">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center" >Nome</th>
+            <th scope="col" class="text-center">Endereço</th> 
+            <th scope="col"  class="text-center">Publicado por</th>
+            <th scope="col"  class="text-center">Telefone</th>
+            <th scope="col"  class="text-center">Status</th>  
+            <th scope="col" class="text-center">Ações</th> 
+          </tr>
+        </thead>
+        <tbody>   
+          <% let i= 0; %>
+          <% allHealth.forEach(health => { %> 
+              <% i++; %>
+                <tr >
+                    <th scope="row"><%= i %></th>
+                    <td class="text-center d-flex align-items-center">
+                      <div class="business-photo me-3"> 
+                        <% if (health.healthPhoto) { %>
+                          <img src="/uploads/<%=health.healthPhoto %>" alt="">
+                        <% }else { %>
+                          <img src="https://img.freepik.com/premium-vector/icon-hotel-related-icon-building-symbol-long-shadow-style-simple-design-editable_1310916-7650.jpg?w=826" alt="">
+                         <% } %>
+                      </div>
+                      <%= health.healthName %>
+                    </td>
+                    <td class="text-center"><%= health.healthLocation %></td>  
+                    <td class="text-center"><%= health.publisher %></td> 
+                    <td class="text-center"><%= health. healthContactInfos.phone %></td> 
+                     <% if (health.status !="Aberto" ) { %> 
+                      <td class="text-center">
+                        <span class="badge text-bg-danger">
+                           <%= health.status %>
+                        </span>
+                      </td>  
+                     <% }else { %>
+                      <td class="text-center">
+                        <span class="badge text-bg-success">
+                           <%= health.status %>
+                        </span>
+                      </td>  
+                      <% } %>    
+                  
+                    <td class="d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn btn-dark"  data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Edit-<%=i%>"><i class=" icon ph-bold ph-pencil-simple"></i></button> 
+                    <%- include('EditHealthModal.ejs',{i:i,health:health}) %>
+                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"  data-bs-target="#staticBackdrop-Delete-<%=i%>"><i class="icon ph-bold ph-trash"></i> </button> 
+                    <%- include('DeleteHealthModal.ejs',{i:i,health:health, url:"/admin/health/delete/"+health._id}) %>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"   data-bs-target="#staticBackdrop-Inspect-<%=i%>"><i class=" icon ph-bold ph-eye"></i> </button> 
+                    <%- include('InspectHealthModal.ejs',{i:i,health:health}) %>
+                      
+                  </td>
+                </tr>
+                <% }) %>
+          </tbody>
+      </table>
+
+</section> 

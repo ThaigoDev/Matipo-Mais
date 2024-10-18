@@ -7,9 +7,11 @@ const HomeController = require("./src/Controllers/HomeController");
 const CategoryController = require("./src/Controllers/CategoryController"); 
 const BusinessHomeController = require("./src/Controllers/BusinessHomeController"); 
 const BusinessController = require("./src/Controllers/BusinessController");   
-const HousingController = require("./src/Controllers/HousingController"); 
+const HousingController = require("./src/Controllers/HousingController");  
+const HealthController = require("./src/Controllers/HealthController")
 const JobsController = require("./src/Controllers/JobsController")
-const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController")
+const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController") 
+
 
 //nesse arquivo, vamos definir as rotas da nossa página, por exemplo : www.teste/[rotas que vamos criar]
 router.get("/",HomeController.index); //uma rota deve ter um controller, no caso  o controller vai linkar nosso banco de dados com o front end.   
@@ -34,6 +36,10 @@ router.post("/admin/housing/update/:id",uploads.single("housingPhotoEdited"),Hou
 router.get("/admin/jobs/",JobsController.index);  
 router.post("/admin/jobs/new",uploads.single("jobPhoto"),JobsController.create);  
 router.get("/admin/jobs/delete/:id",JobsController.delete);  
-router.post("/admin/jobs/update/:id",uploads.single("jobPhotoEdited"),JobsController.update);
-
+router.post("/admin/jobs/update/:id",uploads.single("jobPhotoEdited"),JobsController.update); 
+//saúde Routes
+router.get("/admin/health/",HealthController.index);  
+router.post("/admin/health/new",uploads.single("healthPhoto"),HealthController.create);
+router.post("/admin/health/update/:id",uploads.single("healthPhotoEdited"),HealthController.update); 
+router.get("/admin/health/delete/:id",HealthController.delete);  
 module.exports = router; 

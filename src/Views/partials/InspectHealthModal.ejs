@@ -1,0 +1,130 @@
+<!-- Modal -->
+<div class="modal modal-lg fade" id="staticBackdrop-Inspect-<%=i%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3" id="staticBackdropLabel">Editar Estabelecimento</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" action="/admin/health/update/<%=health._id%>" method="POST" enctype="multipart/form-data">
+                    <h3 class="fs-5">Dados do Estabelecimento/Instituição</h3>
+                    <div class="col-md-16">
+
+                        <div class="profile-pic">
+                            <label class="-label" for="file">
+                               
+                            </label>
+                            <% if (!health.healthPhoto) { %>
+                                <img src="https://media.istockphoto.com/id/1363734940/pt/foto/three-cardboard-boxes.jpg?s=2048x2048&w=is&k=20&c=sU00RkOfhWh7z-0uOsJwHqe26cBmC-mdTjUq-R-JV4A="
+                                id="output-<%= i %>" width="200" />
+                            <% } else { %>
+                                <img src="/uploads/<%= health.healthPhoto %>"
+                                id="output-<%= i %>" width="200" />
+                             <%  }%>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <label for="businessName" class="form-label">Estabelecimento/Instituição</label>
+                        <input type="text" name="healthName" disabled placeholder="Insira o nome" value="<%= health.healthName %>" class="form-control"
+                            id="healthName">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="healthLocation" class="form-label">Localização</label>
+                        <input type="text" name="healthLocation"   disabled value="<%= health.healthLocation %>"  placeholder=" Insira o Endereço"
+                            class="phone_with_ddd form-control" id="healthLocation">
+                    </div> 
+                    <div class="col-md-4">
+                        <label for="closingTime" class="form-label">Categoria</label>
+                        <select class="form-select" disabled name="categoryName" aria-label="Default select example">  
+                            <option   selected value="<%= health.categoryName %>"> <%= health.categoryName %></option>                            
+                            <% categories.forEach(category => { %>
+                                <option value="<%= category.category %>"><%= category.category %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="healthDescription"  class="form-label">Descrição Detalhada</label>
+                        <div class="form-floating">
+                            <textarea class="form-control" disabled  name="healthDescription"
+                                placeholder="Deixe sua descrição aqui..." id="healthDescription"
+                                style="height: 100px"> <%= health.healthDescription %></textarea>
+                            <label for="healthDescription">Descrição</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="tel" class="form-label">Telefone</label>
+                        <input type="text" disabled name="healthContactInfos[phone]"  value="<%= health.healthContactInfos.phone %>" placeholder="(00) 0000-0000" class="form-control" id="phone">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="whatsApp" class="form-label">WhatsApp</label>
+                        <input type="text"disabled  name="healthContactInfos[whatsApp]"    value="<%= health.healthContactInfos.whatsApp %>"  placeholder="(00) 0000-0000" class="form-control"
+                            id="whatsApp">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="text" disabled name="healthContactInfos[email]" value="<%= health.healthContactInfos.email %>"  placeholder="exemplo@gmal.com" class="form-control" id="email">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="closingTime" class="form-label">Data de Publicação</label>
+                        <input type="date" disabled name="datePublish"  value="<%= health.datePublish%>"  class="form-control" id="datePublish">
+                    </div> 
+                    <div class="col-md-4">
+                        <label for="closingTime" class="form-label">Publicador</label>
+                        <select class="form-select" disabled value="<%= health.publisher%>"   name="publisher" aria-label="Default select example">  
+                            <option  selected value="null"> Selecione o Publicador</option>                            
+                            <option   value="Thiago"> Thiago</option>   
+                            <option   value="Cauã Vitor"> Cauã Vitor</option>  
+                        </select>
+                    </div>  
+                    <div class="col-md-4">
+                        <label for="closingTime"   class="form-label">Status</label>
+                        <select class="form-select" value="<%= health.status%>"  disabled  name="status" aria-label="Default select example">  
+                            <option disabled  selected value="<%= health.status%>"> <%= health.status%></option>                            
+                            <option   value="Aberto"> Aberto</option>   
+                            <option   value="Fechado"> Fechado</option>  
+                        </select>
+                    </div> 
+                    <div class="col-md-3">
+                        <label for="openingTime"  value="<%= health.openingTime%>"  class="form-label">Horário de Abertura</label>
+                        <input type="time"  disabled name="openingTime" placeholder="00:00" class="form-control" id="openingTime">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="closingTime" class="form-label">Horário de Fechamento</label>
+                        <input type="time" disabled name="closingTime" value="<%= health.closingTime%>"   placeholder="00:00" class="form-control" id="closingTime">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="closingTime" class="form-label">Dias de Funcionamento</label>
+                        <select disabled class="form-select"  value="<%= health.operatingDays%>" name="operatingDays" aria-label="Default select example" multiple>
+                            <% health.operatingDays.forEach(days => { %>
+                                <option value="<%= days %>"><%= days %></option>
+                            <% }) %>
+                        </select>
+                    </div> 
+                    <div class="col-md-3">
+                        <label for="daysOnDuty" class="form-label">Dias de Plantão</label>
+                        <select disabled class="form-select" name="daysOnDuty"  value="<%= health.daysOnDuty%>"  aria-label="Default select example" multiple>
+                            <% health.daysOnDuty.forEach(days => { %>
+                                <option value="<%= days %>"><%= days %></option>
+                            <% }) %>
+
+                        </select>
+                    </div>
+                    <div class="col-md-12"> 
+                        <label for="tel" class="form-label">Incorporar Mapa</label>
+                        <input type="text" name="healthHTMLMap"  value="<%= health.healthHTMLMap%>"  placeholder="Código HTML" class="form-control" id="tel">
+                    </div> 
+                    <div class="col-md-12"> 
+                        <iframe src="<%= health.healthHTMLMap%>" width="760" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                   </div>
+                  
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
