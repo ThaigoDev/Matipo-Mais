@@ -1,8 +1,11 @@
 const CategoryRules = require("../Models/CategoryModels");
 const JobsBR = require("../Models/JobsModel");
 class JobsController {
-  static async index(req, res) {
-    try {
+  static async index(req, res) { 
+    try { 
+      if (!req.session.user) {
+        res.render("NoPermission");
+      }
       const categoryBR = new CategoryRules(req.body);
       const categories = await categoryBR.read();
       const jobsBR = new JobsBR();

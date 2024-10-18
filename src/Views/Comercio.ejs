@@ -19,7 +19,7 @@
             <div class="content">
                 <div class="cards-container">
                     <% for( let index = 0; index < 1; index++ ) { %>
-                        <%- include('./partials/CardsComercio.ejs') %>
+                        <%- include('./partials/CardsComercio.ejs',{allBusiness:allBusiness}) %>
                     <% } %>
                 </div>
             </div>

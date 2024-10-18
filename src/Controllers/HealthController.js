@@ -3,7 +3,10 @@ const HousingBR = require("../Models/HousingModel");
 const HealthBR= require("../Models/HealthModel"); 
 class HealthController {
   static async index(req, res) {
-    try {
+    try { 
+        if (!req.session.user) {
+            res.render("NoPermission");
+          }
       const categoryBR = new CategoryRules(req.body);
       const categories = await categoryBR.read();
       const healthBR = new HealthBR();

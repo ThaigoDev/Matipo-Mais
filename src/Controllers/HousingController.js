@@ -1,7 +1,10 @@
 const CategoryRules = require("../Models/CategoryModels");
 const HousingBR = require("../Models/HousingModel");
 class HousingController {
-  static async index(req, res) {
+  static async index(req, res) { 
+    if (!req.session.user) {
+      res.render("NoPermission");
+    }
     const categoryBR = new CategoryRules(req.body);
     const categories = await categoryBR.read();
     const housingBR = new HousingBR();
