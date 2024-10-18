@@ -8,7 +8,9 @@ const CategoryController = require("./src/Controllers/CategoryController");
 const BusinessHomeController = require("./src/Controllers/BusinessHomeController"); 
 const BusinessController = require("./src/Controllers/BusinessController");   
 const HousingController = require("./src/Controllers/HousingController");  
-const HealthController = require("./src/Controllers/HealthController");
+const HealthController = require("./src/Controllers/HealthController"); 
+const HealthHomeController = require("./src/Controllers/HealthHomeController");
+
 const JobsController = require("./src/Controllers/JobsController"); 
 const JobsHomeController = require("./src/Controllers/JobsHomeController")
 const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController"); 
@@ -40,7 +42,7 @@ router.post("/admin/jobs/new",uploads.single("jobPhoto"),JobsController.create);
 router.get("/admin/jobs/delete/:id",JobsController.delete);  
 router.post("/admin/jobs/update/:id",uploads.single("jobPhotoEdited"),JobsController.update); 
 //saúde Routes 
-router.get("/health/index",HealthController.index)
+router.get("/health/index",HealthHomeController.index)
 router.get("/admin/health/",HealthController.index);  
 router.post("/admin/health/new",uploads.single("healthPhoto"),HealthController.create);
 router.post("/admin/health/update/:id",uploads.single("healthPhotoEdited"),HealthController.update); 
