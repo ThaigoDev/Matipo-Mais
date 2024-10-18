@@ -10,7 +10,7 @@ const BusinessController = require("./src/Controllers/BusinessController");
 const HousingController = require("./src/Controllers/HousingController");  
 const HealthController = require("./src/Controllers/HealthController"); 
 const HealthHomeController = require("./src/Controllers/HealthHomeController");
-
+const LeisureController = require("./src/Controllers/LeisureHomeController")
 const JobsController = require("./src/Controllers/JobsController"); 
 const JobsHomeController = require("./src/Controllers/JobsHomeController")
 const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController"); 
@@ -46,5 +46,8 @@ router.get("/health/index",HealthHomeController.index)
 router.get("/admin/health/",HealthController.index);  
 router.post("/admin/health/new",uploads.single("healthPhoto"),HealthController.create);
 router.post("/admin/health/update/:id",uploads.single("healthPhotoEdited"),HealthController.update); 
-router.get("/admin/health/delete/:id",HealthController.delete);  
+router.get("/admin/health/delete/:id",HealthController.delete);   
+//Lazer routes 
+
+router.get("/leisure/index",LeisureController.index); 
 module.exports = router; 
