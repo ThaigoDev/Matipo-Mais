@@ -1,0 +1,18 @@
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop-Delete-<%=i%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Deletar <%= health.healthName %></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Ao clicar em "apagar", você estará realizando uma ação irreversível. Certifique-se de que deseja prosseguir, pois não será possível recuperar os dados depois.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
+          <a href=<%= url %>> <button type="button" class="btn btn-danger">Apagar</button> </a>
+        </div>
+      </div>
+    </div>
+  </div>

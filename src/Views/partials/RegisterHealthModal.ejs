@@ -1,0 +1,134 @@
+<!-- Modal -->
+<div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3" id="staticBackdropLabel">Adicionar Estabelecimento</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" action="/admin/health/new/" method="POST" enctype="multipart/form-data">
+
+                    <h3 class="fs-5">Dados do Estabelecimento/Instituição</h3>
+                    <div class="col-md-16">
+
+                        <div class="profile-pic">
+                            <label class="-label" for="file">
+                                <span class="glyphicon glyphicon-camera"></span>
+                                <span>Change Image</span>
+                            </label>
+                            <input id="file" type="file" name="healthPhoto" onchange="loadFile(event)" />
+                            <img src="https://media.istockphoto.com/id/1363734940/pt/foto/three-cardboard-boxes.jpg?s=2048x2048&w=is&k=20&c=sU00RkOfhWh7z-0uOsJwHqe26cBmC-mdTjUq-R-JV4A="
+                                id="output" width="200" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <label for="businessName" class="form-label">Estabelecimento/Instituição</label>
+                        <input type="text" name="healthName" placeholder="Insira o nome" class="form-control"
+                            id="healthName">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="healthLocation" class="form-label">Localização</label>
+                        <input type="text" name="healthLocation" placeholder=" Insira o Endereço"
+                            class="phone_with_ddd form-control" id="healthLocation">
+                    </div> 
+                    <div class="col-md-4">
+                        <label for="closingTime" class="form-label">Categoria</label>
+                        <select class="form-select" name="categoryName" aria-label="Default select example">  
+                            <option disabled  selected value="null">Selecione uma Categoria</option>                            
+                            <% categories.forEach(category => { %>
+                                <option value="<%= category.category %>"><%= category.category %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="healthDescription" class="form-label">Descrição Detalhada</label>
+                        <div class="form-floating">
+                            <textarea class="form-control" name="healthDescription"
+                                placeholder="Deixe sua descrição aqui..." id="healthDescription"
+                                style="height: 100px"></textarea>
+                            <label for="healthDescription">Descrição</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="tel" class="form-label">Telefone</label>
+                        <input type="text" name="healthContactInfos[phone]" placeholder="(00) 0000-0000" class="form-control" id="phone">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="whatsApp" class="form-label">WhatsApp</label>
+                        <input type="text" name="healthContactInfos[whatsApp]" placeholder="(00) 0000-0000" class="form-control"
+                            id="whatsApp">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="text" name="healthContactInfos[email]" placeholder="exemplo@gmal.com" class="form-control" id="email">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="closingTime" class="form-label">Data de Publicação</label>
+                        <input type="date" name="datePublish"  class="form-control" id="datePublish">
+                    </div> 
+                    <div class="col-md-4">
+                        <label for="closingTime" class="form-label">Publicador</label>
+                        <select class="form-select" name="publisher" aria-label="Default select example">  
+                            <option disabled  selected value="null"> Selecione o Publicador</option>                            
+                            <option   value="Thiago"> Thiago</option>   
+                            <option   value="Cauã Vitor"> Cauã Vitor</option>  
+                        </select>
+                    </div>  
+                    <div class="col-md-4">
+                        <label for="closingTime" class="form-label">Status</label>
+                        <select class="form-select" name="status" aria-label="Default select example">  
+                            <option disabled  selected value="null"> Status</option>                            
+                            <option   value="Aberto"> Aberto</option>   
+                            <option   value="Fechado"> Fechado</option>  
+                        </select>
+                    </div> 
+                    <div class="col-md-3">
+                        <label for="openingTime" class="form-label">Horário de Abertura</label>
+                        <input type="time" name="openingTime" placeholder="00:00" class="form-control" id="openingTime">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="closingTime" class="form-label">Horário de Fechamento</label>
+                        <input type="time" name="closingTime" placeholder="00:00" class="form-control" id="closingTime">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="closingTime" class="form-label">Dias de Funcionamento</label>
+                        <select class="form-select" name="operatingDays" aria-label="Default select example" multiple>
+                            <option value="Domingo">Domingo</option>
+                            <option value="Segunda-feira">Segunda-feira</option>
+                            <option value="Terça-feira">Terça-feira</option>
+                            <option value="Quarta-feira">Quarta-feira</option>
+                            <option value="Quinta-feira">Quinta-feira</option>
+                            <option value="Sexta-feira">Sexta-feira</option>
+                            <option value="Sábado">Sábado</option>
+                        </select>
+                    </div> 
+                    <div class="col-md-3">
+                        <label for="daysOnDuty" class="form-label">Dias de Plantão</label>
+                        <select class="form-select" name="daysOnDuty" aria-label="Default select example" multiple>
+                            <option value="Domingo">Domingo</option>
+                            <option value="Segunda-feira">Segunda-feira</option>
+                            <option value="Terça-feira">Terça-feira</option>
+                            <option value="Quarta-feira">Quarta-feira</option>
+                            <option value="Quinta-feira">Quinta-feira</option>
+                            <option value="Sexta-feira">Sexta-feira</option>
+                            <option value="Sábado">Sábado</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12"> 
+                        <label for="tel" class="form-label">Incorporar Mapa</label>
+                        <input type="text" name="healthHTMLMap" placeholder="Código HTML" class="form-control" id="tel">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Adicionar </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
