@@ -1,14 +1,10 @@
 footer {
-
-
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #034078;
     height: 39vh;
     width: 100%;
-
-
 }
 
 .corpo-footer {
