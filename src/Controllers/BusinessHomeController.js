@@ -1,6 +1,9 @@
+const BusinessRules = require("../Models/BusinessModel");
 class BusinessHomeController {
-  static index(req,res) {
-    res.render("Comercio"); 
+  static  async index(req,res) { 
+    const businessBR = new BusinessRules(req.body);
+   const allBusiness =  await businessBR.read();
+    res.render("Comercio",{allBusiness}); 
   }   
 } 
 module.exports = BusinessHomeController; 
