@@ -9,9 +9,12 @@ const BusinessHomeController = require("./src/Controllers/BusinessHomeController
 const BusinessController = require("./src/Controllers/BusinessController");   
 const HousingController = require("./src/Controllers/HousingController");  
 const HealthController = require("./src/Controllers/HealthController");
-const JobsController = require("./src/Controllers/JobsController"); 
 const JobsHomeController = require("./src/Controllers/JobsHomeController")
 const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController"); 
+const HealthHomeController = require("./src/Controllers/HealthHomeController");
+const LeisureController = require("./src/Controllers/LeisureHomeController")
+const JobsController = require("./src/Controllers/JobsController"); 
+
 
 
 //nesse arquivo, vamos definir as rotas da nossa página, por exemplo : www.teste/[rotas que vamos criar]
@@ -41,8 +44,13 @@ router.get("/admin/jobs/delete/:id",JobsController.delete);
 router.post("/admin/jobs/update/:id",uploads.single("jobPhotoEdited"),JobsController.update); 
 //saúde Routes 
 router.get("/health/index",HealthController.index)
+//saúde Routes 
+router.get("/health/index",HealthHomeController.index)
 router.get("/admin/health/",HealthController.index);  
 router.post("/admin/health/new",uploads.single("healthPhoto"),HealthController.create);
 router.post("/admin/health/update/:id",uploads.single("healthPhotoEdited"),HealthController.update); 
-router.get("/admin/health/delete/:id",HealthController.delete);  
+router.get("/admin/health/delete/:id",HealthController.delete);   
+//Lazer routes 
+
+router.get("/leisure/index",LeisureController.index); 
 module.exports = router; 
