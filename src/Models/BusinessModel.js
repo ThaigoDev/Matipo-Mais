@@ -15,8 +15,8 @@ const BusinessSchema = mongoose.Schema({
   operatingDays: { type: [String], required:true} , 
 
   businessMapHTML: { type: String, required: false }, 
-  status : { type: String, required: true }, 
-  categoryName: { type: String, required: true }, 
+  status : { type: String, required: false }, 
+  categoryName: { type: String, required: false }, 
 
   categoryID: { type: Schema.Types.ObjectId, ref: "Categories" },
 });
