@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Individual Page</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/Home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/utilites/logo2.png" type="image/x-icon">
+    <title>INÍCIO - MATIPÓ +</title>
+    <link rel="stylesheet" href="/css/Header.css">
+    <link rel="stylesheet" href="/css/IndividualPage.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,500,0,200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+
+</head>
+
+<body>
+
+    <div class="container">
+        <%- include('./partials/Header.ejs') %>
+
+            <div class="titulo">
+                <p><%= business.businessName %></p>
+            </div>
+
+            <% if (business.businessPhoto) { %>
+                <img class="foto"
+                src="/uploads/<%=business.businessPhoto%>"
+                alt="foto">
+
+            <% }else { %>
+                <img class="foto"
+                src="https://s2-techtudo.glbimg.com/SSAPhiaAy_zLTOu3Tr3ZKu2H5vg=/0x0:1024x609/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg"
+                alt="foto">
+             <% } %>
+           
+
+            <div class="dados">
+
+                <p><%= business.businessLocation %></p>
+                <p> Abre ás <%= business.openingTime %> </p>
+                <p> Fecha ás <%= business.closingTime %> </p>
+             
+
+            </div>
+
+
+            <div class="info-mapa-container">
+                
+                <iframe class="mapa"
+                    src="<%= business.businessMapHTML %>"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            
+                <div class="info">
+
+                    <p>Publicado em: <%= business.datePublish %></p>
+                    <p>Por  <%= business.publisher %></p>
+
+                </div>
+
+            </div>
+
+
+            <div class="disponivel">
+
+                <p> <%= business.status %></p>
+
+            </div>
+
+            <div class="fim">
+
+
+                <div class="status">
+
+                    <p>  <%= business.businessContact.whatsApp %></p>
+
+                </div>
+
+                <div class="zap">
+
+                </div>
+                
+
+            </div>
+
+
+            <%- include('./partials/Footer.ejs') %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="/js/Header.js"></script>
+    <script src="/js/cards.js"></script>
+
+</body>
+
+</html>

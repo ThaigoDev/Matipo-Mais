@@ -55,6 +55,14 @@ class JobsBR {
     } catch (e) {
       throw new Error(e);
     }
-  }
+  } 
+  async getById(id) {
+    try{
+        const job = JobModel.findOne({_id:id});  
+        return job; 
+    }catch(e) {
+        throw new Error(e); 
+    }
+}
 } 
 module.exports = JobsBR; 

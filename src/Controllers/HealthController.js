@@ -82,6 +82,11 @@ class HealthController {
         erros: console.error(e),
       });
     }
-  } 
+  }  
+  static async view(req,res) { 
+    const healthBR = new HealthBR();
+    const health=    await  healthBR.getById(req.params.id); 
+    res.render("IndividualPageHealth",{health}); 
+   }
 }
 module.exports = HealthController;

@@ -56,6 +56,14 @@ class HousingBR  {
         }catch(e) {
             throw new Error(e); 
         }
+    } 
+    async getById(id) {
+        try{
+            const housing = housingModel.findOne({_id:id});  
+            return housing; 
+        }catch(e) {
+            throw new Error(e); 
+        }
     }
 }    
 module.exports =  HousingBR; 

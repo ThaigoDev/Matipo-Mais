@@ -84,6 +84,11 @@ class BusinessController {
         erros: console.error(e),
       });
     }
-  }
+  } 
+  static async view(req,res) { 
+    const businessBR = new BusinessRules(req.body);
+    const business = await businessBR.getById(req.params.id);
+    res.render("IndividualPageBusiness",{business}); 
+   }
 }
 module.exports = BusinessController;

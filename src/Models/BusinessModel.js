@@ -56,6 +56,14 @@ class BusinessRules {
     }catch(e) {
       throw new Error (e)
     }
-  }
+  } 
+  async getById(id) {
+    try{
+        const business = Business.findOne({_id:id});  
+        return business; 
+    }catch(e) {
+        throw new Error(e); 
+    }
+}
 }
 module.exports = BusinessRules;
