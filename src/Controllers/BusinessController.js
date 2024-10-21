@@ -42,7 +42,8 @@ class BusinessController {
     }
   }
   static async update(req, res) {
-    try {
+    try { 
+      console.log(req.body)
       let body = {};
       const categoryBR = new CategoryRules(req.body);
       const categoryFinded = await categoryBR.findByCategory(

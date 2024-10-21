@@ -5,21 +5,22 @@
     <link rel="stylesheet" href="/css/Home.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="shortcut icon" href="/utilites/logo2.png" type="image/x-icon">
-    <title>Comércios - MATIPÓ +</title>
+    <title>Moradia- MATIPÓ +</title>
     <link rel="stylesheet" href="/css/Header.css"> 
     <link rel="stylesheet" href="/css/CardsComercio.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,500,0,200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
-   
-    <body>   
+<body>  
     <main class="content">
         <%- include('./partials/Header.ejs') %>
 
         <main class="content">
             <div class="content">
                 <div class="cards-container">
-                     <%- include('./partials/CardsComercio.ejs',{allBusiness:allBusiness}) %>
+                    
+                        <%- include('./partials/CardsHousing.ejs',{allHousing}) %>
+                
                 </div>
             </div>
         </main>
