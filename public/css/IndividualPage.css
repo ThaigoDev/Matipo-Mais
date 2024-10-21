@@ -76,12 +76,16 @@
 }
 
 .zap {
-    background-color: #00bb2d;
+    background:url(../utilites/wpp.png); 
+    background-position: center;
+    background-size: cover; 
+    background-repeat: no-repeat;
     height: 30px;
     width: 30px;
     border-radius: 100%;
     display: inline-block;
-    padding-top: 2px;
+    padding-top: 2px; 
+
 }
 
 .fim {
