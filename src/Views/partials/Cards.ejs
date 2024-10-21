@@ -12,9 +12,9 @@
                         <img class="imgCard" src="/uploads/<%= housing.housingPhoto %>" alt="">
                      <% } %>
                     </div>
-                <p class="infCard"> <%= housing.housingLocation %></p>
-                <p class="infCard"><%= housing.roomsQTD %> Quartos</p>
-                <p class="infCard"><%= housing.housingContactInfos.whatsApp %></p>
+                <p class="infCard"><i class=" icon ph-bold ph-building-office"></i> <%= housing.housingName %></p>
+                <p class="infCard"><i class=" icon ph-bold ph-bed"> </i><%= housing.roomsQTD %> Quartos</p>
+                <p class="infCard"><i class=" icon ph-bold ph-phone"></i><%= housing.housingContactInfos.whatsApp %></p>
                 <p class="sttCard"><%= housing.status %></p>
             </div>
         <% }) %>            
@@ -33,9 +33,9 @@
 
                <%} %>
           </div>
-          <p class="infCard"><%= job.jobName%></p>
-          <p class="infCard"><%= job.businessName%></p>
-          <p class="infCard"><%= job.jobContact.whatsApp%></p>
+          <p class="infCard"><i class=" icon ph-bold ph-read-cv-logo"></i> <%= job.jobName%></p>
+          <p class="infCard"><i class=" icon ph-bold ph-factory"></i>  <%= job.businessName%></p>
+          <p class="infCard"> <p class="infCard"><i class=" icon ph-bold ph-phone"></i> <%= job.jobContact.whatsApp%></p>
           <p class="sttCard"><%= job.status%></p>
       </div>
       <% }) %>
@@ -55,9 +55,9 @@
 
                  <%} %>
             </div>
-            <p class="infCard"><%= business.businessName%></p>
-            <p class="infCard"><%= business.businessContact.tel%></p>
-            <p class="infCard"><%= business.businessContact.whatsApp%></p>
+            <p class="infCard"><i class=" icon ph-bold ph-building-office"></i> <%= business.businessName%></p>
+            <p class="infCard"><i class=" icon ph-bold ph-phone"></i> <%= business.businessContact.tel%></p>
+            <p class="infCard"><i class=" icon ph-bold ph-phone"></i> <%= business.businessContact.whatsApp%></p>
             <p class="sttCard">Disponivel</p>
         </div>
         <% }) %>
