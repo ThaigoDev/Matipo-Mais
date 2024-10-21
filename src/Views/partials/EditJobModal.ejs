@@ -14,11 +14,11 @@
                     <div class="col-md-16">
 
                         <div class="profile-pic">
-                            <label class="-label" for="file">
+                            <label class="-label" for="file-<%=i%>">
                                 <span class="glyphicon glyphicon-camera"></span>
                                 <span>Change Image</span>
                             </label>
-                            <input id="file" type="file" name="jobPhotoEdited" onchange="loadFile(event)" />
+                            <input id="file-<%=i%>" type="file" name="jobPhotoEdited" onchange="loadFileEdited(event)" />
                             <% if (!job.jobPhoto) { %>
                                 <img src="https://img.freepik.com/premium-vector/job-newspaper-icon-blue-color-design_965649-13412.jpg?w=826"
                                 id="output-<%= i %>" width="200" />
