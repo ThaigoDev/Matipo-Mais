@@ -11,19 +11,25 @@
     margin-left: 26px;
 }
 
-.info {
-    font-size: 11px;
-    margin-top: 70px;
-    float: right;
-    margin-right: 8px;
-    text-align: center;
-
+.info-mapa-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+    margin-left: 26px;
+    margin-top: 10px;
 }
 
 .dados {
-
+    margin-bottom: 15px;
     margin-top: 10px;
     margin-left: 26px;
+}
+
+.info {
+    font-size: 11px;
+    width: auto;
+    text-align: left;
+    margin-left: 10px;
 }
 
 .titulo {
@@ -34,13 +40,11 @@
 }
 
 .mapa {
-    margin-left: 26px;
-    margin-top: 10px;
-    height: 6%;
+    height: 125px;
     width: 55%;
     border-radius: 20px;
-    float: left;
-    clear: both;
+    flex-shrink: 0;
+    margin: bottom 10px;
 }
 
 
@@ -51,6 +55,7 @@
     color: rgb(1, 1, 96);
     font-weight: bold;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 
@@ -64,7 +69,7 @@
     background-color: #f6be15;
     color: rgb(255, 255, 255);
     margin-left: 24%;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     text-align: center;
     font-weight: bold;
     margin-right: 3px;
@@ -77,14 +82,10 @@
     border-radius: 100%;
     display: inline-block;
     padding-top: 2px;
-
-
-
 }
 
 .fim {
 
     margin-top: 5px;
     display: flex;
-
 }
