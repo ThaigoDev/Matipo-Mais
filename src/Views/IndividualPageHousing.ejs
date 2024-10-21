@@ -44,9 +44,9 @@
 
             <div class="dados">
 
-                <p><%= housing.housingLocation %></p>
-                <p><%= housing.roomsQTD %> quartos </p>
-                <p><%= housing.bathroomsQTD %>  banheiros </p>
+                <p><i class="icon ph-bold ph-map-pin"> </i> Endereço: <%= housing.housingLocation %></p>
+                <p>  <i class=" icon ph-bold ph-bed"></i> <%= housing.roomsQTD %> quartos </p>
+                <p> <i class=" icon ph-bold ph-toilet"></i> <%= housing.bathroomsQTD %>  banheiros </p>
              
 
             </div>
@@ -99,7 +99,9 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script src="/js/Header.js"></script>
-    <script src="/js/cards.js"></script>
+    <script src="/js/cards.js"></script> 
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
 
 </body>
 
