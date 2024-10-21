@@ -24,7 +24,21 @@
             </div>
         </main>
         <%- include('./partials/Footer.ejs') %>
-    </main>
+    </main> 
+    <script> function loadFileEdited(event,i) { 
+        console.log(i);
+        let image = document.getElementById(`output-${ i }`); 
+        console.log(image);
+        image.src = URL.createObjectURL(event.target.files[0]);
+      };
+       function loadFile (event) {
+          let image = document.getElementById("output");
+          image.src = URL.createObjectURL(event.target.files[0]);
+        }; 
+      
+      
+        
+        </script>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/js/Header.js"></script>

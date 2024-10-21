@@ -13,17 +13,18 @@
                     <div class="col-md-16">
 
                         <div class="profile-pic">
-                            <label class="-label" for="file">
+                            <label class="-label" for="file-<%=i%>">
                                 <span class="glyphicon glyphicon-camera"></span>
                                 <span>Change Image</span>
                             </label>
-                            <input id="file" type="file" name="healthPhotoEdited" onchange="loadFile(event)" />
-                            <% if (!health.healthPhoto) { %>
-                                <img src="https://media.istockphoto.com/id/1363734940/pt/foto/three-cardboard-boxes.jpg?s=2048x2048&w=is&k=20&c=sU00RkOfhWh7z-0uOsJwHqe26cBmC-mdTjUq-R-JV4A="
-                                id="output-<%= i %>" width="200" />
-                            <% } else { %>
+                            <input id="file-<%=i%>" type="file" name="healthPhotoEdited" onchange="loadFileEdited(event)" />
+                            <% if (health.healthPhoto) { %>
                                 <img src="/uploads/<%= health.healthPhoto %>"
-                                id="output-<%= i %>" width="200" />
+                                id="output-<%=i %>" width="200" />
+                            <% } else { %> 
+                                <img src="https://media.istockphoto.com/id/1363734940/pt/foto/three-cardboard-boxes.jpg?s=2048x2048&w=is&k=20&c=sU00RkOfhWh7z-0uOsJwHqe26cBmC-mdTjUq-R-JV4A="
+                                id="output-<%=i %>" width="200" />
+                              
                              <%  }%>
                         </div>
                     </div>
