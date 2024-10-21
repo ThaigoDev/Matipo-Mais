@@ -82,6 +82,19 @@ class JobsController {
         erros: console.error(e),
       });
     }
+   } 
+   static async view(req,res) {  
+    try {
+      const jobBR = new JobsBR();  
+      const job = await jobBR.getById(req.params.id); 
+      res.render("IndividualPageJobs",{job}); 
+      } catch (e) {
+        res.status(502).json({
+          title: "failed",
+          erros: console.error(e),
+        });
+      }
+   
    }
 }
 

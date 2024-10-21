@@ -20,13 +20,14 @@ const IndividualPageController = require("./src/Controllers/IndividualPageContro
 
 //nesse arquivo, vamos definir as rotas da nossa página, por exemplo : www.teste/[rotas que vamos criar]
 router.get("/",HomeController.index); //uma rota deve ter um controller, no caso  o controller vai linkar nosso banco de dados com o front end.   
-router.get("/business/index",BusinessHomeController.index); 
 router.get("/quemsomos/");  
 router.post("/category/new",CategoryController.create);  
 router.get("/admin/",LoginAndSignUpController.index); 
 router.post("/admin/auth",LoginAndSignUpController.auth); 
 router.get("/admin/logout",LoginAndSignUpController.logout); 
 //Comércio Routes
+router.get("/business/index",BusinessHomeController.index);   
+router.get("/businessView/:id",BusinessController.view);
 router.get("/admin/business/",BusinessController.index);  
 router.post("/admin/business/new",uploads.single("businessPhoto"),BusinessController.create);  
 router.get("/admin/business/delete/:id",BusinessController.delete);  
@@ -37,14 +38,18 @@ router.post("/admin/housing/new",uploads.single("housingPhoto"),HousingControlle
 router.get("/admin/housing/delete/:id",HousingController.delete);
 router.post("/admin/housing/update/:id",uploads.single("housingPhotoEdited"),HousingController.update);    
 router.get("/housing/index",HousingHomeController.index )
+router.get("/housingView/:id",HousingController.view);
 //Emprego Routes  
-router.get("/jobs/index",JobsHomeController.index); 
+router.get("/jobs/index",JobsHomeController.index);   
+router.get("/jobsView/:id",JobsController.view);
+
 router.get("/admin/jobs/",JobsController.index);   
 router.post("/admin/jobs/new",uploads.single("jobPhoto"),JobsController.create);  
 router.get("/admin/jobs/delete/:id",JobsController.delete);  
 router.post("/admin/jobs/update/:id",uploads.single("jobPhotoEdited"),JobsController.update); 
 //saúde Routes 
-router.get("/health/index",HealthHomeController.index)
+router.get("/health/index",HealthHomeController.index) 
+router.get("/healthView/:id",HealthController.view)
 router.get("/admin/health/",HealthController.index);  
 router.post("/admin/health/new",uploads.single("healthPhoto"),HealthController.create);
 router.post("/admin/health/update/:id",uploads.single("healthPhotoEdited"),HealthController.update); 
@@ -52,5 +57,4 @@ router.get("/admin/health/delete/:id",HealthController.delete);
 //Lazer routes 
 
 router.get("/leisure/index",LeisureController.index); 
-router.get("/view",IndividualPageController.index);
 module.exports = router; 

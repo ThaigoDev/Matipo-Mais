@@ -58,7 +58,15 @@ class HealthBR {
     } catch (e) {
       throw new Error(e);
     }
-  }
+  } 
+  async getById(id) {
+    try{
+        const health = HealthModel.findOne({_id:id});  
+        return health; 
+    }catch(e) {
+        throw new Error(e); 
+    }
+}
 }
 
 module.exports = HealthBR;
