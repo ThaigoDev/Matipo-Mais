@@ -21,6 +21,7 @@
     width: 100%;
     height: 100%;
     justify-content: space-evenly;
+    overflow-x: scroll;
 }
 
 .card {
@@ -69,7 +70,10 @@
     font-weight: bold;
     text-align: center;
     margin-top: 20px;
-    margin: 5px;
+    margin: 5px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     
 }
 
@@ -100,6 +104,7 @@
         width: 100%;
         flex-direction: row;
         height: 100%;
+        overflow-x: none;
     }
 
 }
@@ -115,6 +120,7 @@
 
     .container {
         margin-left: 100px;
+        overflow-x: none;
     }
 
 }

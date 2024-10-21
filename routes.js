@@ -7,13 +7,15 @@ const HomeController = require("./src/Controllers/HomeController");
 const CategoryController = require("./src/Controllers/CategoryController"); 
 const BusinessHomeController = require("./src/Controllers/BusinessHomeController"); 
 const BusinessController = require("./src/Controllers/BusinessController");   
-const HousingController = require("./src/Controllers/HousingController");  
+const HousingController = require("./src/Controllers/HousingController");   
+const HousingHomeController = require("./src/Controllers/HousingHomeController")
 const HealthController = require("./src/Controllers/HealthController"); 
 const HealthHomeController = require("./src/Controllers/HealthHomeController");
 const LeisureController = require("./src/Controllers/LeisureHomeController")
 const JobsController = require("./src/Controllers/JobsController"); 
 const JobsHomeController = require("./src/Controllers/JobsHomeController")
 const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController"); 
+const IndividualPageController = require("./src/Controllers/IndividualPageController");
 
 
 //nesse arquivo, vamos definir as rotas da nossa página, por exemplo : www.teste/[rotas que vamos criar]
@@ -32,9 +34,9 @@ router.post("/admin/business/update/:id",uploads.single("businessPhotoEdited"),B
 //Moradia Routes
 router.get("/admin/housing/",HousingController.index);  
 router.post("/admin/housing/new",uploads.single("housingPhoto"),HousingController.create);  
-
 router.get("/admin/housing/delete/:id",HousingController.delete);
-router.post("/admin/housing/update/:id",uploads.single("housingPhotoEdited"),HousingController.update);   
+router.post("/admin/housing/update/:id",uploads.single("housingPhotoEdited"),HousingController.update);    
+router.get("/housing/index",HousingHomeController.index )
 //Emprego Routes  
 router.get("/jobs/index",JobsHomeController.index); 
 router.get("/admin/jobs/",JobsController.index);   
@@ -50,4 +52,5 @@ router.get("/admin/health/delete/:id",HealthController.delete);
 //Lazer routes 
 
 router.get("/leisure/index",LeisureController.index); 
+router.get("/view",IndividualPageController.index);
 module.exports = router; 
