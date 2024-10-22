@@ -32,17 +32,17 @@
 
                     <div class="col-md-4">
                         <label for="businessName" class="form-label">Estabelecimento/Instituição</label>
-                        <input type="text" name="healthName" placeholder="Insira o nome" value="<%= health.healthName %>" class="form-control"
+                        <input type="text" required name="healthName" placeholder="Insira o nome" value="<%= health.healthName %>" class="form-control"
                             id="healthName">
                     </div>
                     <div class="col-md-4">
                         <label for="healthLocation" class="form-label">Localização</label>
-                        <input type="text" name="healthLocation"  value="<%= health.healthLocation %>"  placeholder=" Insira o Endereço"
-                            class="phone_with_ddd form-control" id="healthLocation">
+                        <input type="text" required  name="healthLocation"  value="<%= health.healthLocation %>"  placeholder=" Insira o Endereço"
+                            class="form-control" id="healthLocation">
                     </div> 
                     <div class="col-md-4">
                         <label for="closingTime" class="form-label">Categoria</label>
-                        <select class="form-select" name="categoryName" aria-label="Default select example">  
+                        <select class="form-select" required  name="categoryName" aria-label="Default select example">  
                             <option   selected value="<%= health.categoryName %>"> <%= health.categoryName %></option>                            
                             <% categories.forEach(category => { %>
                                 <option value="<%= category.category %>"><%= category.category %></option>
@@ -52,7 +52,7 @@
                     <div class="col-12">
                         <label for="healthDescription" class="form-label">Descrição Detalhada</label>
                         <div class="form-floating">
-                            <textarea class="form-control" name="healthDescription"
+                            <textarea class="form-control" required name="healthDescription"
                                 placeholder="Deixe sua descrição aqui..." id="healthDescription"
                                 style="height: 100px"> <%= health.healthDescription %></textarea>
                             <label for="healthDescription">Descrição</label>
@@ -60,11 +60,11 @@
                     </div>
                     <div class="col-md-4">
                         <label for="tel" class="form-label">Telefone</label>
-                        <input type="text" name="healthContactInfos[phone]"  value="<%= health.healthContactInfos.phone %>" placeholder="(00) 0000-0000" class="form-control" id="phone">
+                        <input type="text"  name="healthContactInfos[phone]"  value="<%= health.healthContactInfos.phone %>" placeholder="(00) 0000-0000 " class="form-control phone_with_ddd" id="phone">
                     </div>
                     <div class="col-md-4">
                         <label for="whatsApp" class="form-label">WhatsApp</label>
-                        <input type="text" name="healthContactInfos[whatsApp]"    value="<%= health.healthContactInfos.whatsApp %>"  placeholder="(00) 0000-0000" class="form-control"
+                        <input type="text" name="healthContactInfos[whatsApp]"    value="<%= health.healthContactInfos.whatsApp %>"  placeholder="(00) 0000-0000" class="form-control phone_with_ddd"
                             id="whatsApp">
                     </div>
 
@@ -74,18 +74,18 @@
                     </div>
                     <div class="col-md-3">
                         <label for="closingTime" class="form-label">Data de Publicação</label>
-                        <input type="date" name="datePublish"  value="<%= health.datePublish%>"  class="form-control" id="datePublish">
+                        <input type="date" required  name="datePublish"  value="<%= health.datePublish%>"  class="form-control" id="datePublish">
                     </div> 
                     <div class="col-md-4">
                         <label for="closingTime" class="form-label">Publicador</label>
-                        <select class="form-select" value="<%= health.publisher%>"   name="publisher" aria-label="Default select example">  
+                        <select required class="form-select" value="<%= health.publisher%>"   name="publisher" aria-label="Default select example">  
                             <option disabled  selected value="null"> Selecione o Publicador</option>                            
                             <option   value="Thiago"> Thiago</option>   
                             <option   value="Cauã Vitor"> Cauã Vitor</option>  
                         </select>
                     </div>  
                     <div class="col-md-4">
-                        <label for="closingTime"  value="<%= health.status%>" class="form-label">Status</label>
+                        <label for="closingTime"  required  value="<%= health.status%>" class="form-label">Status</label>
                         <select class="form-select" name="status" aria-label="Default select example">  
                             <option disabled  selected value="null"> Status</option>                            
                             <option   value="Aberto"> Aberto</option>   

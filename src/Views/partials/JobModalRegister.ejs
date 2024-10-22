@@ -18,7 +18,7 @@
                                 <span class="glyphicon glyphicon-camera"></span>
                                 <span>Change Image</span>
                             </label>
-                            <input id="file" type="file" name="jobPhoto" onchange="loadFile(event)" />
+                            <input  id="file" type="file" name="jobPhoto" onchange="loadFile(event)" />
                             <img src="https://img.freepik.com/premium-vector/job-newspaper-icon-blue-color-design_965649-13412.jpg?w=826"
                                 id="output" width="200" />
                         </div>
@@ -27,13 +27,13 @@
 
                     <div class="col-md-4">
                         <label for="businessName" class="form-label">Cargo</label>
-                        <input type="text" name="jobName" placeholder="Nome do Emprego" class="form-control"
+                        <input  required type="text" name="jobName" placeholder="Nome do Emprego" class="form-control"
                             id="jobName">
                     </div>
                     <div class="col-md-4">
                         <label for="jobLocation" class="form-label">Localização</label>
-                        <input type="text" name="jobLocation" placeholder="Endereço da Contratante"
-                            class="phone_with_ddd form-control" id="jobLocation">
+                        <input required  type="text" name="jobLocation" placeholder="Endereço da Contratante"
+                            class=" form-control" id="jobLocation">
                     </div> 
                     <div class="col-md-4">
                         <label for="closingTime" class="form-label">Categoria</label>
@@ -47,7 +47,7 @@
                     <div class="col-12">
                         <label for="jobDescription" class="form-label">Descrição Detalhada do Cargo</label>
                         <div class="form-floating">
-                            <textarea class="form-control" name="jobDescription"
+                            <textarea required  class="form-control" name="jobDescription"
                                 placeholder="Deixe sua descrição aqui..." id="jobDescription"
                                 style="height: 100px"></textarea>
                             <label for="jobDescription">Descrição</label>
@@ -55,11 +55,11 @@
                     </div>
                     <div class="col-md-4">
                         <label for="tel" class="form-label">Telefone</label>
-                        <input type="text" name="jobContact[phone]" placeholder="(00) 0000-0000" class="form-control" id="tel">
+                        <input type="text" name="jobContact[phone]" placeholder="(00) 0000-0000" class="form-control phone_with_ddd" id="tel">
                     </div>
                     <div class="col-md-4">
                         <label for="whatsApp" class="form-label">WhatsApp</label>
-                        <input type="text" name="jobContact[whatsApp]" placeholder="(00) 0000-0000" class="form-control"
+                        <input type="text" name="jobContact[whatsApp]" placeholder="(00) 0000-0000" class="form-control phone_with_ddd"
                             id="whatsApp">
                     </div>
 
