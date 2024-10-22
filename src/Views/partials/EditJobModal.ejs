@@ -38,7 +38,7 @@
                     <div class="col-md-4">
                         <label for="jobLocation" class="form-label">Localização</label>
                         <input type="text" name="jobLocation"   value="<%= job.jobLocation %>"placeholder="Endereço da Contratante"
-                            class="phone_with_ddd form-control" id="jobLocation">
+                            class="form-control" id="jobLocation">
                     </div> 
                     <div class="col-md-4">
                         <label for="closingTime" class="form-label">Categoria</label>
@@ -60,11 +60,11 @@
                     </div>
                     <div class="col-md-4">
                         <label for="tel" class="form-label">Telefone</label>
-                        <input type="text" name="jobContact[phone]" value="<%= job.jobContact.phone %>" placeholder="(00) 0000-0000" class="form-control" id="tel">
+                        <input type="text" name="jobContact[phone]" value="<%= job.jobContact.phone %>" placeholder="(00) 0000-0000" class="form-control phone_with_ddd" id="tel">
                     </div>
                     <div class="col-md-4">
                         <label for="whatsApp" class="form-label">WhatsApp</label>
-                        <input type="text" name="jobContact[whatsApp]" value="<%= job.jobContact.whatsApp %>" placeholder="(00) 0000-0000" class="form-control"
+                        <input type="text" name="jobContact[whatsApp]" value="<%= job.jobContact.whatsApp %>" placeholder="(00) 0000-0000" class="form-control phone_with_ddd"
                             id="whatsApp">
                     </div>
 

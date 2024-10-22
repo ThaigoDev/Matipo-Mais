@@ -38,7 +38,7 @@
                     <div class="col-md-4">
                         <label for="healthLocation" class="form-label">Localização</label>
                         <input type="text" name="healthLocation"  value="<%= health.healthLocation %>"  placeholder=" Insira o Endereço"
-                            class="phone_with_ddd form-control" id="healthLocation">
+                            class="form-control" id="healthLocation">
                     </div> 
                     <div class="col-md-4">
                         <label for="closingTime" class="form-label">Categoria</label>
@@ -60,11 +60,11 @@
                     </div>
                     <div class="col-md-4">
                         <label for="tel" class="form-label">Telefone</label>
-                        <input type="text" name="healthContactInfos[phone]"  value="<%= health.healthContactInfos.phone %>" placeholder="(00) 0000-0000" class="form-control" id="phone">
+                        <input type="text" name="healthContactInfos[phone]"  value="<%= health.healthContactInfos.phone %>" placeholder="(00) 0000-0000 " class="form-control phone_with_ddd" id="phone">
                     </div>
                     <div class="col-md-4">
                         <label for="whatsApp" class="form-label">WhatsApp</label>
-                        <input type="text" name="healthContactInfos[whatsApp]"    value="<%= health.healthContactInfos.whatsApp %>"  placeholder="(00) 0000-0000" class="form-control"
+                        <input type="text" name="healthContactInfos[whatsApp]"    value="<%= health.healthContactInfos.whatsApp %>"  placeholder="(00) 0000-0000" class="form-control phone_with_ddd"
                             id="whatsApp">
                     </div>
 
