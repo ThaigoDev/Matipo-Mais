@@ -27,17 +27,17 @@
 
                     <div class="col-md-4">
                         <label for="businessName" class="form-label">Nome</label>
-                        <input type="text" name="businessName" placeholder="Nome do Comércio" class="form-control"
+                        <input required  type="text" name="businessName" placeholder="Nome do Comércio" class="form-control"
                             id="businessName">
                     </div>
                     <div class="col-md-4">
                         <label for="businessLocation" class="form-label">Localização</label>
-                        <input type="text" name="businessLocation" placeholder="Endereço do Comércio"
+                        <input required type="text" name="businessLocation" placeholder="Endereço do Comércio"
                             class="form-control" id="businessLocation">
                     </div> 
                     <div class="col-md-4">
                         <label for="closingTime" class="form-label">Categoria</label>
-                        <select class="form-select" name="categoryName" aria-label="Default select example">  
+                        <select required class="form-select" name="categoryName" aria-label="Default select example">  
                             <option disabled  selected value="null">Selecione uma Categoria</option>                            
                             <% categories.forEach(category => { %>
                                 <option value="<%= category.category %>"><%= category.category %></option>
@@ -47,7 +47,7 @@
                     <div class="col-12">
                         <label for="businessDescription" class="form-label">Descrição Detalhada do Comércio</label>
                         <div class="form-floating">
-                            <textarea class="form-control" name="businessDescription"
+                            <textarea required class="form-control" name="businessDescription"
                                 placeholder="Deixe sua descrição aqui..." id="businessDescription"
                                 style="height: 100px"></textarea>
                             <label for="businessDescription">Descrição</label>
