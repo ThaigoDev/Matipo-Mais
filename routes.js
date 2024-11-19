@@ -14,7 +14,7 @@ const HealthHomeController = require("./src/Controllers/HealthHomeController");
 const LeisureController = require("./src/Controllers/LeisureHomeController")
 const JobsController = require("./src/Controllers/JobsController"); 
 const JobsHomeController = require("./src/Controllers/JobsHomeController")
-const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController"); 
+
 const IndividualPageController = require("./src/Controllers/IndividualPageController");
 
 
