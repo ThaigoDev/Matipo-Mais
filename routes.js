@@ -17,7 +17,7 @@ const JobsHomeController = require("./src/Controllers/JobsHomeController")
 const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController"); 
 const IndividualPageController = require("./src/Controllers/IndividualPageController");
 const  AboutUsController = require("./src/Controllers/AboutUsController")
-
+const  DevelopingPage = require("./src/Controllers/DevelopingPage"); 
 //nesse arquivo, vamos definir as rotas da nossa página, por exemplo : www.teste/[rotas que vamos criar]
 router.get("/",HomeController.index); //uma rota deve ter um controller, no caso  o controller vai linkar nosso banco de dados com o front end.   
 router.get("/quemsomos/",AboutUsController.index);  
@@ -57,4 +57,6 @@ router.get("/admin/health/delete/:id",HealthController.delete);
 //Lazer routes 
 
 router.get("/leisure/index",LeisureController.index); 
-module.exports = router; 
+module.exports = router;  
+//página em desenvolvimento 
+router.get("/developing/",DevelopingPage.index); 
