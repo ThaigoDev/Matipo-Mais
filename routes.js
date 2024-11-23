@@ -16,11 +16,11 @@ const JobsController = require("./src/Controllers/JobsController");
 const JobsHomeController = require("./src/Controllers/JobsHomeController")
 const LoginAndSignUpController = require("./src/Controllers/LoginAndSignUpController"); 
 const IndividualPageController = require("./src/Controllers/IndividualPageController");
-
+const  AboutUsController = require("./src/Controllers/AboutUsController")
 
 //nesse arquivo, vamos definir as rotas da nossa página, por exemplo : www.teste/[rotas que vamos criar]
 router.get("/",HomeController.index); //uma rota deve ter um controller, no caso  o controller vai linkar nosso banco de dados com o front end.   
-router.get("/quemsomos/");  
+router.get("/quemsomos/",AboutUsController.index);  
 router.post("/category/new",CategoryController.create);  
 router.get("/admin/",LoginAndSignUpController.index); 
 router.post("/admin/auth",LoginAndSignUpController.auth); 
