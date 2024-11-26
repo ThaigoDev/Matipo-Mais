@@ -15,7 +15,8 @@
     height: 85px;
     background-color: #034078;
     top: 0px;
-    position:fixed
+    position:fixed ; 
+    z-index: 3;
 }
 
 .hamburger{
