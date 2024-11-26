@@ -21,7 +21,7 @@
                     <p class="infCard"><i class=" icon ph-bold ph-building-office"></i> <%= housing.housingName %></p>
                     <p class="infCard"><i class=" icon ph-bold ph-bed"> </i><%= housing.roomsQTD %> Quartos</p>
                     <p class="infCard"><i class=" icon ph-bold ph-phone"></i><%= housing.housingContactInfos.whatsApp %></p>
-                    <p class="sttCard"><%= housing.status %></p>
+                    <p class="sttCard"> <i class=" icon ph-bold ph-check"></i> <%= housing.status %></p>
                 </div>
             <% }) %>            
         </div>
@@ -56,7 +56,7 @@
                  <p class="infCard"><i class=" icon ph-bold ph-read-cv-logo"></i> <%= job.jobName%></p>
                  <p class="infCard"><i class=" icon ph-bold ph-factory"></i>  <%= job.businessName%></p>
                  <p class="infCard"> <p class="infCard"><i class=" icon ph-bold ph-phone"></i> <%= job.jobContact.whatsApp%></p>
-                 <p class="sttCard"><%= job.status%></p>
+                 <p class="sttCard">   <i class=" icon ph-bold ph-check"></i> <%= job.status%></p>
              </div>
              <% }) %>
         
@@ -92,7 +92,21 @@
               <p class="infCard"><i class=" icon ph-bold ph-building-office"></i> <%= business.businessName%></p>
               <p class="infCard"><i class=" icon ph-bold ph-phone"></i> <%= business.businessContact.tel%></p>
               <p class="infCard"><i class=" icon ph-bold ph-phone"></i> <%= business.businessContact.whatsApp%></p>
-              <p class="sttCard"><%= business.status%></p>
+              <p class="sttCard">
+                <% if (business.status =="Aberto") { %>
+                    <span style="color: #034078; font-weight: bold;"> 
+                        <i class=" icon ph-bold ph-check"></i>
+                      <%= business.status %> 
+                   </span>
+                  <% }else { %> 
+                    
+                    <span style="color: #f86363;  font-weight: bold;"> 
+                        <i class="icon ph-bold ph-clock-countdown"></i>
+                      <%= business.status %>
+                   </span>
+                  <%  } %>
+
+              </p>
           </div>
           <% }) %>
         

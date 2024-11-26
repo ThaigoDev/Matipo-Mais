@@ -14,7 +14,20 @@
                 </div>
                 <p class="infCard"><i class=" icon ph-bold ph-building-office"></i>  <%= business.businessName %></p>
                 <p class="infCard"><i class=" icon ph-bold ph-map-pin"></i> <%= business.businessLocation %></p>
-                <p class="sttCard"><%= business.status %></p>
+                <p class="sttCard">
+                    <% if (business.status =="Aberto") { %>
+                        <span style="color: #034078; font-weight: bold;"> 
+                            <i class=" icon ph-bold ph-check"></i>
+                          <%= business.status %> 
+                       </span>
+                      <% }else { %> 
+                        
+                        <span style="color: #f86363;  font-weight: bold;"> 
+                            <i class="icon ph-bold ph-clock-countdown"></i>
+                          <%= business.status %>
+                       </span>
+                      <%  } %>
+                </p>
             </div>
         <% }) %>
     </div>
