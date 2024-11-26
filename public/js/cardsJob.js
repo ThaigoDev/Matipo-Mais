@@ -17,7 +17,7 @@
                     cardsPerView = 1;
                 }
             }
-
+            
             // Função para atualizar o carrossel
             function updateCarousel() {
                 const cardWidth = carousel.children[0].offsetWidth + 20; // largura do card + gap
@@ -59,4 +59,6 @@
             // Inicialização
             updateCardsPerView();
             updateCarousel();
-        });
+        }); 
+
+        

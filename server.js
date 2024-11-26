@@ -1,13 +1,17 @@
 const express  = require("express"); 
 const mongoose = require("mongoose"); 
-const path = require("path");   
+const path = require("path");    
+const CronJob = require("cron").CronJob; 
+const nodeCron = require("node-cron");
 const flash = require("connect-flash");  
 const MongoStore= require("connect-mongo"); 
 const session =require("express-session");   
-const GlobalMiddleware = require("./src/Middlewares/middlewares")
+const GlobalMiddleware = require("./src/Middlewares/middlewares"); 
+const  cronJobs = require("./src/config/cronJobs")
 const app = express();  
 const router = require("./routes"); 
-require("dotenv").config(); 
+require("dotenv").config();  
+nodeCron.schedule('* * * * *',cronJobs);
 
 app.use(express.urlencoded({extended:true}));   
 app.use(express.static("public")); //definindo onde nossos arquivos do front-end vão ficar
@@ -41,5 +45,5 @@ app.on("Conected on Database!",()=>{
         console.log("Acesse : http://localhost:3000/ ")
     })
 }) 
-
 app.use(router);
+cronJobs();
