@@ -79,7 +79,7 @@ class HousingController {
    } 
    static async view(req,res) { 
     const housingBR = new HousingBR(); 
-    const housing=    await  housingBR.getById(req.params.id); 
+    const housing =    await  housingBR.getById(req.params.id); 
     res.render("IndividualPageHousing",{housing}); 
    }
 }

@@ -21,7 +21,6 @@
     width: 100%;
     height: 100%;
     justify-content: space-evenly;
-    overflow-x: scroll;
 }
 
 .card {
@@ -126,3 +125,61 @@
 }
 
 
+ 
+
+.carousel-container {
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+    gap: 20px;
+}
+
+
+
+.navigation-btn {
+    position: absolute;
+    top: 50%; 
+    
+    transform: translateY(-50%);
+    background-color: rgba(255,255,255,0.8);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.navigation-btn:hover {
+    background-color: rgba(255,255,255,1);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+}
+
+.navigation-btn svg {
+    width: 30px;
+    height: 30px;
+    fill: #333;
+}
+
+.navigation-btn.prev-btn  , .prev{
+    left: -25px;
+}
+
+.navigation-btn.next-btn , .next{
+    right: -25px;
+}
+
+.navigation-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
