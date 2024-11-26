@@ -75,7 +75,21 @@
 
             <div class="disponivel">
 
-                <p> <%= health.status %></p>
+                <p>
+
+                    <% if (health.status =="Aberto") { %>
+                        <span style="color: #034078; font-weight: bold;"> 
+                            <i class=" icon ph-bold ph-check"></i>
+                          <%= health.status %> 
+                       </span>
+                      <% }else { %> 
+                        
+                        <span style="color: #f86363;  font-weight: bold;"> 
+                            <i class="icon ph-bold ph-clock-countdown"></i>
+                          <%= health.status %>
+                       </span>
+                      <%  } %>
+                </p>
 
             </div>
 

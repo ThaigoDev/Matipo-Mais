@@ -57,6 +57,6 @@ router.get("/admin/health/delete/:id",HealthController.delete);
 //Lazer routes 
 
 router.get("/leisure/index",LeisureController.index); 
-module.exports = router;  
 //página em desenvolvimento 
 router.get("/developing/",DevelopingPage.index); 
+module.exports = router;  

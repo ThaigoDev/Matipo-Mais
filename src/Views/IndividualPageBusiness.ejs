@@ -76,7 +76,18 @@
 
             <div class="disponivel">
 
-                <p> <%= business.status %></p>
+                <p>  <% if (business.status =="Aberto") { %>
+                    <span style="color: #034078; font-weight: bold;"> 
+                        <i class=" icon ph-bold ph-check"></i>
+                      <%= business.status %> 
+                   </span>
+                  <% }else { %> 
+                    
+                    <span style="color: #f86363;  font-weight: bold;"> 
+                        <i class="icon ph-bold ph-clock-countdown"></i>
+                      <%= business.status %>
+                   </span>
+                  <%  } %></p>
 
             </div>
 
