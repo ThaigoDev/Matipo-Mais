@@ -34,7 +34,20 @@
             <p class="infCard"><i class=" icon ph-bold ph-building-office"></i>  <%= health.healthName %></p>
             <p class="infCard"><i class=" icon ph-bold ph-map-pin"></i> <%= health.healthLocation %></p>
             <p class="funfcard"><i class=" icon ph-bold ph-clock"></i> <%= health.openingTime %> às <%= health.closingTime %></p>
-            <p class="sttCard"><%= health.status %></p>
+            <p class="sttCard">
+              <% if (health.status =="Aberto") { %>
+                <span style="color: #034078; font-weight: bold;"> 
+                    <i class=" icon ph-bold ph-check"></i>
+                  <%= health.status %> 
+               </span>
+              <% }else { %> 
+                
+                <span style="color: #f86363;  font-weight: bold;"> 
+                    <i class="icon ph-bold ph-clock-countdown"></i>
+                  <%= health.status %>
+               </span>
+              <%  } %>
+            </p>
             
         </div>
 

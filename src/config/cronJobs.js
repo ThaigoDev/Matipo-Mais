@@ -9,11 +9,11 @@ const businessBR = new BusinessRules({});
     allBusiness.forEach(async (bsn)=>{
         const [closingHour, closingMinute] = bsn.closingTime.split(':').map(Number);  
         const [openingHour, openingMinute] = bsn.openingTime.split(':').map(Number); 
-        if (closingHour === currentHour && closingMinute=== currentMinutes) {
+        if (  (currentHour >= closingHour && currentMinutes >= closingMinute)|| (currentHour < openingHour && currentMinutes < openingMinute) ) {
             // Atualizar o status para "Fechado"
             await businessBR.updateStatus( bsn._id , "Fechado" ); 
             console.log("status aleterado para fechado")
-          }else if((openingHour ===currentHour && openingMinute ===currentMinutes)) {
+          }else if((currentHour >= openingHour  && currentHour <= closingHour)) {
             await businessBR.updateStatus( bsn._id , "Aberto" );  
             console.log("status aleterado para Aberto")
 
