@@ -37,6 +37,16 @@
     margin-left: 15px;
     font-size: 22px;
     text-align: justify;
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    
+}
+.button { 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
 }
 
 .mapa {
