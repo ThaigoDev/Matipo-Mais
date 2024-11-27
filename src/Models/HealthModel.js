@@ -66,6 +66,16 @@ class HealthBR {
     }catch(e) {
         throw new Error(e); 
     }
+} 
+async updateStatus(id, statusChanged) {
+  try {
+    this.business = await HealthModel.updateMany(
+      { _id: id }, // Filtra o comércio atual
+      { $set: { status: statusChanged } }
+    );
+  } catch (e) {
+    throw new Error(e);
+  }
 }
 }
 
