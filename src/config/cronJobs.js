@@ -13,7 +13,7 @@ const businessBR = new BusinessRules({});
             // Atualizar o status para "Fechado"
             await businessBR.updateStatus( bsn._id , "Fechado" ); 
             console.log("status aleterado para fechado")
-          }else if((currentHour >= openingHour  && currentHour <= closingHour)) {
+          }else if((currentHour >= openingHour  && currentHour <= closingHour)||currentHour <closingHour ) {
             await businessBR.updateStatus( bsn._id , "Aberto" );  
             console.log("status aleterado para Aberto")
 
