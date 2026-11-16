@@ -1,0 +1,59 @@
+<section class="page-hero c-<%= cat %>">
+  <div class="container">
+    <div>
+      <nav class="breadcrumb" aria-label="Você está em">
+        <a href="/">Início</a> <i class="ph-bold ph-caret-right"></i> <span><%= heading %></span>
+      </nav>
+      <div class="title-row">
+        <div class="big-icon"><i class="ph-fill <%= icon %>"></i></div>
+        <div>
+          <h1><%= heading %></h1>
+          <p><%= subtitle %></p>
+        </div>
+      </div>
+    </div>
+    <div class="count"><strong data-count><%= cards.length %></strong> <%= cards.length === 1 ? 'resultado' : 'resultados' %></div>
+  </div>
+</section>
+
+<section class="listing" data-results>
+  <div class="container">
+    <div class="toolbar">
+      <label class="search">
+        <span class="sr-only">Filtrar <%= heading %></span>
+        <i class="ph-bold ph-magnifying-glass"></i>
+        <input type="search" placeholder="Buscar por nome, endereço…" data-search-input>
+      </label>
+      <% if (typeof filters !== 'undefined' && filters) { %>
+      <div class="chips" role="group" aria-label="Filtrar por status">
+        <button type="button" class="chip-btn is-active" data-filter="all">Todos</button>
+        <button type="button" class="chip-btn" data-filter="open"><%= filters.open %></button>
+        <button type="button" class="chip-btn" data-filter="closed"><%= filters.closed %></button>
+      </div>
+      <% } %>
+    </div>
+
+    <% if (typeof highlight !== 'undefined' && highlight) { %><%- highlight %><% } %>
+
+    <div style="margin-top: 28px">
+      <div class="card-grid" data-filterable>
+        <% cards.forEach(card => { %>
+          <%- include('./ListingCard.ejs', card) %>
+        <% }) %>
+      </div>
+      <% if (cards.length) { %>
+        <div class="empty" data-empty hidden>
+          <div class="icon"><i class="ph-bold ph-magnifying-glass"></i></div>
+          <strong>Nada encontrado</strong>
+          <span>Tente outro termo ou limpe os filtros.</span>
+        </div>
+      <% } else { %>
+        <div class="empty">
+          <div class="icon"><i class="ph-bold <%= icon %>"></i></div>
+          <strong><%= typeof emptyTitle !== 'undefined' ? emptyTitle : 'Nenhum cadastro por aqui ainda' %></strong>
+          <span><%= typeof emptyText !== 'undefined' ? emptyText : 'Assim que novos cadastros forem publicados, eles aparecerão aqui.' %></span>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>

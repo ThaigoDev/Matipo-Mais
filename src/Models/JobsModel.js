@@ -1,25 +1,22 @@
-const mongoose = require("mongoose"); 
-const Schema = mongoose.Schema;
-const JobsSchema = mongoose.Schema({
-  jobPhoto: { type: String, required: false },
-  jobName: { type: String, required: true },
-  jobLocation: { type: String, required: true },
-  jobDescription: { type: String, required: true },
-  jobContact: {
-    phone: { type: String, required: false },
-    whatsApp: { type: String, required: false },
-    email: { type: String, required: false },
-  },
-  openingTime: { type: String, required: true },
-  closingTime: { type: String, required: true },
-  operatingDays: { type: [String], required: true },
-  jobMapHTML: { type: String, required: false },   
-  status: { type: String, required: false },   
-  businessName: { type: String, required: false },  
-  categoryName: { type: String, required: true },
-  categoryID: { type: Schema.Types.ObjectId, ref: "Categories" },
-});
-const JobModel = mongoose.model("Jobs", JobsSchema);
+const createRepository = require("../config/repository");
+
+const Jobs = createRepository("jobs", {
+  jobPhoto: { col: "job_photo", type: "text" },
+  jobName: { col: "job_name", type: "text" },
+  jobLocation: { col: "job_location", type: "text" },
+  jobDescription: { col: "job_description", type: "text" },
+  jobContact: { col: "job_contact", type: "json" },
+  openingTime: { col: "opening_time", type: "text" },
+  closingTime: { col: "closing_time", type: "text" },
+  operatingDays: { col: "operating_days", type: "array" },
+  jobMapHTML: { col: "job_map_html", type: "text" },
+  status: { col: "status", type: "text" },
+  businessName: { col: "business_name", type: "text" },
+  datePublish: { col: "date_publish", type: "text" },
+  publisher: { col: "publisher", type: "text" },
+  categoryName: { col: "category_name", type: "text" },
+  categoryID: { col: "category_id", type: "int" },
+}, { listing: true });
 
 class JobsBR {
   constructor(body) {
@@ -27,42 +24,32 @@ class JobsBR {
     this.erros = [];
     this.job = null;
   }
+
   async create() {
-    try {
-      this.job = await JobModel.create(this.body);
-    } catch (e) {
-      throw new Error(e);
-    }
+    this.job = await Jobs.insert(this.body);
   }
+
   async read() {
-    try {
-      const allJobs = await JobModel.find();
-      return allJobs;
-    } catch (e) {
-      throw new Error(e);
-    }
+    return Jobs.findAll();
   }
+
   async update(id) {
-    try {
-      this.job = await JobModel.findByIdAndUpdate({ _id: id }, this.body);
-    } catch (e) {
-      throw new Error(e);
-    }
+    this.job = await Jobs.update(id, this.body);
   }
+
   async delete(id) {
-    try {
-      this.job = await JobModel.findByIdAndDelete(id);
-    } catch (e) {
-      throw new Error(e);
-    }
-  } 
+    this.job = await Jobs.remove(id);
+  }
+
   async getById(id) {
-    try{
-        const job = JobModel.findOne({_id:id});  
-        return job; 
-    }catch(e) {
-        throw new Error(e); 
-    }
+    return Jobs.findById(id);
+  }
+
+  async incrementViews(id) {
+    await Jobs.incrementViews(id);
+  }
 }
-} 
-module.exports = JobsBR; 
+
+JobsBR.repository = Jobs;
+
+module.exports = JobsBR;

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('./partials/head.ejs', { title: 'Administradores' }) %>
+</head>
+<body>
+<%- include('./partials/shell-start.ejs') %>
+
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="/admin/dashboard">Painel</a><i class="ph-bold ph-caret-right"></i><span>Equipe</span></div>
+    <h1><span class="head-icon"><i class="ph-fill ph-users-three"></i></span>Administradores</h1>
+    <p class="muted">Pessoas com acesso ao painel. Todas podem publicar, editar e excluir conteúdo.</p>
+  </div>
+</div>
+
+<div class="split">
+  <section class="card">
+    <div class="card-head"><h2><i class="ph-bold ph-user-plus"></i> Dar acesso a alguém</h2></div>
+    <form method="post" action="/admin/users/new" class="stack" autocomplete="off">
+      <div class="field">
+        <label class="field-label" for="u-name"><span>Nome <em class="req">*</em></span></label>
+        <div class="input-group"><input id="u-name" name="name" required minlength="2" maxlength="80" placeholder="Nome completo"></div>
+      </div>
+      <div class="field">
+        <label class="field-label" for="u-email"><span>E-mail <em class="req">*</em></span></label>
+        <div class="input-group"><i class="ph-bold ph-envelope-simple"></i><input id="u-email" type="email" name="email" required placeholder="pessoa@exemplo.com"></div>
+      </div>
+      <div class="field">
+        <label class="field-label" for="u-pass"><span>Senha provisória <em class="req">*</em></span><button type="button" class="mini-link" data-generate-password="#u-pass">Gerar senha</button></label>
+        <div class="input-group"><i class="ph-bold ph-lock-simple"></i><input id="u-pass" type="text" name="password" required minlength="8" placeholder="Mínimo 8 caracteres" autocomplete="new-password"></div>
+        <small class="hint">Envie a senha para a pessoa e peça para trocá-la em “Minha conta”.</small>
+      </div>
+      <button class="btn primary" type="submit"><i class="ph-bold ph-user-plus"></i> Criar acesso</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2><i class="ph-bold ph-users"></i> <%= users.length %> <%= users.length === 1 ? 'administrador' : 'administradores' %></h2></div>
+    <ul class="list">
+      <% users.forEach(u => { const me = String(u._id) === String(user._id); %>
+        <li class="list-item">
+          <span class="avatar"><%= fmt.initials(u.name) %></span>
+          <div class="grow">
+            <strong><%= u.name %></strong><% if (me) { %> <span class="tag-soft">Você</span><% } %>
+            <div class="muted sm"><%= u.email %> · desde <%= fmt.date(u.createdAt) %></div>
+          </div>
+          <% if (!me) { %>
+            <button type="button" class="btn danger-ghost sm"
+              data-confirm="Remover o acesso de <%= u.name %>?" data-confirm-text="A pessoa não conseguirá mais entrar no painel. O conteúdo que ela publicou continua no site."
+              data-confirm-label="Remover acesso" data-action="/admin/users/<%= u._id %>/delete"><i class="ph-bold ph-user-minus"></i> Remover</button>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+  </section>
+</div>
+
+<%- include('./partials/shell-end.ejs') %>
+</body>
+</html>

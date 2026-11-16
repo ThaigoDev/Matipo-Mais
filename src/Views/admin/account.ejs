@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('./partials/head.ejs', { title: 'Minha conta' }) %>
+</head>
+<body>
+<%- include('./partials/shell-start.ejs') %>
+
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="/admin/dashboard">Painel</a><i class="ph-bold ph-caret-right"></i><span>Equipe</span></div>
+    <h1><span class="head-icon"><i class="ph-fill ph-user-circle"></i></span>Minha conta</h1>
+    <p class="muted">Seus dados de acesso ao painel.</p>
+  </div>
+</div>
+
+<div class="split even">
+  <section class="card">
+    <div class="profile">
+      <span class="avatar xl"><%= fmt.initials(user.name) %></span>
+      <div>
+        <h2><%= user.name %></h2>
+        <span class="muted"><%= user.email %></span>
+      </div>
+    </div>
+    <form method="post" action="/admin/account/profile" class="stack">
+      <div class="field">
+        <label class="field-label" for="p-name"><span>Nome exibido</span></label>
+        <div class="input-group"><input id="p-name" name="name" value="<%= user.name %>" required minlength="2" maxlength="80"></div>
+        <small class="hint">Aparece como autor das publicações e no histórico.</small>
+      </div>
+      <button class="btn primary" type="submit"><i class="ph-bold ph-check"></i> Salvar perfil</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2><i class="ph-bold ph-lock-key"></i> Alterar senha</h2></div>
+    <form method="post" action="/admin/account/password" class="stack" data-password-form>
+      <div class="field">
+        <label class="field-label" for="pw-cur"><span>Senha atual</span></label>
+        <div class="input-group"><i class="ph-bold ph-lock-simple"></i><input id="pw-cur" type="password" name="currentPassword" required autocomplete="current-password"></div>
+      </div>
+      <div class="field">
+        <label class="field-label" for="pw-new"><span>Nova senha</span></label>
+        <div class="input-group"><i class="ph-bold ph-key"></i><input id="pw-new" type="password" name="newPassword" required minlength="8" autocomplete="new-password" data-strength></div>
+        <div class="strength" data-strength-meter><span></span><span></span><span></span><span></span></div>
+        <small class="hint" data-strength-text>Use pelo menos 8 caracteres, misturando letras, números e símbolos.</small>
+      </div>
+      <div class="field">
+        <label class="field-label" for="pw-conf"><span>Confirmar nova senha</span></label>
+        <div class="input-group"><i class="ph-bold ph-key"></i><input id="pw-conf" type="password" name="confirmPassword" required minlength="8" autocomplete="new-password"></div>
+      </div>
+      <button class="btn primary" type="submit"><i class="ph-bold ph-check"></i> Alterar senha</button>
+    </form>
+  </section>
+</div>
+
+<%- include('./partials/shell-end.ejs') %>
+</body>
+</html>

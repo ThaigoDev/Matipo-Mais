@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('./partials/head.ejs', { title: 'Categorias' }) %>
+</head>
+<body>
+<%- include('./partials/shell-start.ejs') %>
+
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="/admin/dashboard">Painel</a><i class="ph-bold ph-caret-right"></i><span>Gestão</span></div>
+    <h1><span class="head-icon"><i class="ph-fill ph-tag"></i></span>Categorias</h1>
+    <p class="muted">Organize os cadastros. Renomear uma categoria atualiza todos os cadastros dela.</p>
+  </div>
+</div>
+
+<div class="split">
+  <section class="card">
+    <div class="card-head">
+      <h2><i class="ph-bold ph-plus-circle"></i> Nova categoria</h2>
+    </div>
+    <form method="post" action="/admin/categories/new" class="stack">
+      <div class="field">
+        <label class="field-label" for="new-cat"><span>Nome <em class="req">*</em></span></label>
+        <div class="input-group"><input id="new-cat" name="category" required minlength="2" maxlength="60" placeholder="Ex.: Padaria, Clínica, Estágio"></div>
+      </div>
+      <button class="btn primary" type="submit"><i class="ph-bold ph-plus"></i> Criar categoria</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <div>
+        <h2><i class="ph-bold ph-list-bullets"></i> <%= categories.length %> categorias</h2>
+      </div>
+      <label class="search-field sm">
+        <i class="ph-bold ph-magnifying-glass"></i>
+        <input type="search" placeholder="Filtrar…" data-filter-list="#cat-list" aria-label="Filtrar categorias">
+      </label>
+    </div>
+    <ul class="list" id="cat-list">
+      <% categories.forEach(c => { const used = c.business + c.health + c.housing + c.jobs; %>
+        <li class="list-item" data-list-item data-search="<%= c.category %>">
+          <span class="thumb sm"><i class="ph-fill ph-tag"></i></span>
+          <form method="post" action="/admin/categories/<%= c.id %>/rename" class="inline-edit grow" data-inline-edit>
+            <input name="category" value="<%= c.category %>" required minlength="2" maxlength="60" aria-label="Nome da categoria" readonly>
+            <div class="usage">
+              <% if (used) { %>
+                <% Object.values(sections).forEach(s => { if (c[s.key]) { %><span class="tag-soft" title="<%= s.title %>"><i class="ph-bold <%= s.icon %>"></i> <%= c[s.key] %></span><% } }) %>
+              <% } else { %><span class="muted xs">Sem cadastros</span><% } %>
+            </div>
+            <button type="submit" class="btn primary sm" data-inline-save hidden>Salvar</button>
+          </form>
+          <div class="row-actions">
+            <button type="button" class="icon-btn ghost" data-inline-start title="Renomear" aria-label="Renomear"><i class="ph-bold ph-pencil-simple"></i></button>
+            <button type="button" class="icon-btn ghost danger"
+              data-confirm="Excluir a categoria “<%= c.category %>”?"
+              data-confirm-text="<%= used ? `${used} cadastro(s) ficarão sem categoria, mas continuam publicados.` : 'Nenhum cadastro usa essa categoria.' %>"
+              data-action="/admin/categories/<%= c.id %>/delete" title="Excluir" aria-label="Excluir"><i class="ph-bold ph-trash"></i></button>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+  </section>
+</div>
+
+<%- include('./partials/shell-end.ejs') %>
+</body>
+</html>

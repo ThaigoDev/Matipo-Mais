@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('./partials/head.ejs', { title: 'Visão geral' }) %>
+</head>
+<body>
+<%- include('./partials/shell-start.ejs') %>
+<%
+  const firstName = (user.name || '').split(' ')[0];
+  const sectionStatusLabel = { business: 'abertos agora', health: 'abertos agora', housing: 'disponíveis', jobs: 'vagas abertas' };
+  const totalViews = Object.values(stats).reduce((s, x) => s + x.views, 0);
+  const totalRecords = Object.values(stats).reduce((s, x) => s + x.total, 0);
+  const entityLink = (type, id) => sections[type] ? sections[type].base + '/?edit=' + id : null;
+  const entityLabel = { category: 'categoria', account: 'administrador', message: 'mensagem' };
+%>
+
+<div class="page-head">
+  <div>
+    <span class="muted sm cap"><%= fmt.longToday() %></span>
+    <h1><%= fmt.greeting() %>, <%= firstName %> 👋</h1>
+    <p class="muted">Aqui está o resumo do Matipó + hoje: <strong><%= totalRecords %></strong> cadastros publicados e <strong><%= totalViews.toLocaleString('pt-BR') %></strong> visitas às páginas.</p>
+  </div>
+  <div class="head-actions">
+    <a class="btn ghost" href="/" target="_blank"><i class="ph-bold ph-globe"></i> Ver site</a>
+  </div>
+</div>
+
+<div class="kpis">
+  <% Object.values(sections).forEach(s => { const st = stats[s.key]; %>
+    <a class="kpi" href="<%= s.base %>/" style="--c: <%= s.color %>">
+      <div class="kpi-top">
+        <span class="kpi-icon"><i class="ph-fill <%= s.icon %>"></i></span>
+        <span class="kpi-link">Gerenciar <i class="ph-bold ph-arrow-right"></i></span>
+      </div>
+      <strong><%= st.total %></strong>
+      <span class="kpi-title"><%= s.title %></span>
+      <span class="kpi-sub"><span class="dot ok"></span><%= st.active %> <%= sectionStatusLabel[s.key] %><% if (st.featured) { %> · <i class="ph-fill ph-star" style="color: var(--amber)"></i> <%= st.featured %><% } %></span>
+    </a>
+  <% }) %>
+  <a class="kpi" href="/admin/messages" style="--c: #1e63c4">
+    <div class="kpi-top">
+      <span class="kpi-icon"><i class="ph-fill ph-chat-circle-text"></i></span>
+      <span class="kpi-link">Abrir <i class="ph-bold ph-arrow-right"></i></span>
+    </div>
+    <strong><%= navCounts.messages || 0 %></strong>
+    <span class="kpi-title">Mensagens novas</span>
+    <span class="kpi-sub">sugestões e correções dos cidadãos</span>
+  </a>
+</div>
+
+<div class="dash-grid">
+  <div class="dash-col">
+    <section class="card">
+      <div class="card-head">
+        <div>
+          <h2><i class="ph-fill ph-first-aid" style="color: #e2364f"></i> Plantão da semana</h2>
+          <p class="muted sm">Farmácias e estabelecimentos de saúde de plantão em cada dia.</p>
+        </div>
+        <a class="btn ghost sm" href="/admin/health/">Editar plantões</a>
+      </div>
+      <div class="duty-week">
+        <% dutyWeek.forEach(d => { %>
+          <div class="duty-day<%= d.isToday ? ' today' : '' %><%= d.places.length ? '' : ' empty' %>">
+            <span class="duty-name"><%= d.day.slice(0, 3) %><% if (d.isToday) { %> <em>hoje</em><% } %></span>
+            <% if (d.places.length) { %>
+              <% d.places.forEach(p => { %><a href="/admin/health/?edit=<%= p._id %>" class="duty-place"><%= p.healthName %></a><% }) %>
+            <% } else { %>
+              <span class="duty-none"><i class="ph-bold ph-warning"></i> Sem plantão</span>
+            <% } %>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <div>
+          <h2><i class="ph-fill ph-chart-line-up" style="color: var(--brand)"></i> Mais acessados</h2>
+          <p class="muted sm">Páginas de detalhe mais visitadas pelos cidadãos.</p>
+        </div>
+      </div>
+      <% if (topViewed.length) { const max = topViewed[0].record.views || 1; %>
+        <ol class="rank">
+          <% topViewed.forEach(({ section: s, record: r }, i) => { %>
+            <li>
+              <span class="rank-n"><%= i + 1 %></span>
+              <div class="rank-body">
+                <div class="rank-line">
+                  <a href="<%= s.base %>/?edit=<%= r._id %>" class="strong"><%= r[s.nameField] %></a>
+                  <span class="muted sm nowrap"><%= r.views.toLocaleString('pt-BR') %> visitas</span>
+                </div>
+                <div class="rank-bar"><span style="width: <%= Math.max(4, Math.round((r.views / max) * 100)) %>%; background: <%= s.color %>"></span></div>
+                <span class="muted xs"><i class="ph-bold <%= s.icon %>"></i> <%= s.title %></span>
+              </div>
+            </li>
+          <% }) %>
+        </ol>
+      <% } else { %>
+        <div class="empty slim"><i class="ph-bold ph-chart-bar"></i><span class="muted">As visitas aparecem aqui assim que os cidadãos abrirem as páginas.</span></div>
+      <% } %>
+    </section>
+  </div>
+
+  <div class="dash-col">
+    <section class="card">
+      <div class="card-head">
+        <div>
+          <h2><i class="ph-fill ph-chat-circle-text" style="color: var(--brand)"></i> Mensagens novas</h2>
+          <p class="muted sm">Enviadas pelo formulário “Fale conosco”.</p>
+        </div>
+        <a class="btn ghost sm" href="/admin/messages">Ver todas</a>
+      </div>
+      <% if (messages.length) { %>
+        <ul class="list">
+          <% messages.forEach(m => { %>
+            <li class="list-item">
+              <span class="avatar sm"><%= fmt.initials(m.name) %></span>
+              <div class="grow">
+                <div class="rank-line"><strong><%= m.name %></strong><span class="muted xs nowrap"><%= fmt.relative(m.createdAt) %></span></div>
+                <span class="tag-soft"><%= m.kindLabel %></span><% if (m.refName) { %> <span class="muted xs">sobre <%= m.refName %></span><% } %>
+                <p class="muted sm clamp-2"><%= m.body %></p>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <div class="empty slim"><i class="ph-bold ph-check-circle"></i><span class="muted">Tudo em dia! Nenhuma mensagem nova.</span></div>
+      <% } %>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <div>
+          <h2><i class="ph-fill ph-warning-circle" style="color: var(--amber)"></i> Precisa de atenção</h2>
+          <p class="muted sm"><%= incompleteTotal %> <%= incompleteTotal === 1 ? 'cadastro incompleto' : 'cadastros incompletos' %>. Cadastros completos ajudam mais o cidadão.</p>
+        </div>
+      </div>
+      <% if (incomplete.length) { %>
+        <ul class="list">
+          <% incomplete.forEach(item => { %>
+            <li class="list-item">
+              <span class="thumb sm" style="--c: <%= item.section.color %>"><i class="ph-fill <%= item.section.icon %>"></i></span>
+              <div class="grow">
+                <div class="rank-line">
+                  <a class="strong" href="<%= item.section.base %>/?edit=<%= item.record._id %>"><%= item.record[item.section.nameField] %></a>
+                  <span class="muted xs nowrap"><%= item.pct %>%</span>
+                </div>
+                <span class="muted xs">Falta: <%= item.missing.join(', ') %></span>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <div class="empty slim"><i class="ph-bold ph-seal-check"></i><span class="muted">Todos os cadastros estão completos.</span></div>
+      <% } %>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <div><h2><i class="ph-fill ph-clock-counter-clockwise" style="color: var(--muted)"></i> Atividade recente</h2></div>
+        <a class="btn ghost sm" href="/admin/activity">Histórico</a>
+      </div>
+      <% if (activity.length) { %>
+        <ul class="timeline">
+          <% activity.forEach(a => { const link = entityLink(a.entityType, a.entityId); %>
+            <li>
+              <span class="tl-dot <%= a.action %>"></span>
+              <div>
+                <strong><%= a.userName %></strong> <%= a.actionLabel %>
+                <% if (a.action !== 'login') { %>
+                  <% if (sections[a.entityType]) { %><span class="muted"><%= sections[a.entityType].singular %></span><% } else if (entityLabel[a.entityType]) { %><span class="muted"><%= entityLabel[a.entityType] %></span><% } %>
+                  <% if (link && a.action !== 'delete') { %><a href="<%= link %>" class="strong"><%= a.entityName %></a><% } else { %><strong><%= a.entityName %></strong><% } %>
+                <% } %>
+                <div class="muted xs"><%= fmt.relative(a.createdAt) %></div>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <div class="empty slim"><i class="ph-bold ph-clock"></i><span class="muted">As ações feitas no painel aparecem aqui.</span></div>
+      <% } %>
+    </section>
+  </div>
+</div>
+
+<%- include('./partials/shell-end.ejs') %>
+</body>
+</html>

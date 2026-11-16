@@ -1,0 +1,10 @@
+<%
+  const statusText = (typeof status !== 'undefined' && status) ? String(status).trim() : '';
+  const statusKey = statusText.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const tone = /fechad|indispon|ocupad|encerrad|alugad|preenchid|esgotad/.test(statusKey)
+    ? 'danger'
+    : (/abert|dispon|ativ|livre/.test(statusKey) ? 'success' : 'neutral');
+%>
+<% if (statusText) { %>
+<span class="badge badge-<%= tone %><%= (typeof solid !== 'undefined' && solid) ? ' badge-solid' : '' %>"><%= statusText %></span>
+<% } %>

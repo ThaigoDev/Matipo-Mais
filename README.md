@@ -17,8 +17,8 @@ Bem-vindo ao repositório do **Matipó Mais**! Este projeto é um site de utilid
 - Node.js
 - TypeScript
 - Express.js
-- Mongoose ODM
-- MongoDB
+- PostgreSQL 16 (via Docker)
+- node-postgres (pg)
 
 ## Funcionalidades
 
@@ -33,7 +33,7 @@ Bem-vindo ao repositório do **Matipó Mais**! Este projeto é um site de utilid
 - `/public` - Arquivos estáticos (CSS, JS, imagens)
 - `/views` - Templates EJS
 - `/routes` - Definição de rotas do Express.js
-- `/models` - Modelos de dados com Mongoose
+- `/models` - Modelos de dados (PostgreSQL); esquema em `/db/schema.sql`
 - `/controllers` - Lógica de controle do aplicativo
 
 ## Como Executar o Projeto
@@ -53,18 +53,27 @@ Bem-vindo ao repositório do **Matipó Mais**! Este projeto é um site de utilid
     npm install
     ```
 
-4. Configure as variáveis de ambiente (crie um arquivo `.env` com as informações necessárias):
-    ```env
-    DB_CONNECTION_STRING=sua_string_de_conexao
-    PORT=3000
+4. Configure as variáveis de ambiente copiando o exemplo e trocando as senhas:
+    ```sh
+    cp .env.example .env
     ```
 
-5. Inicie o servidor:
+5. Suba o PostgreSQL no Docker:
+    ```sh
+    npm run db:up
+    ```
+
+6. Crie a conta de administrador (usa `ADMIN_EMAIL` e `ADMIN_PASSWORD` do `.env`):
+    ```sh
+    npm run seed:admin
+    ```
+
+7. Inicie o servidor (as tabelas são criadas automaticamente):
     ```sh
     npm start
     ```
 
-6. Abra seu navegador e acesse `http://localhost:3000`
+8. Abra seu navegador e acesse `http://localhost:3000`
 
 ## Contribuindo
 

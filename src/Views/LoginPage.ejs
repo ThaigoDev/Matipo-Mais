@@ -1,78 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/RegisterLogin.css" />
-  <link rel="shortcut icon" href="/utilites/logo2.png" type="image/x-icon">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">  
-    
-
-  <title>Entrar Matipó +</title>
+  <%- include('./partials/Head.ejs', { title: 'Entrar' }) %>
+  <link rel="stylesheet" href="/css/login.css">
 </head>
-
 <body>
- 
-  <section class="principal-home">
-    <section class="section__1">
-
-     
-    </section>
-   
-    <section class="section__2">
-      <div class="text__Form d-flex align-items-center justify-content-center">
-        <% if(erros.length> 0) { %>
-            <% erros.forEach((erro)=>{ %>
-              <div class="alert alert-danger w-100" role="alert">
-                <%=erro%>
-              </div>
-  
-              <% }) %>
-                <% } %>
-                  <% if(success.length> 0) { %>
-                    <% success.forEach((scss)=>{ %>
-                      <div class="alert alert-success   w-100" role="alert">
-                        <%=scss%>
-                      </div>
-  
-                      <% }) %>
-                        <% } %>
-                        <h2>Entrar com conta</h2>
-                        <small> Entre com sua conta de registro:</small>
+  <main class="auth">
+    <section class="auth-art">
+      <a class="auth-brand" href="/"><img src="/utilites/logo2.png" alt="Matipó +"></a>
+      <div class="auth-copy">
+        <span class="eyebrow"><span class="dot"><i class="ph-bold ph-lock-simple"></i></span> Área administrativa</span>
+        <h1>Gerencie o conteúdo do <span class="hl">Matipó +</span></h1>
+        <p>Cadastre e atualize comércios, serviços de saúde, imóveis e vagas de emprego da cidade.</p>
       </div>
-      <div class="form-area">
-        <form class="forms" action="/admin/auth/" method="post"> 
-         
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" name="email"
-            placeholder="name@example.com" autocomplete="email">
-            <label for="floatingInput">E-mail</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingInput" name="password"
-            placeholder="Senha" autocomplete="new-password">
-            <label for="floatingInput">Senha</label>
-          </div>
-          <small id="labelPass">
+      <a class="back" href="/"><i class="ph-bold ph-arrow-left"></i> Voltar para o site</a>
+    </section>
 
-          </small> 
-          <div class="buttons">
-            <button id="login-btn" class="button" type="submit">Entrar</button>
+    <section class="auth-form">
+      <div class="auth-card">
+        <h2>Entrar</h2>
+        <p class="lead">Use sua conta de administrador para continuar.</p>
 
-          </div>
+        <% erros.forEach(erro => { %>
+          <div class="alert alert-error"><i class="ph-bold ph-warning-circle"></i> <%= erro %></div>
+        <% }) %>
+        <% success.forEach(scss => { %>
+          <div class="alert alert-success"><i class="ph-bold ph-check-circle"></i> <%= scss %></div>
+        <% }) %>
 
+        <form action="/admin/auth/" method="post">
+          <label class="field">
+            <span>E-mail</span>
+            <div class="control">
+              <i class="ph-bold ph-envelope-simple"></i>
+              <input type="email" name="email" placeholder="voce@exemplo.com" autocomplete="email" required>
+            </div>
+          </label>
+          <label class="field">
+            <span>Senha</span>
+            <div class="control">
+              <i class="ph-bold ph-lock-simple"></i>
+              <input type="password" name="password" id="password" placeholder="••••••••" autocomplete="current-password" required>
+              <button type="button" class="reveal-pass" id="toggle-password" aria-label="Mostrar senha"><i class="ph-bold ph-eye"></i></button>
+            </div>
+          </label>
+          <button class="btn btn-primary btn-block" type="submit">Entrar <i class="ph-bold ph-arrow-right"></i></button>
         </form>
       </div>
     </section>
-  </section>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script type="module" src="/js/main.js"></script> 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
+  </main>
 
+  <script>
+    document.getElementById("toggle-password").addEventListener("click", function () {
+      const input = document.getElementById("password");
+      const hidden = input.type === "password";
+      input.type = hidden ? "text" : "password";
+      this.setAttribute("aria-label", hidden ? "Ocultar senha" : "Mostrar senha");
+      this.innerHTML = hidden ? '<i class="ph-bold ph-eye-slash"></i>' : '<i class="ph-bold ph-eye"></i>';
+    });
+  </script>
+</body>
 </html>

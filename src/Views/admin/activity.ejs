@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('./partials/head.ejs', { title: 'Histórico' }) %>
+</head>
+<body>
+<%- include('./partials/shell-start.ejs') %>
+<%
+  const entityLabel = { category: 'categoria', account: 'administrador', message: 'mensagem' };
+  const icons = { create: 'ph-plus', update: 'ph-pencil-simple', delete: 'ph-trash', duplicate: 'ph-copy', status: 'ph-toggle-right', feature: 'ph-star', login: 'ph-sign-in', message: 'ph-chat-circle' };
+%>
+
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="/admin/dashboard">Painel</a><i class="ph-bold ph-caret-right"></i><span>Gestão</span></div>
+    <h1><span class="head-icon"><i class="ph-fill ph-clock-counter-clockwise"></i></span>Histórico</h1>
+    <p class="muted">Tudo o que foi feito no painel, por quem e quando.</p>
+  </div>
+</div>
+
+<section class="card">
+  <% if (items.length) { %>
+    <ul class="timeline big">
+      <% items.forEach(a => { %>
+        <li>
+          <span class="tl-dot icon <%= a.action %>"><i class="ph-bold <%= icons[a.action] || 'ph-dot' %>"></i></span>
+          <div class="grow">
+            <strong><%= a.userName %></strong> <%= a.actionLabel %>
+            <% if (a.action !== 'login') { %>
+              <span class="muted"><%= sections[a.entityType] ? sections[a.entityType].singular : (entityLabel[a.entityType] || '') %></span>
+              <% if (sections[a.entityType] && a.action !== 'delete') { %><a class="strong" href="<%= sections[a.entityType].base %>/?edit=<%= a.entityId %>"><%= a.entityName %></a><% } else { %><strong><%= a.entityName %></strong><% } %>
+            <% } %>
+          </div>
+          <span class="muted xs nowrap" title="<%= fmt.dateTime(a.createdAt) %>"><%= fmt.dateTime(a.createdAt) %></span>
+        </li>
+      <% }) %>
+    </ul>
+    <div class="pager">
+      <% if (pageNumber > 1) { %><a class="btn ghost sm" href="/admin/activity?p=<%= pageNumber - 1 %>"><i class="ph-bold ph-arrow-left"></i> Mais recentes</a><% } else { %><span></span><% } %>
+      <span class="muted sm">Página <%= pageNumber %></span>
+      <% if (hasNext) { %><a class="btn ghost sm" href="/admin/activity?p=<%= pageNumber + 1 %>">Mais antigas <i class="ph-bold ph-arrow-right"></i></a><% } else { %><span></span><% } %>
+    </div>
+  <% } else { %>
+    <div class="empty big"><span class="empty-icon"><i class="ph-bold ph-clock"></i></span><strong>Nenhuma atividade ainda</strong></div>
+  <% } %>
+</section>
+
+<%- include('./partials/shell-end.ejs') %>
+</body>
+</html>

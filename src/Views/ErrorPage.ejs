@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('./partials/Head.ejs', { title: 'Algo deu errado' }) %>
+</head>
+<body>
+  <main>
+    <section class="soon-page" style="min-height: 100vh">
+      <div>
+        <div class="icon" style="background: var(--danger-50); color: var(--danger)"><i class="ph-fill ph-warning"></i></div>
+        <h1>Algo deu errado</h1>
+        <p>Não conseguimos concluir essa ação. Tente novamente em instantes.</p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap">
+          <a class="btn btn-primary" href="javascript:history.back()"><i class="ph-bold ph-arrow-left"></i> Voltar</a>
+          <a class="btn btn-ghost" href="/"><i class="ph-bold ph-house"></i> Página inicial</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

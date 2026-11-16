@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('./partials/head.ejs', { title: 'Mensagens' }) %>
+</head>
+<body>
+<%- include('./partials/shell-start.ejs') %>
+<%
+  const tabs = [['', 'Todas', counts.total], ['novo', 'Novas', counts.novo], ['lido', 'Lidas', counts.lido], ['resolvido', 'Resolvidas', counts.resolvido]];
+  const statusLabel = { novo: 'Nova', lido: 'Lida', resolvido: 'Resolvida' };
+  const refSection = (m) => sections[m.refType];
+%>
+
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="/admin/dashboard">Painel</a><i class="ph-bold ph-caret-right"></i><span>Gestão</span></div>
+    <h1><span class="head-icon"><i class="ph-fill ph-chat-circle-text"></i></span>Mensagens</h1>
+    <p class="muted">Sugestões, correções e dúvidas enviadas pelos cidadãos no <a class="link" href="/contato" target="_blank">formulário Fale conosco</a>.</p>
+  </div>
+</div>
+
+<div class="tabs">
+  <% tabs.forEach(([key, label, n]) => { %>
+    <a class="tab<%= filter === key ? ' is-active' : '' %>" href="/admin/messages<%= key ? '?status=' + key : '' %>"><%= label %> <span><%= n %></span></a>
+  <% }) %>
+</div>
+
+<% if (messages.length) { %>
+  <div class="messages">
+    <% messages.forEach(m => { %>
+      <article class="card message <%= m.status %>">
+        <header class="message-head">
+          <span class="avatar"><%= fmt.initials(m.name) %></span>
+          <div class="grow">
+            <div class="rank-line">
+              <strong><%= m.name %></strong>
+              <span class="muted xs nowrap" title="<%= fmt.dateTime(m.createdAt) %>"><%= fmt.relative(m.createdAt) %></span>
+            </div>
+            <div class="message-meta">
+              <span class="tag-soft"><%= m.kindLabel %></span>
+              <span class="status-tag <%= m.status %>"><%= statusLabel[m.status] %></span>
+              <% if (m.refName) { %>
+                <span class="muted xs">sobre
+                  <% if (refSection(m)) { %><a class="link" href="<%= refSection(m).base %>/?edit=<%= m.refId %>"><%= m.refName %></a><% } else { %><strong><%= m.refName %></strong><% } %>
+                </span>
+              <% } %>
+            </div>
+          </div>
+        </header>
+        <% if (m.subject) { %><h3 class="message-subject"><%= m.subject %></h3><% } %>
+        <p class="message-body"><%= m.body %></p>
+        <footer class="message-foot">
+          <div class="message-contact">
+            <% if (m.email) { %><a class="btn ghost sm" href="mailto:<%= m.email %>?subject=<%= encodeURIComponent('Re: ' + (m.subject || m.kindLabel) + ' — Matipó +') %>"><i class="ph-bold ph-envelope-simple"></i> Responder por e-mail</a><% } %>
+            <% if (m.phone) { const d = m.phone.replace(/\D/g, ''); %><a class="btn ghost sm" href="https://wa.me/<%= d.length <= 11 ? '55' + d : d %>" target="_blank" rel="noopener"><i class="ph-bold ph-whatsapp-logo"></i> <%= m.phone %></a><% } %>
+          </div>
+          <div class="message-actions">
+            <% if (m.status !== 'lido' && m.status !== 'resolvido') { %>
+              <button type="button" class="btn ghost sm" data-post="/admin/messages/<%= m._id %>/status<%= filter ? '?status=' + filter : '' %>" data-post-fields='{"status":"lido"}'><i class="ph-bold ph-envelope-open"></i> Marcar como lida</button>
+            <% } %>
+            <% if (m.status !== 'resolvido') { %>
+              <button type="button" class="btn primary sm" data-post="/admin/messages/<%= m._id %>/status<%= filter ? '?status=' + filter : '' %>" data-post-fields='{"status":"resolvido"}'><i class="ph-bold ph-check"></i> Resolver</button>
+            <% } else { %>
+              <button type="button" class="btn ghost sm" data-post="/admin/messages/<%= m._id %>/status<%= filter ? '?status=' + filter : '' %>" data-post-fields='{"status":"novo"}'><i class="ph-bold ph-arrow-counter-clockwise"></i> Reabrir</button>
+            <% } %>
+            <button type="button" class="icon-btn ghost danger" title="Excluir" aria-label="Excluir"
+              data-confirm="Excluir a mensagem de <%= m.name %>?" data-confirm-text="Ela será removida permanentemente."
+              data-action="/admin/messages/<%= m._id %>/delete"><i class="ph-bold ph-trash"></i></button>
+          </div>
+        </footer>
+      </article>
+    <% }) %>
+  </div>
+<% } else { %>
+  <section class="card">
+    <div class="empty big">
+      <span class="empty-icon"><i class="ph-bold ph-tray"></i></span>
+      <strong><%= filter ? 'Nenhuma mensagem aqui' : 'Caixa de entrada vazia' %></strong>
+      <span class="muted">Quando alguém enviar uma sugestão ou correção pelo site, ela aparece aqui.</span>
+    </div>
+  </section>
+<% } %>
+
+<%- include('./partials/shell-end.ejs') %>
+</body>
+</html>

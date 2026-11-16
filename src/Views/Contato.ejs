@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('./partials/Head.ejs', { title: 'Fale conosco', description: 'Envie sugestões, correções e dúvidas para a equipe do Matipó +.' }) %>
+</head>
+<body>
+  <%- include('./partials/Header.ejs', { active: '' }) %>
+  <main>
+    <section class="page-hero c-public">
+      <div class="container">
+        <div>
+          <nav class="breadcrumb" aria-label="Você está em">
+            <a href="/">Início</a> <i class="ph-bold ph-caret-right"></i> <span>Fale conosco</span>
+          </nav>
+          <div class="title-row">
+            <div class="big-icon"><i class="ph-fill ph-chat-circle-text"></i></div>
+            <div>
+              <h1>Fale conosco</h1>
+              <p>Viu uma informação errada? Quer sugerir um comércio ou tirar uma dúvida? A equipe do Matipó + lê todas as mensagens.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container contact-layout">
+        <% if (sent) { %>
+          <div class="panel contact-card sent">
+            <div class="panel-body" style="text-align: center; padding: 48px 28px">
+              <div class="sent-icon"><i class="ph-fill ph-check-circle"></i></div>
+              <h2 style="justify-content: center">Mensagem enviada!</h2>
+              <p class="description" style="margin-top: 8px">Obrigado por ajudar a manter o Matipó + atualizado. Se você deixou um contato, retornaremos em breve.</p>
+              <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 24px">
+                <a class="btn btn-primary" href="/"><i class="ph-bold ph-house"></i> Voltar ao início</a>
+                <a class="btn btn-ghost" href="/contato"><i class="ph-bold ph-plus"></i> Enviar outra</a>
+              </div>
+            </div>
+          </div>
+        <% } else { %>
+          <form class="panel contact-card" method="post" action="/contato">
+            <div class="panel-body">
+              <% erros.forEach(erro => { %>
+                <div class="form-alert"><i class="ph-bold ph-warning-circle"></i> <%= erro %></div>
+              <% }) %>
+
+              <% if (ref.name) { %>
+                <div class="ref-box">
+                  <i class="ph-fill ph-pencil-simple-line"></i>
+                  <div><small>Sugerindo correção para</small><strong><%= ref.name %></strong></div>
+                </div>
+                <input type="hidden" name="refType" value="<%= ref.type %>">
+                <input type="hidden" name="refId" value="<%= ref.id %>">
+                <input type="hidden" name="refName" value="<%= ref.name %>">
+              <% } %>
+
+              <fieldset class="kind-picker">
+                <legend>Sobre o que é a sua mensagem?</legend>
+                <% Object.entries(kinds).filter(([k]) => k !== 'suporte').forEach(([key, label]) => { %>
+                  <label>
+                    <input type="radio" name="kind" value="<%= key %>" <%= kind === key ? 'checked' : '' %>>
+                    <span><%= label %></span>
+                  </label>
+                <% }) %>
+              </fieldset>
+
+              <div class="form-row">
+                <label class="form-field">
+                  <span>Seu nome *</span>
+                  <input name="name" required minlength="2" maxlength="120" autocomplete="name" placeholder="Como podemos te chamar?">
+                </label>
+                <label class="form-field">
+                  <span>WhatsApp</span>
+                  <input name="phone" type="tel" maxlength="40" autocomplete="tel" placeholder="(31) 90000-0000">
+                </label>
+              </div>
+              <label class="form-field">
+                <span>E-mail</span>
+                <input name="email" type="email" maxlength="160" autocomplete="email" placeholder="Para recebermos sua resposta (opcional)">
+              </label>
+              <label class="form-field">
+                <span>Assunto</span>
+                <input name="subject" maxlength="160" placeholder="<%= ref.name ? 'Ex.: telefone desatualizado' : 'Resumo em poucas palavras' %>">
+              </label>
+              <label class="form-field">
+                <span>Mensagem *</span>
+                <textarea name="body" required minlength="10" maxlength="4000" rows="6" placeholder="<%= ref.name ? 'Qual informação está errada e qual é a correta?' : 'Escreva sua mensagem…' %>"></textarea>
+              </label>
+              <!-- Campo armadilha para robôs (fica invisível) -->
+              <label class="hp" aria-hidden="true">Site <input name="website" tabindex="-1" autocomplete="off"></label>
+
+              <button class="btn btn-primary btn-block" type="submit" style="margin-top: 8px"><i class="ph-bold ph-paper-plane-tilt"></i> Enviar mensagem</button>
+              <p class="privacy"><i class="ph-bold ph-lock-simple"></i> Seus dados são usados apenas para responder a esta mensagem.</p>
+            </div>
+          </form>
+        <% } %>
+
+        <aside class="contact-aside">
+          <div class="feature c-public">
+            <div class="icon"><i class="ph-fill ph-storefront"></i></div>
+            <h3>Quer cadastrar seu negócio?</h3>
+            <p>Escolha “Pedido de cadastro” e conte o nome, endereço e contato. O cadastro é gratuito.</p>
+          </div>
+          <div class="feature c-health">
+            <div class="icon"><i class="ph-fill ph-pencil-simple-line"></i></div>
+            <h3>Achou algo errado?</h3>
+            <p>Telefone, horário ou endereço desatualizado? Use “Sugerir correção” na página do estabelecimento.</p>
+          </div>
+          <div class="feature c-jobs">
+            <div class="icon"><i class="ph-fill ph-instagram-logo"></i></div>
+            <h3>Siga a gente</h3>
+            <p><a class="link-arrow" href="https://www.instagram.com/matipomais" target="_blank" rel="noopener">@matipomais <i class="ph-bold ph-arrow-right"></i></a></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <%- include('./partials/Footer.ejs') %>
+  <%- include('./partials/Scripts.ejs') %>
+</body>
+</html>

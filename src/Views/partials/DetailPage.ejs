@@ -1,0 +1,119 @@
+<%
+  const digits = (v) => (v || '').toString().replace(/\D/g, '');
+  const waDigits = digits(contacts.whatsApp);
+  const waLink = waDigits ? 'https://wa.me/' + (waDigits.length <= 11 ? '55' + waDigits : waDigits) : null;
+  const phoneDigits = digits(contacts.phone);
+  let mapSrc = (map || '').toString().trim();
+  const srcMatch = mapSrc.match(/src=["']([^"']+)["']/i);
+  if (srcMatch) mapSrc = srcMatch[1];
+  if (!/^https?:\/\//i.test(mapSrc)) mapSrc = '';
+  // Sem mapa cadastrado: usa o endereço para mostrar o local
+  if (!mapSrc && location) mapSrc = 'https://maps.google.com/maps?q=' + encodeURIComponent(location + ', Matipó - MG') + '&z=16&output=embed';
+  const suggestUrl = '/contato?tipo=correcao&refType=' + cat + '&refId=' + (typeof id !== 'undefined' ? id : '') + '&refName=' + encodeURIComponent(name);
+  const visibleFacts = facts.filter(f => f && f.value);
+  const formatDate = (v) => {
+    const m = (v || '').toString().match(/^(\d{4})-(\d{2})-(\d{2})/);
+    return m ? `${m[3]}/${m[2]}/${m[1]}` : v;
+  };
+%>
+<section class="detail-hero c-<%= cat %>">
+  <div class="container">
+    <a class="back-link" href="<%= back %>"><i class="ph-bold ph-arrow-left"></i> Voltar para <%= backLabel %></a>
+    <div class="kicker"><i class="ph-fill <%= icon %>"></i> <%= kicker %></div>
+    <h1><%= name %></h1>
+    <div class="sub">
+      <%- include('./StatusBadge.ejs', { status, solid: true }) %>
+      <% if (typeof featured !== 'undefined' && featured) { %><span class="badge badge-featured"><i class="ph-fill ph-star"></i> Destaque</span><% } %>
+      <% if (location) { %><span><i class="ph-bold ph-map-pin"></i> <%= location %></span><% } %>
+    </div>
+  </div>
+</section>
+
+<section class="detail c-<%= cat %>">
+  <div class="container">
+    <div class="layout">
+      <div>
+        <div class="panel">
+          <div class="detail-photo">
+            <% if (photo) { %>
+              <img src="/uploads/<%= photo %>" alt="<%= name %>">
+            <% } else { %>
+              <div class="placeholder"><i class="ph-fill <%= icon %>"></i></div>
+            <% } %>
+          </div>
+          <% if (description) { %>
+          <div class="panel-body">
+            <h2><i class="ph-bold ph-text-align-left"></i> Sobre</h2>
+            <p class="description"><%= description %></p>
+          </div>
+          <% } %>
+        </div>
+
+        <div class="panel">
+          <div class="panel-body" style="padding-bottom: 18px">
+            <h2 style="margin-bottom: 0"><i class="ph-bold ph-map-trifold"></i> Localização</h2>
+          </div>
+          <% if (mapSrc) { %>
+            <iframe class="map-frame" src="<%= mapSrc %>" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de <%= name %>"></iframe>
+          <% } else { %>
+            <div class="map-empty"><div><i class="ph-bold ph-map-pin-line"></i>Mapa indisponível<% if (location) { %><br><small><%= location %></small><% } %></div></div>
+          <% } %>
+        </div>
+      </div>
+
+      <aside class="aside">
+        <div class="panel">
+          <div class="panel-body">
+            <h2><i class="ph-bold ph-info"></i> Informações</h2>
+            <ul class="facts">
+              <% visibleFacts.forEach(f => { %>
+                <li>
+                  <span class="ficon"><i class="ph-bold <%= f.icon %>"></i></span>
+                  <div>
+                    <small><%= f.label %></small>
+                    <% if (Array.isArray(f.value)) { %>
+                      <div class="days"><% f.value.forEach(d => { %><span><%= d %></span><% }) %></div>
+                    <% } else { %>
+                      <strong><%= f.value %></strong>
+                    <% } %>
+                  </div>
+                </li>
+              <% }) %>
+              <% if (contacts.email) { %>
+                <li>
+                  <span class="ficon"><i class="ph-bold ph-envelope-simple"></i></span>
+                  <div><small>E-mail</small><strong><%= contacts.email %></strong></div>
+                </li>
+              <% } %>
+            </ul>
+
+            <div class="contact-actions">
+              <% if (waLink) { %>
+                <a class="btn btn-whatsapp btn-block" href="<%= waLink %>" target="_blank" rel="noopener"><i class="ph-bold ph-whatsapp-logo"></i> Chamar no WhatsApp</a>
+              <% } %>
+              <% if (phoneDigits) { %>
+                <a class="btn btn-ghost btn-block" href="tel:<%= phoneDigits %>"><i class="ph-bold ph-phone"></i> Ligar · <%= contacts.phone %></a>
+              <% } %>
+              <% if (contacts.email) { %>
+                <a class="btn btn-ghost btn-block" href="mailto:<%= contacts.email %>"><i class="ph-bold ph-envelope-simple"></i> Enviar e-mail</a>
+              <% } %>
+              <% if (!waLink && !phoneDigits && !contacts.email) { %>
+                <p style="color: var(--muted); font-size: .9rem">Nenhum contato informado.</p>
+              <% } %>
+            </div>
+            <a class="suggest-link" href="<%= suggestUrl %>"><i class="ph-bold ph-pencil-simple-line"></i> Alguma informação errada? Sugerir correção</a>
+          </div>
+          <% if (published || publisher) { %>
+          <div class="published">
+            <span class="avatar"><%= (publisher || 'M').toString().trim().charAt(0).toUpperCase() %></span>
+            <div>
+              <% if (publisher) { %>Publicado por <strong><%= publisher %></strong><br><% } %>
+              <% if (published) { %>em <%= formatDate(published) %><% } %>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

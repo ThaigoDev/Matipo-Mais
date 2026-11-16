@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('./partials/head.ejs', { title: 'Busca' }) %>
+</head>
+<body>
+<%- include('./partials/shell-start.ejs') %>
+
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="/admin/dashboard">Painel</a><i class="ph-bold ph-caret-right"></i><span>Busca</span></div>
+    <h1><span class="head-icon"><i class="ph-bold ph-magnifying-glass"></i></span><%= q ? `Resultados para “${q}”` : 'Buscar no painel' %></h1>
+    <p class="muted"><%= q ? `${results.length} ${results.length === 1 ? 'resultado' : 'resultados'} em todas as seções.` : 'Use a busca no topo para encontrar qualquer cadastro.' %></p>
+  </div>
+</div>
+
+<section class="card">
+  <% if (results.length) { %>
+    <ul class="list">
+      <% results.forEach(({ section: s, record: r }) => { %>
+        <li class="list-item">
+          <span class="thumb" style="--c: <%= s.color %>">
+            <% if (r[s.photoField]) { %><img src="/uploads/<%= r[s.photoField] %>" alt=""><% } else { %><i class="ph-fill <%= s.icon %>"></i><% } %>
+          </span>
+          <div class="grow">
+            <a class="strong" href="<%= s.base %>/?edit=<%= r._id %>"><%= r[s.nameField] %></a>
+            <div class="muted sm"><i class="ph-bold <%= s.icon %>"></i> <%= s.title %><%= r.categoryName ? ' · ' + r.categoryName : '' %><%= r[s.locationField] ? ' · ' + r[s.locationField] : '' %></div>
+          </div>
+          <a class="btn ghost sm" href="<%= s.base %>/?edit=<%= r._id %>"><i class="ph-bold ph-pencil-simple"></i> Editar</a>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <div class="empty big">
+      <span class="empty-icon"><i class="ph-bold ph-magnifying-glass"></i></span>
+      <strong><%= q ? 'Nada encontrado' : 'Digite algo para buscar' %></strong>
+      <span class="muted">A busca procura em nomes, endereços, categorias e empresas.</span>
+    </div>
+  <% } %>
+</section>
+
+<%- include('./partials/shell-end.ejs') %>
+</body>
+</html>

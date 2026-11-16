@@ -1,45 +1,33 @@
-const mongoose =  require("mongoose");  
-const CategorySchema = mongoose.Schema({ 
-   category : {type:String ,required:true}, 
-}, {timestamp:true}) 
+const createRepository = require("../config/repository");
 
-const Category  = mongoose.model("Categories", CategorySchema);  
+const Category = createRepository("categories", {
+  category: { col: "category", type: "text" },
+});
 
-class CategoryRules  {
-    constructor(body) {  
-        this.body = body; 
-        this.erros = []; 
-        this.category = null
-    } 
-    async create() {
-        try {   
-            this.category   = await  Category.create(this.body); 
-        }catch(e) {
-            throw new Error(e); 
-        }
-    };  
-    async read() {
-        try {
-         const categories = await Category.find(); 
-         return categories; 
-        }catch (e)  {
-            throw new Error(e); 
-        }
-    }
-    async update() {
+class CategoryRules {
+  constructor(body) {
+    this.body = body;
+    this.erros = [];
+    this.category = null;
+  }
 
-    }   
-    async delete() {
+  async create() {
+    this.category = await Category.insert(this.body);
+  }
 
-    } 
-    async findByCategory(categoryName) {
-        try {   
-            const category = await Category.findOne({category :categoryName})
-            return category; 
-        }catch(e) {
-            throw new Error(e); 
-        }
-    }
+  async read() {
+    const categories = await Category.findAll();
+    return categories.sort((a, b) => a.category.localeCompare(b.category, "pt-BR"));
+  }
 
-} 
-module.exports = CategoryRules; 
+  async update() {}
+
+  async delete() {}
+
+  async findByCategory(categoryName) {
+    if (!categoryName) return null;
+    return Category.findOne("category", categoryName);
+  }
+}
+
+module.exports = CategoryRules;

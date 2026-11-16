@@ -1,101 +1,15 @@
-const CategoryRules = require("../Models/CategoryModels");
 const JobsBR = require("../Models/JobsModel");
+
+// Página pública de detalhe (o gerenciamento fica em AdminController)
 class JobsController {
-  static async index(req, res) { 
-    try { 
-      if (!req.session.user) {
-        res.render("NoPermission");
-      }
-      const categoryBR = new CategoryRules(req.body);
-      const categories = await categoryBR.read();
-      const jobsBR = new JobsBR();
-      const allJobs = await jobsBR.read();
-      res.render("JobsPage", { allJobs, categories });
-    } catch (e) {
-      res.status(502).json({
-        title: "failed",
-        erros: console.error(e),
-      });
-    }
+  static async view(req, res) {
+    const rules = new JobsBR();
+    const job = await rules.getById(req.params.id);
+    if (!job) return res.redirect("/jobs/index");
+    // Visitas de administradores logados não contam
+    if (!req.session.user) await rules.incrementViews(job._id);
+    res.render("IndividualPageJobs", { job });
   }
-  static async create(req, res) {
-    try {
-      let body = {};
-      const categoryBR = new CategoryRules();
-      const categoryFinded = await categoryBR.findByCategory(
-        req.body.categoryName
-      );
-      if (!req.file) {
-        body = { ...req.body, categoryID: categoryFinded._id };
-      } else {
-        body = {
-          ...req.body,
-          categoryID: categoryFinded._id,
-          jobPhoto: req.file.filename,
-        };
-      }
-      const jobBR = new JobsBR(body);
-      await jobBR.create();
-      res.redirect("back");
-    } catch (e) {
-      res.status(502).json({
-        title: "failed",
-        erros: console.error(e),
-      });
-    }
-  }
-  static async delete(req, res) {
-    try {
-      const jobBR = new JobsBR();
-      await jobBR.delete(req.params.id);
-      res.redirect("back");
-    } catch (e) {
-      res.status(502).json({
-        title: "failed",
-        erros: console.error(e),
-      });
-    }
-  } 
-  static async update(req,res) {
-    try {
-    console.log(req.body)
-      let body = {};
-      const categoryBR = new CategoryRules();
-      const categoryFinded = await categoryBR.findByCategory(
-        req.body.categoryName
-      );
-      if (!req.file) {
-        body = { ...req.body, categoryID: categoryFinded._id };
-      } else {
-        body = {
-          ...req.body,
-          categoryID: categoryFinded._id,
-          jobPhoto: req.file.filename,
-        };
-      }
-      const jobBR = new JobsBR(body);  
-      await jobBR.update(req.params.id); 
-      res.redirect("back");
-    } catch (e) {
-      res.status(502).json({
-        title: "failed",
-        erros: console.error(e),
-      });
-    }
-   } 
-   static async view(req,res) {  
-    try {
-      const jobBR = new JobsBR();  
-      const job = await jobBR.getById(req.params.id); 
-      res.render("IndividualPageJobs",{job}); 
-      } catch (e) {
-        res.status(502).json({
-          title: "failed",
-          erros: console.error(e),
-        });
-      }
-   
-   }
 }
 
 module.exports = JobsController;

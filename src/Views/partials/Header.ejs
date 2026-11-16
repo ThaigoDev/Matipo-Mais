@@ -1,44 +1,48 @@
-<header class="main-header">
+<%
+  const navActive = typeof active !== 'undefined' ? active : '';
+  const navItems = [
+    { key: 'home', href: '/', label: 'Início', icon: 'ph-house' },
+    { key: 'business', href: '/business/index', label: 'Comércios', icon: 'ph-storefront' },
+    { key: 'health', href: '/health/index', label: 'Saúde', icon: 'ph-first-aid-kit' },
+    { key: 'housing', href: '/housing/index', label: 'Moradia', icon: 'ph-house-line' },
+    { key: 'jobs', href: '/jobs/index', label: 'Empregos', icon: 'ph-briefcase' },
+    { key: 'public', href: '/developing/', label: 'Utilidade Pública', icon: 'ph-bank' },
+    { key: 'leisure', href: '/leisure/index', label: 'Lazer', icon: 'ph-tree-palm' },
+  ];
+%>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/" aria-label="Matipó + — página inicial">
+      <img src="/utilites/logo2.png" alt="Matipó +">
+    </a>
 
-    <div class="hamburger" > 
-      <div class="material-symbols-rounded" onclick="onMenu()"> menu</div> 
-    </div>
-
-    <div class="logo-menu"><img class="logo-img" src="/utilites/logo2.png"> </div>
-    
-    <nav class="nav-bar">
+    <nav class="main-nav" aria-label="Navegação principal">
+      <div class="mobile-search">
+        <label class="header-search">
+          <span class="sr-only">Buscar</span>
+          <i class="ph-bold ph-magnifying-glass"></i>
+          <input type="search" placeholder="Buscar no Matipó +" data-search-input>
+        </label>
+      </div>
       <ul>
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/business/index">Comércios</a>
-        </li>
-        <li>
-          <a href="/health/index">Saúde</a>
-        </li>
-        <li>
-          <a href="/housing/index">Moradia</a>
-        </li>
-        <li>
-          <a href="/jobs/index/">Empregos</a>
-        </li>
-        <li>
-          <a href="#">Utilidade Pública</a>
-        </li>
-        <li>
-          <a href="/leisure/index">Lazer</a>
-        </li>
+        <% navItems.forEach(item => { %>
+          <li>
+            <a href="<%= item.href %>" class="<%= navActive === item.key ? 'is-active' : '' %>" <%- navActive === item.key ? 'aria-current="page"' : '' %>>
+              <i class="ph-bold <%= item.icon %>"></i><%= item.label %>
+            </a>
+          </li>
+        <% }) %>
       </ul>
     </nav>
 
-    
-    <div class="search-bar-menu"> 
-      <div class="material-symbols-outlined" onclick="onSearch()"> search </div>
-    </div>
+    <label class="header-search">
+      <span class="sr-only">Buscar</span>
+      <i class="ph-bold ph-magnifying-glass"></i>
+      <input type="search" placeholder="Buscar…" data-search-input>
+    </label>
 
-    <div class="search-bar">
-      <input class="search-input" type="text" placeholder="Buscar..." >
-    </div>
-
-  </header>
+    <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+      <i class="ph-bold ph-list"></i>
+    </button>
+  </div>
+</header>

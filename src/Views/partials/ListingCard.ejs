@@ -1,0 +1,32 @@
+<%
+  const cardStatus = (typeof status !== 'undefined' && status) ? String(status) : '';
+  const cardKey = cardStatus.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const cardTone = /fechad|indispon|ocupad|encerrad|alugad|preenchid|esgotad/.test(cardKey)
+    ? 'closed'
+    : (/abert|dispon|ativ|livre/.test(cardKey) ? 'open' : 'other');
+  const cardMeta = (meta || []).filter(m => m && m.text);
+  const searchText = [title, chip].concat(cardMeta.map(m => m.text)).join(' ');
+%>
+<article class="listing-card c-<%= cat %>" data-search="<%= searchText %>" data-status="<%= cardTone %>">
+  <div class="media">
+    <% if (photo) { %>
+      <img src="/uploads/<%= photo %>" alt="<%= title %>" loading="lazy">
+    <% } else { %>
+      <div class="placeholder"><i class="ph-fill <%= icon %>"></i></div>
+    <% } %>
+    <%- include('./StatusBadge.ejs', { status: cardStatus, solid: true }) %>
+    <% if (typeof featured !== 'undefined' && featured) { %><span class="badge badge-featured"><i class="ph-fill ph-star"></i> Destaque</span><% } %>
+  </div>
+  <div class="body">
+    <span class="chip"><%= chip %></span>
+    <h3><a href="<%= href %>"><%= title %></a></h3>
+    <% if (cardMeta.length) { %>
+    <ul class="meta">
+      <% cardMeta.forEach(m => { %>
+        <li><i class="ph-bold <%= m.icon %>"></i><span><%= m.text %></span></li>
+      <% }) %>
+    </ul>
+    <% } %>
+    <div class="foot">Ver detalhes <i class="ph-bold ph-arrow-right"></i></div>
+  </div>
+</article>

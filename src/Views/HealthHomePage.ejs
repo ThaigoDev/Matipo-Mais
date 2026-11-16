@@ -1,39 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">  
-    <link rel="stylesheet" href="/css/Home.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <link rel="shortcut icon" href="/utilites/logo2.png" type="image/x-icon">
-    <title>Saúde - MATIPÓ +</title>
-    <link rel="stylesheet" href="/css/Header.css"> 
-    <link rel="stylesheet" href="/css/CardsComercio.css">
-    <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,500,0,200" />
-    <link rel="stylesheet" href="/css/Health.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+  <%- include('./partials/Head.ejs', { title: 'Saúde' }) %>
+</head>
+<body>
+  <%- include('./partials/Header.ejs', { active: 'health' }) %>
+  <main>
+    <%
+      const weekdays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+      const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+      const today = weekdays[now.getDay()];
+      const onDuty = allHealth.filter(h => (h.daysOnDuty || []).includes(today));
+      const dd = String(now.getDate()).padStart(2, '0');
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
 
+      const cards = allHealth.map(health => ({
+        href: '/healthView/' + health._id,
+        photo: health.healthPhoto,
+        cat: 'health',
+        icon: 'ph-first-aid-kit',
+        chip: health.categoryName || 'Saúde',
+        title: health.healthName,
+        status: health.status, featured: health.featured,
+        meta: [
+          { icon: 'ph-map-pin', text: health.healthLocation },
+          { icon: 'ph-clock', text: health.openingTime && health.closingTime ? health.openingTime + ' às ' + health.closingTime : '' },
+        ],
+      }));
 
-    <body>  
-    <main class="content">
-        <%- include('./partials/Header.ejs') %>
-
-        <main class="content">
-            <div class="content">
-                <div class="cards-container">
-                    
-                        <%- include('./partials/CardsHealth.ejs',{allHealth}) %>
-                
-                </div>
-            </div>
-        </main>
-        <%- include('./partials/Footer.ejs') %>
-    </main>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="/js/Header.js"></script>
-    <script src="/js/cards.js"></script>  
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-</body> 
+      let highlight = `
+        <div class="duty">
+          <div class="pulse"><i class="ph-fill ph-first-aid"></i></div>
+          <div>
+            <h2>Farmácia de plantão</h2>`;
+      if (onDuty.length) {
+        highlight += `<p>Estabelecimentos de plantão hoje:</p><div class="names">`;
+        onDuty.forEach(h => {
+          highlight += `<a href="/healthView/${h._id}">${String(h.healthName).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]))}</a>`;
+        });
+        highlight += `</div>`;
+      } else {
+        highlight += `<p>Nenhum plantão cadastrado para hoje. Em caso de emergência, ligue <strong>192</strong> (SAMU).</p>`;
+      }
+      highlight += `
+          </div>
+          <div class="date"><strong>${dd}/${mm}</strong><span>${today}</span></div>
+        </div>`;
+    %>
+    <%- include('./partials/ListingPage.ejs', {
+      cat: 'health', icon: 'ph-first-aid-kit', heading: 'Saúde',
+      subtitle: 'Farmácias, clínicas, consultórios e postos de saúde da cidade.',
+      filters: { open: 'Abertos agora', closed: 'Fechados' },
+      highlight, cards,
+    }) %>
+  </main>
+  <%- include('./partials/Footer.ejs') %>
+  <%- include('./partials/Scripts.ejs') %>
+</body>
 </html>

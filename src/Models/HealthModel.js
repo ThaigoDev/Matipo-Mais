@@ -1,28 +1,22 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const HealthSchema = mongoose.Schema({
-  healthName: { type: String, required: true },
-  healthLocation: { type: String, required: true },
-  status: { type: String, required: true },
-  datePublish: { type: String, required: true },
-  publisher: { type: String, required: true },
-  healthDescription: { type: String, required: false },
-  healthContactInfos: {
-    whatsApp: { type: String, required: false },
-    phone: { type: String, required: false },
-    email: { type: String, required: false },
-  },
-  openingTime: { type: String, required: true },
-  closingTime: { type: String, required: true },
-  operatingDays: { type: [String], required: true },
-  daysOnDuty: { type: [String], required: true },
-  healthPhoto: { type: String, required: false },
-  healthHTMLMap: { type: String, required: false },
-  categoryName: { type: String, required: false },
-  categoryID: { type: Schema.Types.ObjectId, ref: "Categories" },
-});
+const createRepository = require("../config/repository");
 
-const HealthModel = mongoose.model("Health", HealthSchema);
+const Health = createRepository("health", {
+  healthPhoto: { col: "health_photo", type: "text" },
+  healthName: { col: "health_name", type: "text" },
+  healthLocation: { col: "health_location", type: "text" },
+  healthDescription: { col: "health_description", type: "text" },
+  healthContactInfos: { col: "health_contact_infos", type: "json" },
+  openingTime: { col: "opening_time", type: "text" },
+  closingTime: { col: "closing_time", type: "text" },
+  operatingDays: { col: "operating_days", type: "array" },
+  daysOnDuty: { col: "days_on_duty", type: "array" },
+  healthHTMLMap: { col: "health_html_map", type: "text" },
+  status: { col: "status", type: "text" },
+  datePublish: { col: "date_publish", type: "text" },
+  publisher: { col: "publisher", type: "text" },
+  categoryName: { col: "category_name", type: "text" },
+  categoryID: { col: "category_id", type: "int" },
+}, { listing: true });
 
 class HealthBR {
   constructor(body) {
@@ -30,53 +24,36 @@ class HealthBR {
     this.erros = [];
     this.health = null;
   }
+
   async create() {
-    try {
-      this.health = await HealthModel.create(this.body);
-    } catch (e) {
-      throw new Error(e);
-    }
+    this.health = await Health.insert(this.body);
   }
+
   async read() {
-    try {
-      const allHealth = await HealthModel.find();
-      return allHealth;
-    } catch (e) {
-      throw new Error(e);
-    }
+    return Health.findAll();
   }
+
   async update(id) {
-    try {
-      this.health = await HealthModel.findByIdAndUpdate({ _id: id }, this.body);
-    } catch (e) {
-      throw new Error(e);
-    }
+    this.health = await Health.update(id, this.body);
   }
+
   async delete(id) {
-    try {
-      this.health = await HealthModel.findByIdAndDelete(id);
-    } catch (e) {
-      throw new Error(e);
-    }
-  } 
+    this.health = await Health.remove(id);
+  }
+
   async getById(id) {
-    try{
-        const health = HealthModel.findOne({_id:id});  
-        return health; 
-    }catch(e) {
-        throw new Error(e); 
-    }
-} 
-async updateStatus(id, statusChanged) {
-  try {
-    this.business = await HealthModel.updateMany(
-      { _id: id }, // Filtra o comércio atual
-      { $set: { status: statusChanged } }
-    );
-  } catch (e) {
-    throw new Error(e);
+    return Health.findById(id);
+  }
+
+  async updateStatus(id, statusChanged) {
+    this.health = await Health.update(id, { status: statusChanged }, { touch: false });
+  }
+
+  async incrementViews(id) {
+    await Health.incrementViews(id);
   }
 }
-}
+
+HealthBR.repository = Health;
 
 module.exports = HealthBR;

@@ -1,26 +1,21 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const BusinessSchema = mongoose.Schema({
-  businessPhoto: { type: String, required: false },
-  businessName: { type: String, required: true },
-  businessLocation: { type: String, required: true },
-  businessDescription: { type: String, required: true },
-  businessContact: {
-    tel: { type: String, required: false },
-    whatsApp: { type: String, required: false },
-    email: { type: String, required: false },
-  },
-  openingTime: { type: String, required: true },
-  closingTime: { type: String, required: true },
-  operatingDays: { type: [String], required: true },
+const createRepository = require("../config/repository");
 
-  businessMapHTML: { type: String, required: false },
-  status: { type: String, required: false },
-  categoryName: { type: String, required: false },
-
-  categoryID: { type: Schema.Types.ObjectId, ref: "Categories" },
-});
-const Business = mongoose.model("Business", BusinessSchema);
+const Business = createRepository("business", {
+  businessPhoto: { col: "business_photo", type: "text" },
+  businessName: { col: "business_name", type: "text" },
+  businessLocation: { col: "business_location", type: "text" },
+  businessDescription: { col: "business_description", type: "text" },
+  businessContact: { col: "business_contact", type: "json" },
+  openingTime: { col: "opening_time", type: "text" },
+  closingTime: { col: "closing_time", type: "text" },
+  operatingDays: { col: "operating_days", type: "array" },
+  businessMapHTML: { col: "business_map_html", type: "text" },
+  status: { col: "status", type: "text" },
+  datePublish: { col: "date_publish", type: "text" },
+  publisher: { col: "publisher", type: "text" },
+  categoryName: { col: "category_name", type: "text" },
+  categoryID: { col: "category_id", type: "int" },
+}, { listing: true });
 
 class BusinessRules {
   constructor(body) {
@@ -28,52 +23,36 @@ class BusinessRules {
     this.erros = [];
     this.business = null;
   }
+
   async create() {
-    try {
-      this.business = await Business.create(this.body);
-    } catch (e) {
-      throw new Error(e);
-    }
+    this.business = await Business.insert(this.body);
   }
+
   async read() {
-    try {
-      const business = await Business.find();
-      return business;
-    } catch (e) {
-      throw new Error(e);
-    }
+    return Business.findAll();
   }
+
   async delete(id) {
-    try {
-      this.business = await Business.findByIdAndDelete({ _id: id });
-    } catch (e) {
-      throw new Error(e);
-    }
+    this.business = await Business.remove(id);
   }
+
   async update(id) {
-    try {
-      this.business = await Business.findByIdAndUpdate(id, this.body);
-    } catch (e) {
-      throw new Error(e);
-    }
+    this.business = await Business.update(id, this.body);
   }
+
   async getById(id) {
-    try {
-      const business = Business.findOne({ _id: id });
-      return business;
-    } catch (e) {
-      throw new Error(e);
-    }
+    return Business.findById(id);
   }
+
   async updateStatus(id, statusChanged) {
-    try {
-      this.business = await Business.updateMany(
-        { _id: id }, // Filtra o comércio atual
-        { $set: { status: statusChanged } }
-      );
-    } catch (e) {
-      throw new Error(e);
-    }
+    this.business = await Business.update(id, { status: statusChanged }, { touch: false });
+  }
+
+  async incrementViews(id) {
+    await Business.incrementViews(id);
   }
 }
+
+BusinessRules.repository = Business;
+
 module.exports = BusinessRules;

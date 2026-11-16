@@ -1,0 +1,77 @@
+<%
+  const nav = typeof navCounts !== 'undefined' ? navCounts : {};
+  const contentLinks = Object.values(sections).map(s => ({ key: s.key, href: s.base + '/', label: s.title, icon: s.icon, count: nav[s.key], color: s.color }));
+  const navLink = (key, href, label, icon, badge, badgeTone) => ({ key, href, label, icon, badge, badgeTone });
+  const groups = [
+    { title: null, items: [navLink('dashboard', '/admin/dashboard', 'Visão geral', 'ph-squares-four')] },
+    { title: 'Conteúdo', items: contentLinks.map(l => ({ ...l, badge: l.count })) },
+    { title: 'Gestão', items: [
+      navLink('messages', '/admin/messages', 'Mensagens', 'ph-chat-circle-text', nav.messages || null, 'alert'),
+      navLink('categories', '/admin/categories', 'Categorias', 'ph-tag'),
+      navLink('activity', '/admin/activity', 'Histórico', 'ph-clock-counter-clockwise'),
+    ] },
+    { title: 'Equipe', items: [
+      navLink('users', '/admin/users', 'Administradores', 'ph-users-three'),
+      navLink('account', '/admin/account', 'Minha conta', 'ph-user-circle'),
+    ] },
+  ];
+%>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <a class="brand" href="/admin/dashboard">
+        <img src="/utilites/logo2.png" alt="Matipó +">
+        <span class="tag">Painel</span>
+      </a>
+      <button class="icon-btn only-mobile" type="button" data-close-sidebar aria-label="Fechar menu"><i class="ph-bold ph-x"></i></button>
+    </div>
+
+    <nav class="side-nav" aria-label="Painel">
+      <% groups.forEach(group => { %>
+        <% if (group.title) { %><div class="side-title"><%= group.title %></div><% } %>
+        <% group.items.forEach(item => { %>
+          <a href="<%= item.href %>" class="side-link<%= page === item.key ? ' is-active' : '' %>" <%- page === item.key ? 'aria-current="page"' : '' %>>
+            <i class="ph-bold <%= item.icon %>"<% if (item.color) { %> style="--dot: <%= item.color %>"<% } %>></i>
+            <span><%= item.label %></span>
+            <% if (item.badge) { %><span class="side-badge<%= item.badgeTone === 'alert' ? ' alert' : '' %>"><%= item.badge %></span><% } %>
+          </a>
+        <% }) %>
+      <% }) %>
+    </nav>
+
+    <div class="sidebar-foot">
+      <a class="side-link" href="/" target="_blank" rel="noopener"><i class="ph-bold ph-arrow-square-out"></i><span>Ver site público</span></a>
+      <div class="me">
+        <span class="avatar"><%= fmt.initials(user.name) %></span>
+        <div class="me-info">
+          <strong><%= user.name %></strong>
+          <small><%= user.email %></small>
+        </div>
+        <a class="icon-btn ghost" href="/admin/logout" title="Sair" aria-label="Sair"><i class="ph-bold ph-sign-out"></i></a>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" data-close-sidebar></div>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn only-mobile" type="button" data-open-sidebar aria-label="Abrir menu"><i class="ph-bold ph-list"></i></button>
+      <form class="global-search" action="/admin/search" method="get" role="search">
+        <i class="ph-bold ph-magnifying-glass"></i>
+        <input type="search" name="q" placeholder="Buscar comércios, vagas, imóveis…" value="<%= typeof q !== 'undefined' ? q : '' %>" aria-label="Buscar em todo o painel">
+        <kbd>/</kbd>
+      </form>
+      <div class="topbar-actions">
+        <div class="menu" data-menu>
+          <button class="btn primary" type="button" data-menu-toggle><i class="ph-bold ph-plus"></i><span>Novo</span><i class="ph-bold ph-caret-down"></i></button>
+          <div class="menu-list" role="menu">
+            <% Object.values(sections).forEach(s => { %>
+              <a role="menuitem" href="<%= s.base %>/?new=1"><i class="ph-bold <%= s.icon %>" style="color: <%= s.color %>"></i> Novo(a) <%= s.singular %></a>
+            <% }) %>
+          </div>
+        </div>
+        <a class="icon-btn<%= nav.messages ? ' has-dot' : '' %>" href="/admin/messages" title="Mensagens" aria-label="Mensagens"><i class="ph-bold ph-bell"></i></a>
+      </div>
+    </header>
+
+    <main class="content">

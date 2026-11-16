@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <%- include('./partials/Head.ejs', { title: 'Em breve' }) %>
 </head>
 <body>
-    Em Desenvolvimento
+  <%- include('./partials/Header.ejs', { active: 'public' }) %>
+  <main>
+    <section class="soon-page">
+      <div>
+        <div class="icon"><i class="ph-fill ph-hammer"></i></div>
+        <h1>Estamos construindo esta seção</h1>
+        <p>Em breve você encontrará aqui novidades do Matipó +. Enquanto isso, explore o que já está no ar.</p>
+        <a class="btn btn-primary" href="/"><i class="ph-bold ph-house"></i> Voltar ao início</a>
+      </div>
+    </section>
+  </main>
+  <%- include('./partials/Footer.ejs') %>
+  <%- include('./partials/Scripts.ejs') %>
 </body>
 </html>

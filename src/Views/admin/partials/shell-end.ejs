@@ -1,0 +1,29 @@
+    </main>
+  </div>
+</div>
+
+<!-- Notificações (flash) -->
+<div class="toasts" aria-live="polite">
+  <% (typeof success !== 'undefined' ? success : []).forEach(msg => { %>
+    <div class="toast success" role="status"><i class="ph-fill ph-check-circle"></i><span><%= msg %></span><button type="button" aria-label="Fechar" data-toast-close><i class="ph-bold ph-x"></i></button></div>
+  <% }) %>
+  <% (typeof erros !== 'undefined' ? erros : []).forEach(msg => { %>
+    <div class="toast error" role="alert"><i class="ph-fill ph-warning-circle"></i><span><%= msg %></span><button type="button" aria-label="Fechar" data-toast-close><i class="ph-bold ph-x"></i></button></div>
+  <% }) %>
+</div>
+
+<!-- Diálogo de confirmação reutilizável -->
+<dialog class="dialog confirm" id="confirm-dialog">
+  <form method="post" class="dialog-card">
+    <div class="confirm-icon"><i class="ph-fill ph-warning"></i></div>
+    <h2 data-confirm-title>Tem certeza?</h2>
+    <p data-confirm-text>Essa ação não pode ser desfeita.</p>
+    <div data-confirm-fields></div>
+    <div class="dialog-actions">
+      <button type="button" class="btn ghost" data-dialog-close>Cancelar</button>
+      <button type="submit" class="btn danger" data-confirm-submit>Excluir</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="/js/admin.js"></script>

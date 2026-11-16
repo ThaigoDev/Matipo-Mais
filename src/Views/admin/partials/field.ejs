@@ -1,0 +1,81 @@
+<%
+  const WEEKDAYS = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+  const id = 'f-' + field.name.replace(/[\[\]]+/g, '-').replace(/-$/, '');
+  const colClass = field.col === 'full' ? ' col-full' : '';
+%>
+<div class="field<%= colClass %>" data-field="<%= field.name %>">
+  <% if (field.type === 'days') { %>
+    <div class="field-label">
+      <span><%= field.label %></span>
+      <span class="day-shortcuts">
+        <button type="button" data-days="weekdays">Seg–Sex</button>
+        <button type="button" data-days="all">Todos</button>
+        <button type="button" data-days="none">Limpar</button>
+      </span>
+    </div>
+    <input type="hidden" name="<%= field.name %>" value="">
+    <div class="day-picker" role="group" aria-label="<%= field.label %>">
+      <% WEEKDAYS.forEach(day => { %>
+        <label class="day">
+          <input type="checkbox" name="<%= field.name %>" value="<%= day %>">
+          <span title="<%= day %>"><%= day.slice(0, 3) %></span>
+        </label>
+      <% }) %>
+    </div>
+  <% } else if (field.type === 'status') { %>
+    <div class="field-label"><span><%= field.label %></span></div>
+    <div class="segmented" role="radiogroup" aria-label="<%= field.label %>">
+      <% section.statusOptions.forEach((opt, i) => { %>
+        <label>
+          <input type="radio" name="status" value="<%= opt %>" <%= i === 0 ? 'checked' : '' %>>
+          <span><i class="ph-fill <%= i === 0 ? 'ph-check-circle' : 'ph-minus-circle' %>"></i> <%= opt %></span>
+        </label>
+      <% }) %>
+    </div>
+    <% if (section.statusHint) { %><small class="hint"><i class="ph-bold ph-info"></i> <%= section.statusHint %></small><% } %>
+  <% } else { %>
+    <label class="field-label" for="<%= id %>">
+      <span><%= field.label %><% if (field.required) { %> <em class="req">*</em><% } %></span>
+      <% if (field.type === 'textarea') { %><small class="counter" data-counter-for="<%= id %>"></small><% } %>
+      <% if (field.type === 'category') { %><a class="mini-link" href="/admin/categories" target="_blank">Gerenciar</a><% } %>
+    </label>
+
+    <% if (field.type === 'textarea') { %>
+      <textarea id="<%= id %>" name="<%= field.name %>" rows="4" maxlength="2000" placeholder="<%= field.placeholder || '' %>" <%= field.required ? 'required' : '' %>></textarea>
+    <% } else if (field.type === 'category') { %>
+      <div class="select">
+        <select id="<%= id %>" name="categoryName" <%= field.required ? 'required' : '' %>>
+          <option value="">Selecione…</option>
+          <% categories.forEach(c => { %><option value="<%= c.category %>"><%= c.category %></option><% }) %>
+        </select>
+        <i class="ph-bold ph-caret-down"></i>
+      </div>
+    <% } else if (field.type === 'map') { %>
+      <div class="map-field" data-map-field data-address-from="<%= field.addressFrom %>">
+        <div class="input-group">
+          <input id="<%= id %>" type="text" name="<%= field.name %>" placeholder="Cole o link ou o código &lt;iframe&gt; do Google Maps">
+        </div>
+        <div class="map-actions">
+          <button type="button" class="btn ghost sm" data-map-generate><i class="ph-bold ph-magic-wand"></i> Gerar pelo endereço</button>
+          <a class="btn ghost sm" href="https://www.google.com/maps" target="_blank" rel="noopener" data-map-open><i class="ph-bold ph-arrow-square-out"></i> Abrir Google Maps</a>
+          <button type="button" class="btn ghost sm" data-map-clear><i class="ph-bold ph-trash"></i> Limpar</button>
+        </div>
+        <div class="map-preview" data-map-preview>
+          <div class="map-placeholder"><i class="ph-bold ph-map-trifold"></i><span>A prévia do mapa aparece aqui</span></div>
+        </div>
+      </div>
+    <% } else { %>
+      <%
+        const type = field.type === 'phone' ? 'tel' : field.type;
+        const extra = field.type === 'phone' ? 'data-mask="phone" inputmode="tel" maxlength="16"' : (field.type === 'number' ? `min="${field.min || 0}" step="1" inputmode="numeric"` : '');
+      %>
+      <div class="input-group">
+        <% if (field.type === 'phone') { %><i class="ph-bold <%= field.label === 'WhatsApp' ? 'ph-whatsapp-logo' : 'ph-phone' %>"></i><% } %>
+        <% if (field.type === 'email') { %><i class="ph-bold ph-envelope-simple"></i><% } %>
+        <input id="<%= id %>" type="<%= type %>" name="<%= field.name %>" placeholder="<%= field.placeholder || '' %>" <%- extra %> <%= field.required ? 'required' : '' %>>
+      </div>
+    <% } %>
+    <% if (field.help) { %><small class="hint"><%= field.help %></small><% } %>
+  <% } %>
+  <% if (field.type === 'days' && field.help) { %><small class="hint"><i class="ph-bold ph-info"></i> <%= field.help %></small><% } %>
+</div>

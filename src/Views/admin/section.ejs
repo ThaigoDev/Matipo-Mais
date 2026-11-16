@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('./partials/head.ejs', { title: section.title }) %>
+</head>
+<body>
+<%- include('./partials/shell-start.ejs') %>
+<%
+  const [activeStatus, inactiveStatus] = section.statusOptions;
+  const total = records.length;
+  const activeCount = records.filter(r => r.record.status === activeStatus).length;
+  const featuredCount = records.filter(r => r.record.featured).length;
+  const incompleteCount = records.filter(r => r.completeness.pct < 100).length;
+  const viewsCount = records.reduce((sum, r) => sum + (r.record.views || 0), 0);
+  const usedCategories = [...new Set(records.map(r => r.record.categoryName).filter(Boolean))].sort();
+  const contactOf = (r) => { const c = r[section.contactKey] || {}; return c.whatsApp || c[section.phoneKey] || c.email || ''; };
+%>
+
+<div class="page-head" style="--accent: <%= section.color %>">
+  <div>
+    <div class="crumbs"><a href="/admin/dashboard">Painel</a><i class="ph-bold ph-caret-right"></i><span>Conteúdo</span></div>
+    <h1><span class="head-icon"><i class="ph-fill <%= section.icon %>"></i></span><%= section.title %></h1>
+    <p class="muted">Tudo o que você publicar aqui aparece na <a href="<%= section.listUrl %>" target="_blank" class="link">página pública de <%= section.title %></a>.</p>
+  </div>
+  <div class="head-actions">
+    <button class="btn ghost" type="button" data-export data-filename="matipo-mais-<%= section.key %>"><i class="ph-bold ph-download-simple"></i> Exportar CSV</button>
+    <button class="btn primary" type="button" data-open-form><i class="ph-bold ph-plus"></i> Novo(a) <%= section.singular %></button>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><span class="stat-label">Total</span><strong><%= total %></strong><span class="stat-sub">cadastros publicados</span></div>
+  <div class="stat"><span class="stat-label"><span class="dot ok"></span><%= activeStatus %></span><strong><%= activeCount %></strong><span class="stat-sub"><%= total - activeCount %> <%= inactiveStatus.toLowerCase() %></span></div>
+  <div class="stat"><span class="stat-label"><i class="ph-fill ph-star" style="color: var(--amber)"></i> Destaques</span><strong><%= featuredCount %></strong><span class="stat-sub">aparecem primeiro no site</span></div>
+  <div class="stat"><span class="stat-label"><i class="ph-fill ph-warning-circle" style="color: var(--amber)"></i> Incompletos</span><strong><%= incompleteCount %></strong><span class="stat-sub">sem foto, contato ou mapa</span></div>
+  <div class="stat"><span class="stat-label"><i class="ph-bold ph-eye"></i> Visitas</span><strong><%= viewsCount.toLocaleString('pt-BR') %></strong><span class="stat-sub">nas páginas de detalhe</span></div>
+</div>
+
+<section class="card">
+  <div class="filters">
+    <label class="search-field">
+      <i class="ph-bold ph-magnifying-glass"></i>
+      <input type="search" placeholder="Filtrar por nome, endereço, categoria…" data-filter-text aria-label="Filtrar registros">
+    </label>
+    <div class="chip-group" role="group" aria-label="Filtrar por status">
+      <button type="button" class="chip is-active" data-filter-status="">Todos <span><%= total %></span></button>
+      <button type="button" class="chip" data-filter-status="<%= activeStatus %>"><%= activeStatus %> <span><%= activeCount %></span></button>
+      <button type="button" class="chip" data-filter-status="<%= inactiveStatus %>"><%= inactiveStatus %> <span><%= total - activeCount %></span></button>
+    </div>
+    <div class="select sm">
+      <select data-filter-category aria-label="Filtrar por categoria">
+        <option value="">Todas as categorias</option>
+        <% usedCategories.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %>
+      </select>
+      <i class="ph-bold ph-caret-down"></i>
+    </div>
+    <label class="toggle-chip"><input type="checkbox" data-filter-featured><span><i class="ph-fill ph-star"></i> Destaques</span></label>
+    <label class="toggle-chip"><input type="checkbox" data-filter-incomplete><span><i class="ph-fill ph-warning-circle"></i> Incompletos</span></label>
+  </div>
+
+  <form id="bulk-form" method="post" action="<%= section.base %>/bulk" class="bulk-bar" hidden>
+    <span><strong data-selected-count>0</strong> selecionado(s)</span>
+    <div class="bulk-actions">
+      <button type="button" class="btn ghost sm" data-bulk="status:<%= activeStatus %>"><i class="ph-bold ph-check-circle"></i> Marcar <%= activeStatus.toLowerCase() %></button>
+      <button type="button" class="btn ghost sm" data-bulk="status:<%= inactiveStatus %>"><i class="ph-bold ph-minus-circle"></i> Marcar <%= inactiveStatus.toLowerCase() %></button>
+      <button type="button" class="btn ghost sm" data-bulk="feature"><i class="ph-bold ph-star"></i> Destacar</button>
+      <button type="button" class="btn ghost sm" data-bulk="unfeature"><i class="ph-bold ph-star-half"></i> Tirar destaque</button>
+      <button type="button" class="btn danger-ghost sm" data-bulk="delete"><i class="ph-bold ph-trash"></i> Excluir</button>
+    </div>
+    <input type="hidden" name="action" value="">
+    <button type="button" class="icon-btn ghost" data-bulk-clear aria-label="Limpar seleção"><i class="ph-bold ph-x"></i></button>
+  </form>
+
+  <% if (total) { %>
+  <div class="table-wrap">
+    <table class="data-table" data-table>
+      <thead>
+        <tr>
+          <th class="col-check"><label class="check"><input type="checkbox" data-select-all aria-label="Selecionar todos"><span></span></label></th>
+          <th data-sort="name">Cadastro</th>
+          <th class="hide-md">Endereço</th>
+          <th class="hide-lg">Contato</th>
+          <th>Status</th>
+          <th class="hide-md" data-sort="pct">Perfil</th>
+          <th class="hide-lg num" data-sort="views">Visitas</th>
+          <th class="hide-lg" data-sort="updated">Atualizado</th>
+          <th class="col-actions"><span class="sr-only">Ações</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% records.forEach(({ record: r, completeness: c }) => { %>
+          <%
+            const name = r[section.nameField];
+            const search = [name, r[section.locationField], r.categoryName, r[section.subtitleField], contactOf(r)].join(' ');
+            const isActive = r.status === activeStatus;
+          %>
+          <tr data-row
+              data-id="<%= r._id %>"
+              data-name="<%= name %>"
+              data-search="<%= search %>"
+              data-status="<%= r.status || '' %>"
+              data-category="<%= r.categoryName || '' %>"
+              data-featured="<%= r.featured ? '1' : '0' %>"
+              data-pct="<%= c.pct %>"
+              data-views="<%= r.views || 0 %>"
+              data-updated="<%= r.updatedAt ? new Date(r.updatedAt).getTime() : 0 %>"
+              data-record="<%= JSON.stringify(r) %>">
+            <td class="col-check"><label class="check"><input type="checkbox" name="ids" value="<%= r._id %>" form="bulk-form" data-select-row aria-label="Selecionar <%= name %>"><span></span></label></td>
+            <td>
+              <div class="cell-main">
+                <div class="thumb" style="--c: <%= section.color %>">
+                  <% if (r[section.photoField]) { %><img src="/uploads/<%= r[section.photoField] %>" alt="" loading="lazy"><% } else { %><i class="ph-fill <%= section.icon %>"></i><% } %>
+                </div>
+                <div class="cell-text">
+                  <button type="button" class="row-title" data-edit><%= name %><% if (r.featured) { %> <i class="ph-fill ph-star star" title="Em destaque"></i><% } %></button>
+                  <span class="muted sm"><%= [r.categoryName, r[section.subtitleField]].filter(Boolean).join(' · ') || 'Sem categoria' %></span>
+                </div>
+              </div>
+            </td>
+            <td class="hide-md"><span class="clamp muted"><%= r[section.locationField] %></span></td>
+            <td class="hide-lg"><span class="muted nowrap"><%= contactOf(r) || '—' %></span></td>
+            <td>
+              <button type="button" class="pill <%= isActive ? 'ok' : 'off' %>" data-post="<%= section.base %>/status/<%= r._id %>" title="Clique para alternar">
+                <span class="dot"></span><%= r.status || '—' %>
+              </button>
+            </td>
+            <td class="hide-md">
+              <div class="progress" title="<%= c.missing.length ? 'Falta: ' + c.missing.join(', ') : 'Cadastro completo' %>">
+                <div class="bar"><span style="width: <%= c.pct %>%" class="<%= c.pct === 100 ? 'full' : c.pct >= 60 ? 'mid' : 'low' %>"></span></div>
+                <small><%= c.pct %>%</small>
+              </div>
+            </td>
+            <td class="hide-lg num"><%= (r.views || 0).toLocaleString('pt-BR') %></td>
+            <td class="hide-lg"><span class="muted nowrap" title="<%= fmt.dateTime(r.updatedAt) %>"><%= fmt.relative(r.updatedAt) %></span></td>
+            <td class="col-actions">
+              <div class="row-actions">
+                <button type="button" class="icon-btn ghost" data-edit title="Editar" aria-label="Editar"><i class="ph-bold ph-pencil-simple"></i></button>
+                <div class="menu" data-menu>
+                  <button type="button" class="icon-btn ghost" data-menu-toggle aria-label="Mais ações"><i class="ph-bold ph-dots-three-vertical"></i></button>
+                  <div class="menu-list right" role="menu">
+                    <a role="menuitem" href="<%= section.publicUrl(r._id) %>" target="_blank"><i class="ph-bold ph-arrow-square-out"></i> Ver no site</a>
+                    <button role="menuitem" type="button" data-post="<%= section.base %>/featured/<%= r._id %>"><i class="ph-bold ph-star"></i> <%= r.featured ? 'Remover destaque' : 'Destacar no site' %></button>
+                    <button role="menuitem" type="button" data-post="<%= section.base %>/duplicate/<%= r._id %>"><i class="ph-bold ph-copy"></i> Duplicar</button>
+                    <button role="menuitem" type="button" data-copy-link="<%= section.publicUrl(r._id) %>"><i class="ph-bold ph-link"></i> Copiar link público</button>
+                    <hr>
+                    <button role="menuitem" type="button" class="danger"
+                      data-confirm="Excluir “<%= name %>”?"
+                      data-confirm-text="O cadastro sai do site imediatamente. Essa ação não pode ser desfeita."
+                      data-action="<%= section.base %>/delete/<%= r._id %>"><i class="ph-bold ph-trash"></i> Excluir</button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <div class="empty" data-empty-filter hidden>
+    <i class="ph-bold ph-funnel-x"></i>
+    <strong>Nenhum resultado para esses filtros</strong>
+    <button type="button" class="btn ghost sm" data-clear-filters>Limpar filtros</button>
+  </div>
+  <% } else { %>
+  <div class="empty big">
+    <span class="empty-icon" style="--c: <%= section.color %>"><i class="ph-fill <%= section.icon %>"></i></span>
+    <strong>Nenhum(a) <%= section.singular %> cadastrado(a) ainda</strong>
+    <span class="muted">Comece adicionando o primeiro. Ele aparecerá no site na hora.</span>
+    <button class="btn primary" type="button" data-open-form><i class="ph-bold ph-plus"></i> Novo(a) <%= section.singular %></button>
+  </div>
+  <% } %>
+</section>
+
+<!-- Drawer: criar / editar -->
+<dialog class="drawer" id="record-drawer"
+  data-base="<%= section.base %>"
+  data-singular="<%= section.singular %>"
+  data-config="<%= JSON.stringify({ photoField: section.photoField, nameField: section.nameField, locationField: section.locationField, descriptionField: section.descriptionField, mapField: section.mapField, contactKey: section.contactKey, phoneKey: section.phoneKey, hasHours: section.fields.some(f => f.name === 'openingTime'), statusOptions: section.statusOptions }) %>"
+  data-public-url="<%= section.publicUrl('__ID__') %>"
+  data-open-new="<%= openNew ? '1' : '' %>"
+  data-open-edit="<%= openEdit || '' %>">
+  <form method="post" enctype="multipart/form-data" class="drawer-card" data-record-form>
+    <header class="drawer-head">
+      <div>
+        <span class="drawer-kicker" style="color: <%= section.color %>"><i class="ph-fill <%= section.icon %>"></i> <%= section.title %></span>
+        <h2 data-drawer-title>Novo(a) <%= section.singular %></h2>
+      </div>
+      <div class="drawer-head-actions">
+        <a class="btn ghost sm" href="#" target="_blank" data-view-public hidden><i class="ph-bold ph-arrow-square-out"></i> Ver no site</a>
+        <button type="button" class="icon-btn ghost" data-drawer-close aria-label="Fechar"><i class="ph-bold ph-x"></i></button>
+      </div>
+    </header>
+
+    <div class="drawer-body">
+      <div class="completeness" data-completeness hidden>
+        <div class="progress"><div class="bar"><span data-completeness-bar></span></div><small data-completeness-pct></small></div>
+        <span class="muted sm" data-completeness-text></span>
+      </div>
+
+      <section class="form-section">
+        <h3><i class="ph-bold ph-image"></i> Foto</h3>
+        <div class="dropzone" data-dropzone>
+          <input type="file" name="photo" accept="image/png,image/jpeg,image/webp" id="photo-input" hidden>
+          <input type="hidden" name="removePhoto" value="">
+          <img alt="" data-photo-preview hidden>
+          <div class="dz-empty" data-dz-empty>
+            <span class="dz-icon"><i class="ph-bold ph-upload-simple"></i></span>
+            <strong>Arraste uma foto ou <label for="photo-input" class="link">escolha no computador</label></strong>
+            <small>PNG, JPG ou WEBP · até 5 MB · ideal 1200×750</small>
+          </div>
+          <div class="dz-actions" data-dz-actions hidden>
+            <label for="photo-input" class="btn ghost sm"><i class="ph-bold ph-swap"></i> Trocar</label>
+            <button type="button" class="btn ghost sm" data-photo-remove><i class="ph-bold ph-trash"></i> Remover</button>
+          </div>
+        </div>
+      </section>
+
+      <% Object.entries(groups).forEach(([groupKey, group]) => { %>
+        <% const groupFields = section.fields.filter(f => f.group === groupKey); %>
+        <% if (groupFields.length || groupKey === 'publish') { %>
+        <section class="form-section">
+          <h3><i class="ph-bold <%= group.icon %>"></i> <%= group.title %></h3>
+          <div class="form-grid">
+            <% groupFields.forEach(field => { %>
+              <%- include('./partials/field.ejs', { field }) %>
+            <% }) %>
+            <% if (groupKey === 'publish') { %>
+              <div class="field col-full">
+                <input type="hidden" name="featured" value="false">
+                <label class="switch-row">
+                  <span>
+                    <strong><i class="ph-fill ph-star" style="color: var(--amber)"></i> Destacar no site</strong>
+                    <small class="muted">Aparece primeiro nas listas e com selo de destaque.</small>
+                  </span>
+                  <span class="switch"><input type="checkbox" name="featured" value="true"><span></span></span>
+                </label>
+              </div>
+            <% } %>
+          </div>
+        </section>
+        <% } %>
+      <% }) %>
+
+      <p class="meta-line muted sm" data-meta-line hidden></p>
+    </div>
+
+    <footer class="drawer-foot">
+      <span class="muted sm" data-dirty-flag hidden><i class="ph-fill ph-circle" style="color: var(--amber); font-size: 8px"></i> Alterações não salvas</span>
+      <div class="drawer-foot-actions">
+        <button type="button" class="btn ghost" data-drawer-close>Cancelar</button>
+        <button type="submit" class="btn primary" data-submit><i class="ph-bold ph-check"></i> <span data-submit-label>Publicar</span></button>
+      </div>
+    </footer>
+  </form>
+</dialog>
+
+<%- include('./partials/shell-end.ejs') %>
+</body>
+</html>

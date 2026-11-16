@@ -1,12 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link rel="stylesheet" href="/css/quemSomos.css">
-    <title>Document</title>
+  <%- include('./partials/Head.ejs', { title: 'Quem somos' }) %>
 </head>
 <body>
-    quem somos
+  <%- include('./partials/Header.ejs', { active: '' }) %>
+  <main>
+    <section class="page-hero c-public">
+      <div class="container">
+        <div>
+          <nav class="breadcrumb" aria-label="Você está em">
+            <a href="/">Início</a> <i class="ph-bold ph-caret-right"></i> <span>Quem somos</span>
+          </nav>
+          <div class="title-row">
+            <div class="big-icon"><i class="ph-fill ph-users-three"></i></div>
+            <div>
+              <h1>Quem somos</h1>
+              <p>Um projeto feito por estudantes para conectar Matipó a tudo o que a cidade tem de melhor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Nossa missão</span>
+            <h2 class="section-title">Informação local, simples e acessível</h2>
+            <p class="section-sub" style="max-width: 720px">O Matipó + nasceu na turma 2023 de Ciência da Computação do Centro Universitário Vértice com uma ideia simples: reunir em um só lugar os comércios, serviços de saúde, imóveis e oportunidades de emprego da cidade.</p>
+          </div>
+        </div>
+        <div class="prose-grid">
+          <div class="feature c-business">
+            <div class="icon"><i class="ph-fill ph-storefront"></i></div>
+            <h3>Fortalecer o comércio local</h3>
+            <p>Damos visibilidade gratuita para quem empreende em Matipó, com horários, contatos e localização sempre à mão.</p>
+          </div>
+          <div class="feature c-health">
+            <div class="icon"><i class="ph-fill ph-first-aid-kit"></i></div>
+            <h3>Saúde sem complicação</h3>
+            <p>Saiba qual farmácia está de plantão hoje e encontre clínicas e postos com poucos cliques.</p>
+          </div>
+          <div class="feature c-jobs">
+            <div class="icon"><i class="ph-fill ph-briefcase"></i></div>
+            <h3>Oportunidades para todos</h3>
+            <p>Conectamos quem procura trabalho a empresas da região, e quem procura um lar a quem tem imóveis disponíveis.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2>Quer falar com a equipe?</h2>
+            <p>Sugestões, dúvidas ou parcerias: estamos sempre abertos a ouvir a cidade.</p>
+          </div>
+          <div class="actions">
+            <a class="btn btn-accent" href="/contato"><i class="ph-bold ph-chat-circle-text"></i> Fale conosco</a>
+            <a class="btn btn-light" href="https://www.instagram.com/matipomais" target="_blank" rel="noopener"><i class="ph-bold ph-instagram-logo"></i> Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <%- include('./partials/Footer.ejs') %>
+  <%- include('./partials/Scripts.ejs') %>
 </body>
 </html>
